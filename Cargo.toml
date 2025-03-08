@@ -8,7 +8,8 @@ crossterm = "0.28.1"
 futures = "0.3.31"
 fuzzy-matcher = "0.3.7"
 log = "0.4.26"
-nt_client = {git = "https://github.com/DatAsianBoi123/nt_client.git"}
+# nt_client = {git = "https://github.com/DatAsianBoi123/nt_client.git"}
+nt_client = {path = "./nt_client/"}
 ratatui = "0.29.0"
 simple-logging = "2.0.2"
 tokio = "1.44.0"

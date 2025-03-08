@@ -1,4 +1,7 @@
-use crate::{fuzzy::FuzzySearch, nt::NtUpdate};
+use crate::{
+    fuzzy::FuzzySearch,
+    nt::{NtUpdate, subscribe_to_topic},
+};
 use crossterm::{
     event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyModifiers},
     execute,
@@ -91,7 +94,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                             KeyCode::Enter => {
                                 if let Some(selected) = app.handle_search_selection() {
                                     // TODO: Add selected topic to subscription list
-                                    todo!()
+                                    // todo!()
                                 }
                             }
                             KeyCode::Char('k') if key.modifiers.contains(KeyModifiers::CONTROL) => {

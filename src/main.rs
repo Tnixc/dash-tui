@@ -14,7 +14,7 @@ const RECONNECT_DELAY_MS: u64 = 2000;
 
 #[tokio::main]
 async fn main() {
-    let _ = simple_logging::log_to_file("test.log", LevelFilter::Info);
+    let _ = simple_logging::log_to_file("test.log", LevelFilter::Debug);
 
     // Create channel for NT updates
     let (sender, receiver) = mpsc::channel();
@@ -25,10 +25,12 @@ async fn main() {
     };
 
     // Start NT client with reconnection handling in a separate task
+
     let nt_task = tokio::spawn(run_nt_with_reconnect(sender.clone(), client_opts.clone()));
 
     // Run the UI with the receiver (this blocks the main thread)
-    ui::run_ui(receiver).unwrap();
+    // ui::run_ui(receiver).unwrap();
+    thread::sleep(Duration::from_secs(100));
 
     // When UI exits, abort all tasks
     nt_task.abort();
@@ -43,9 +45,8 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
 
             // FIXME: initialize this elsewhere
             let initial_topics = vec![
-                "/AdvantageKit/RealOutputs/Drive/LeftPositionMeters",
-                "/AdvantageKit/RealOutputs/Drive/RightPositionMeters",
                 "/AdvantageKit/Timestamp",
+                "/",
             ].to_owned();
 
 
@@ -58,10 +59,11 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
 
             // Create topics collection for initial topics
             let topics = client.topics(initial_topics.iter().map(|name| name.to_string()).collect());
-
-            // Start NT client handler that processes messages
             let nt_task = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
 
+            // Start NT client handler that processes messages
+            let all = client.topic("");
+            tokio::spawn(nt::get_available_topics(sender.clone(), all));
             // Wait for either connection error or NT processing error
             tokio::select! {
                 conn_result = client.connect() => {
