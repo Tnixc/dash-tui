@@ -4,7 +4,6 @@ use crossterm::{
     execute,
     terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
-use nt_client::Client;
 use ratatui::{
     Terminal,
     backend::CrosstermBackend,
@@ -80,7 +79,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
 }
 
 struct App {
-    values: HashMap<String, f64>,
+    values: HashMap<String, String>,
 }
 
 impl App {
@@ -102,21 +101,16 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         .split(size);
 
     // Create the counter block
-    let counter_value = app.values.get("Counter").unwrap_or(&0.0);
-    let counter_text = format!("Counter: {:.3}", counter_value);
-
-    let counter_block = Block::default()
-        .title("Network Tables Value")
-        .borders(Borders::ALL);
-
-    let counter_paragraph = Paragraph::new(Line::from(vec![Span::styled(
-        counter_text,
-        Style::default().fg(Color::Cyan),
-    )]))
-    .block(counter_block)
-    .alignment(Alignment::Center);
-
-    f.render_widget(counter_paragraph, chunks[0]);
+    let def = "".to_string();
+    let counter_value = app.values.get("Akit timestamp").unwrap_or(&def);
+    let nt_block = Block::default().title("NT values").borders(Borders::ALL);
+    let nt_text = Paragraph::new(Line::from(vec![
+        Span::raw("Akit Timestamp"),
+        Span::styled(counter_value, Style::default().fg(Color::Red)),
+    ]))
+    .block(nt_block)
+    .alignment(Alignment::Left);
+    f.render_widget(nt_text, chunks[0]);
 
     // Render additional help text
     let help_block = Block::default().title("Help").borders(Borders::ALL);
