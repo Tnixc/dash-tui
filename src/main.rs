@@ -2,8 +2,9 @@ mod nt;
 mod ui;
 
 use std::sync::mpsc;
+use std::time::Duration;
 
-use log::LevelFilter;
+use log::{LevelFilter, error, info};
 use nt_client::{Client, NTAddr, NewClientOptions};
 
 #[tokio::main]
@@ -15,28 +16,51 @@ async fn main() {
     // Create a tokio runtime
     let rt = tokio::runtime::Runtime::new().unwrap();
 
-    let client = Client::new(NewClientOptions {
-        addr: NTAddr::Local,
-        // addr: NTAddr::Custom(Ipv4Addr::new(10.80.89.2)),
-        ..Default::default()
-    });
+    // Start the connection handling task
+    let connection_handle = rt.spawn(manage_nt_connection(sender.clone()));
 
-    let topics = vec![
-        client.topic("/AdvantageKit/Timestamp"),
-        client.topic("/AdvantageKit/RealOutputs/Drive/LeftPositionMeters"),
-    ];
-    // Spawn NT client task in the runtime
-    let nt_handle = rt.spawn(nt::run_nt_client(sender, topics));
-
-    // Spawn a thread to run the client connection which is blocking
-    tokio::spawn(async move {
-        client.connect().await.unwrap();
-    });
     // Run the UI with the receiver (this blocks the main thread)
     ui::run_ui(receiver).unwrap();
 
-    // When UI exits, abort the NT task
+    // When UI exits, abort all tasks
     rt.block_on(async {
-        nt_handle.abort();
+        connection_handle.abort();
     });
+}
+
+async fn manage_nt_connection(sender: mpsc::Sender<nt::NtUpdate>) {
+    loop {
+        info!("Establishing NT connection");
+
+        let client_opts = NewClientOptions {
+            addr: NTAddr::Local,
+            // addr: NTAddr::Custom(Ipv4Addr::new(10.80.89.2)),
+            ..Default::default()
+        };
+        let client = Client::new(client_opts);
+
+        let topics = vec![
+            client.topic("/AdvantageKit/Timestamp"),
+            client.topic("/AdvantageKit/RealOutputs/Drive/LeftPositionMeters"),
+        ];
+
+        // Spawn NT client task
+        let nt_handle = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
+
+        // Try to establish the connection
+        let connection_result = client.connect().await;
+
+        if let Err(err) = connection_result {
+            error!("NT connection error: {:?}", err);
+        } else {
+            error!("NT connection closed unexpectedly");
+        }
+
+        // Abort the NT handler task
+        nt_handle.abort();
+
+        // Wait before attempting to reconnect
+        info!("Waiting 500ms before reconnection attempt");
+        tokio::time::sleep(Duration::from_millis(500)).await;
+    }
 }

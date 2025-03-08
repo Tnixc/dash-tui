@@ -1,9 +1,6 @@
 use futures::future::join_all;
-use log::{LevelFilter, info};
 use nt_client::subscribe::ReceivedMessage;
 use nt_client::topic::Topic;
-use std::future::Future;
-use std::pin::Pin;
 use std::sync::mpsc::Sender;
 
 #[derive(Debug, Clone)]
