@@ -1,4 +1,34 @@
-[00:00:00.000] (16c877000) INFO   Establishing NT connection
-[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/Timestamp
-[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/RightPositionMeters
-[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftPositionMeters
+[00:00:00.001] (16ca9f000) INFO   Attempting to establish NT connection
+[00:00:00.254] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:02.315] (16c893000) INFO   Attempting to establish NT connection
+[00:00:02.568] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:04.636] (16c893000) INFO   Attempting to establish NT connection
+[00:00:04.889] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:06.936] (16c893000) INFO   Attempting to establish NT connection
+[00:00:07.188] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:09.215] (16c893000) INFO   Attempting to establish NT connection
+[00:00:09.468] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:11.498] (16c893000) INFO   Attempting to establish NT connection
+[00:00:11.751] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:13.766] (16c893000) INFO   Attempting to establish NT connection
+[00:00:14.024] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:16.082] (16c893000) INFO   Attempting to establish NT connection
+[00:00:16.335] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:18.402] (16c893000) INFO   Attempting to establish NT connection
+[00:00:18.655] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:20.721] (16c893000) INFO   Attempting to establish NT connection
+[00:00:20.974] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:23.049] (16c893000) INFO   Attempting to establish NT connection
+[00:00:23.301] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:25.372] (16c893000) INFO   Attempting to establish NT connection
+[00:00:25.625] (16c893000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:27.700] (16c893000) INFO   Attempting to establish NT connection
+[00:00:28.057] (16ccab000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:28.058] (16ccab000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/RightPositionMeters
+[00:00:28.058] (16ccab000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftPositionMeters
+[00:00:34.346] (16ccab000) ERROR  NT connection closed: Err(ReceiveMessage(WebSocket(Protocol(ResetWithoutClosingHandshake))))
+[00:00:36.381] (16ccab000) INFO   Attempting to establish NT connection
+[00:00:36.633] (16ccab000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:38.637] (16ccab000) INFO   Attempting to establish NT connection
+[00:00:38.890] (16c063000) ERROR  NT connection closed: Err(WebsocketError(Io(Os { code: 61, kind: ConnectionRefused, message: "Connection refused" })))
+[00:00:40.965] (16c063000) INFO   Attempting to establish NT connection

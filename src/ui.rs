@@ -22,9 +22,9 @@ use std::{
 #[derive(Debug, Clone, Copy)]
 pub enum ConnectionStatus {
     Connected,
+    Connecting,
     Disconnected,
 }
-
 #[derive(Debug, Clone, PartialEq)]
 pub enum Window {
     Main,
@@ -206,6 +206,7 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
     ////////////////////////////////////////
     let (status_text, border_color) = match app.connection_status {
         ConnectionStatus::Connected => ("CONNECTED", Color::Green),
+        ConnectionStatus::Connecting => ("CONNECTING", Color::Yellow),
         ConnectionStatus::Disconnected => ("DISCONNECTED", Color::Red),
     };
 

@@ -2,7 +2,6 @@ use crate::ui::ConnectionStatus;
 use log::info;
 use nt_client::subscribe::ReceivedMessage;
 use nt_client::topic::collection::TopicCollection;
-use nt_client::topic::{self, Topic};
 use std::sync::mpsc::Sender;
 
 #[derive(Debug, Clone)]

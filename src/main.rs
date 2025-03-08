@@ -5,75 +5,89 @@ mod ui;
 
 use crate::ui::ConnectionStatus;
 use log::{LevelFilter, error, info};
-use nt_client::{Client, NTAddr, NewClientOptions};
+use nt_client::{NTAddr, NewClientOptions, error::ReconnectError};
 use std::sync::mpsc;
+use std::thread;
 use std::time::Duration;
+
+const RECONNECT_DELAY_MS: u64 = 2000;
 
 #[tokio::main]
 async fn main() {
     let _ = simple_logging::log_to_file("test.log", LevelFilter::Info);
+
     // Create channel for NT updates
     let (sender, receiver) = mpsc::channel();
 
-    // Create a tokio runtime
-    let rt = tokio::runtime::Runtime::new().unwrap();
+    let client_opts = NewClientOptions {
+        addr: NTAddr::Local, // Can be changed to custom address if needed
+        ..Default::default()
+    };
 
-    // Start the connection handling task
-    let connection_handle = rt.spawn(manage_nt_connection(sender.clone()));
+    // Start NT client with reconnection handling in a separate task
+    let nt_task = tokio::spawn(run_nt_with_reconnect(sender.clone(), client_opts.clone()));
 
     // Run the UI with the receiver (this blocks the main thread)
     ui::run_ui(receiver).unwrap();
 
     // When UI exits, abort all tasks
-    rt.block_on(async {
-        connection_handle.abort();
-    });
+    nt_task.abort();
 }
 
-async fn manage_nt_connection(sender: mpsc::Sender<nt::NtUpdate>) {
-    loop {
-        // Mark as disconnected at the start of each connection attempt
-        let _ = sender.send(nt::NtUpdate::ConnectionStatus(
-            ConnectionStatus::Disconnected,
-        ));
+async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: NewClientOptions) {
+    // Run reconnect handler
+    let _ = nt_client::reconnect(client_opts, |client| {
+        // Create a new sender for this reconnection attempt
+        let sender = sender.clone();
+        async move {
 
-        info!("Establishing NT connection");
+            // FIXME: initialize this elsewhere
+            let initial_topics = vec![
+                "/AdvantageKit/RealOutputs/Drive/LeftPositionMeters",
+                "/AdvantageKit/RealOutputs/Drive/RightPositionMeters",
+                "/AdvantageKit/Timestamp",
+            ].to_owned();
 
-        let client_opts = NewClientOptions {
-            addr: NTAddr::Local,
-            // addr: NTAddr::Custom(Ipv4Addr::new(10.80.89.2)),
-            ..Default::default()
-        };
-        let client = Client::new(client_opts);
 
-        let topic_names = vec![
-            "/AdvantageKit/RealOutputs/Drive/LeftPositionMeters",
-            "/AdvantageKit/RealOutputs/Drive/RightPositionMeters",
-            "/AdvantageKit/Timestamp",
-        ];
-        let topics = client.topics(topic_names.iter().map(|name| name.to_string()).collect());
-        let nt_handle = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
+            // Mark as connecting
+            let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Connecting));
+            info!("Attempting to establish NT connection");
 
-        // Try to establish the connection
-        let connection_result = client.connect().await;
+            // Simulate connection attempt delay to show the connecting state
+            tokio::time::sleep(Duration::from_millis(250)).await;
 
-        if let Err(err) = connection_result {
-            error!("NT connection error: {:?}", err);
-            let _ = sender.send(nt::NtUpdate::ConnectionStatus(
-                ConnectionStatus::Disconnected,
-            ));
-        } else {
-            error!("NT connection closed unexpectedly");
-            let _ = sender.send(nt::NtUpdate::ConnectionStatus(
-                ConnectionStatus::Disconnected,
-            ));
+            // Create topics collection for initial topics
+            let topics = client.topics(initial_topics.iter().map(|name| name.to_string()).collect());
+
+            // Start NT client handler that processes messages
+            let nt_task = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
+
+            // Wait for either connection error or NT processing error
+            tokio::select! {
+                conn_result = client.connect() => {
+                    // Connection closed or errored
+                    error!("NT connection closed: {:?}", conn_result);
+                    let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Disconnected));
+
+                    // Return non-fatal error to trigger reconnect
+                    thread::sleep(Duration::from_millis(RECONNECT_DELAY_MS));
+                    match conn_result {
+                        Ok(_) => Err(ReconnectError::Nonfatal("Connection closed".into())),
+                        Err(e) => Err(ReconnectError::Nonfatal(e.into())),
+                    }
+                },
+                nt_result = nt_task => {
+                    // NT processing task ended
+                    let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Disconnected));
+
+                    // Map errors appropriately
+                    nt_result.map_err(|err| ReconnectError::Fatal(err.into()))
+                }
+            }
         }
-
-        // Abort the NT handler task
-        nt_handle.abort();
-
-        // Wait before attempting to reconnect
-        info!("Waiting 500ms before reconnection attempt");
-        tokio::time::sleep(Duration::from_millis(500)).await;
-    }
+    })
+    .await
+    .unwrap_or_else(|e| {
+        error!("Fatal NT connection error: {:?}", e);
+    });
 }
