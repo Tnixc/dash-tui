@@ -37,7 +37,7 @@
 //! # });
 
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{HashMap, HashSet, VecDeque},
     fmt::Debug,
     sync::Arc,
 };
@@ -70,9 +70,9 @@ pub struct Subscriber {
     options: SubscriptionOptions,
     topic_ids: Arc<RwLock<HashSet<i32>>>,
     announced_topics: Arc<RwLock<HashMap<i32, AnnouncedTopic>>>,
-
     ws_sender: NTServerSender,
     ws_recv: NTClientReceiver,
+    buffer: VecDeque<Arc<ClientboundData>>,
 }
 
 impl Debug for Subscriber {
@@ -132,6 +132,7 @@ impl Subscriber {
             announced_topics,
             ws_sender,
             ws_recv,
+            buffer: VecDeque::new(),
         }
     }
 
@@ -151,71 +152,109 @@ impl Subscriber {
     /// Topics that have already been announced will not be received by this method. To view
     /// all topics that are being subscribed to, use the [`topics`][`Self::topics`] method.
     // TODO: probably replace with custom error type
-    pub async fn recv(&mut self) -> Result<ReceivedMessage, broadcast::error::RecvError> {
-        recv_until_async(&mut self.ws_recv, |data| {
-            let topic_ids = self.topic_ids.clone();
-            let announced_topics = self.announced_topics.clone();
-            let sub_id = self.id;
-            let topics = &self.topics;
-            let options = &self.options;
-            async move {
-                match *data {
-                    ClientboundData::Binary(BinaryData {
-                        id,
-                        ref timestamp,
-                        ref data,
-                        ..
-                    }) => {
-                        let contains = { topic_ids.read().await.contains(&id) };
-                        if !contains {
-                            return None;
-                        };
-                        let announced_topic = {
-                            let mut topics = announced_topics.write().await;
-                            let topic = topics
-                                .get_mut(&id)
-                                .expect("announced topic before sending updates");
+    pub async fn recv_latest(&mut self) -> Result<ReceivedMessage, broadcast::error::RecvError> {
+        // Try to receive latest message, dropping any lagged messages
+        loop {
+            match self.ws_recv.recv().await {
+                Ok(msg) => {
+                    if let Some(result) = self.process_message(&msg).await {
+                        return Ok(result);
+                    }
+                }
+                Err(broadcast::error::RecvError::Lagged(_)) => continue,
+                Err(e) => return Err(e),
+            }
+        }
+    }
 
-                            if topic
-                                .last_updated()
-                                .is_some_and(|last_timestamp| last_timestamp > timestamp)
-                            {
-                                return None;
-                            };
-                            topic.update(*timestamp);
-
-                            topic.clone()
-                        };
-                        debug!("[sub {}] updated: {data}", sub_id);
-                        Some(ReceivedMessage::Updated((announced_topic, data.clone())))
-                    }
-                    ClientboundData::Text(ClientboundTextData::Announce(ref announce)) => {
-                        let matches = announced_topics
-                            .read()
-                            .await
-                            .get(&announce.id)
-                            .is_some_and(|topic| topic.matches(topics, options));
-                        if matches {
-                            topic_ids.write().await.insert(announce.id);
-                            Some(ReceivedMessage::Announced(announce.into()))
-                        } else {
-                            None
-                        }
-                    }
-                    ClientboundData::Text(ClientboundTextData::Unannounce(ref unannounce)) => {
-                        topic_ids.write().await.remove(&unannounce.id).then(|| {
-                            ReceivedMessage::Unannounced {
-                                name: unannounce.name.clone(),
-                                id: unannounce.id,
-                            }
-                        })
-                    }
-                    // TODO: handle ClientboundTextData::Properties
-                    _ => None,
+    // New buffered receive method that never drops messages
+    pub async fn recv_buffered(&mut self) -> Result<ReceivedMessage, broadcast::error::RecvError> {
+        loop {
+            // First check buffer
+            while let Some(msg) = self.buffer.pop_front() {
+                if let Some(result) = self.process_message(&msg).await {
+                    return Ok(result);
                 }
             }
-        })
-        .await
+
+            // If buffer empty, receive new message
+            match self.ws_recv.recv().await {
+                Ok(msg) => {
+                    // If message is relevant, process it
+                    if let Some(result) = self.process_message(&msg).await {
+                        return Ok(result);
+                    }
+                    // If not relevant, add to buffer
+                    self.buffer.push_back(msg);
+                }
+                Err(broadcast::error::RecvError::Lagged(missed)) => {
+                    // Request missed messages and add to buffer
+                    let mut receiver = self.ws_recv.resubscribe();
+                    for _ in 0..missed {
+                        if let Ok(msg) = receiver.recv().await {
+                            self.buffer.push_back(msg);
+                        }
+                    }
+                }
+                Err(e) => return Err(e),
+            }
+        }
+    }
+
+    // Helper method to process a message
+    async fn process_message(&self, data: &Arc<ClientboundData>) -> Option<ReceivedMessage> {
+        match **data {
+            ClientboundData::Binary(BinaryData {
+                id,
+                ref timestamp,
+                ref data,
+                ..
+            }) => {
+                let contains = { self.topic_ids.read().await.contains(&id) };
+                if !contains {
+                    return None;
+                };
+                let announced_topic = {
+                    let mut topics = self.announced_topics.write().await;
+                    let topic = topics.get_mut(&id)?;
+
+                    if topic
+                        .last_updated()
+                        .is_some_and(|last_timestamp| last_timestamp > timestamp)
+                    {
+                        return None;
+                    };
+                    topic.update(*timestamp);
+
+                    topic.clone()
+                };
+                Some(ReceivedMessage::Updated((announced_topic, data.clone())))
+            }
+            ClientboundData::Text(ClientboundTextData::Announce(ref announce)) => {
+                let matches = self
+                    .announced_topics
+                    .read()
+                    .await
+                    .get(&announce.id)
+                    .is_some_and(|topic| topic.matches(&self.topics, &self.options));
+                if matches {
+                    self.topic_ids.write().await.insert(announce.id);
+                    Some(ReceivedMessage::Announced(announce.into()))
+                } else {
+                    None
+                }
+            }
+            ClientboundData::Text(ClientboundTextData::Unannounce(ref unannounce)) => self
+                .topic_ids
+                .write()
+                .await
+                .remove(&unannounce.id)
+                .then(|| ReceivedMessage::Unannounced {
+                    name: unannounce.name.clone(),
+                    id: unannounce.id,
+                }),
+            _ => None,
+        }
     }
 }
 

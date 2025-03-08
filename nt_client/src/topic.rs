@@ -2,25 +2,11 @@
 //!
 //! Topics have a fixed data type and can be subscribed and published to.
 
-use std::{
-    collections::{HashMap, VecDeque},
-    fmt::{Debug, Display},
-    sync::Arc,
-    time::Duration,
-};
+use std::{collections::{HashMap, VecDeque}, fmt::{Debug, Display}, sync::Arc, time::Duration};
 
-use log::debug;
 use tokio::sync::RwLock;
 
-use crate::{
-    data::{
-        r#type::{DataType, NetworkTableData},
-        Announce, Properties, SubscriptionOptions,
-    },
-    publish::{NewPublisherError, Publisher},
-    subscribe::Subscriber,
-    NTClientSender, NTServerSender, NetworkTablesTime,
-};
+use crate::{data::{r#type::{DataType, NetworkTableData}, Announce, Properties, SubscriptionOptions}, publish::{NewPublisherError, Publisher}, subscribe::Subscriber, NTClientSender, NTServerSender, NetworkTablesTime};
 
 pub mod collection;
 
@@ -39,7 +25,7 @@ pub mod collection;
 /// vec_deque.push_back("my".to_owned());
 /// vec_deque.push_back("path".to_owned());
 /// let path = TopicPath::new(vec_deque);
-///
+/// 
 /// assert_eq!(path!["my", "path"], path);
 /// ```
 #[macro_export]
@@ -76,7 +62,9 @@ pub struct Topic {
 
 impl Debug for Topic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Topic").field("name", &self.name).finish()
+        f.debug_struct("Topic")
+            .field("name", &self.name)
+            .finish()
     }
 }
 
@@ -86,7 +74,7 @@ impl PartialEq for Topic {
     }
 }
 
-impl Eq for Topic {}
+impl Eq for Topic { }
 
 impl Topic {
     pub(super) fn new(
@@ -96,13 +84,7 @@ impl Topic {
         send_ws: NTServerSender,
         recv_ws: NTClientSender,
     ) -> Self {
-        Self {
-            name,
-            time,
-            announced_topics,
-            send_ws,
-            recv_ws,
-        }
+        Self { name, time, announced_topics, send_ws, recv_ws }
     }
 
     /// Returns a reference to the name this topic has.
@@ -123,18 +105,8 @@ impl Topic {
     /// requires running this method in a separate thread, through something like [`tokio::spawn`].
     ///
     /// [`Client`]: crate::Client
-    pub async fn publish<T: NetworkTableData>(
-        &self,
-        properties: Properties,
-    ) -> Result<Publisher<T>, NewPublisherError> {
-        Publisher::new(
-            self.name.clone(),
-            properties,
-            self.time.clone(),
-            self.send_ws.clone(),
-            self.recv_ws.subscribe(),
-        )
-        .await
+    pub async fn publish<T: NetworkTableData>(&self, properties: Properties) -> Result<Publisher<T>, NewPublisherError> {
+        Publisher::new(self.name.clone(), properties, self.time.clone(), self.send_ws.clone(), self.recv_ws.subscribe()).await
     }
 
     /// Subscribes to this topic.
@@ -143,34 +115,7 @@ impl Topic {
     ///
     /// [`Client`]: crate::Client
     pub async fn subscribe(&self, options: SubscriptionOptions) -> Subscriber {
-        Subscriber::new(
-            vec![self.name.clone()],
-            options,
-            self.announced_topics.clone(),
-            self.send_ws.clone(),
-            self.recv_ws.subscribe(),
-        )
-        .await
-    }
-
-    pub async fn handle_topic_value<T: NetworkTableData>(
-        topic_id: i32,
-        value: &rmpv::Value,
-    ) -> Option<T> {
-        // First try to parse as the expected type
-        match T::from_value(value) {
-            Some(parsed) => Some(parsed),
-            None => {
-                // If parsing fails, check if it's an unknown type
-                if T::data_type() != DataType::Unknown {
-                    debug!(
-                        "Received value for topic {} cannot be converted to expected type",
-                        topic_id
-                    );
-                }
-                None
-            }
-        }
+        Subscriber::new(vec![self.name.clone()], options, self.announced_topics.clone(), self.send_ws.clone(), self.recv_ws.subscribe()).await
     }
 }
 
@@ -223,10 +168,8 @@ impl AnnouncedTopic {
 
     /// Returns whether the given topic names and subscription options match this topic.
     pub fn matches(&self, names: &[String], options: &SubscriptionOptions) -> bool {
-        names.iter().any(|name| {
-            &self.name == name
-                || (options.prefix.is_some_and(|flag| flag) && self.name.starts_with(name))
-        })
+        names.iter()
+            .any(|name| &self.name == name || (options.prefix.is_some_and(|flag| flag) && self.name.starts_with(name)))
     }
 }
 
@@ -352,10 +295,7 @@ impl From<VecDeque<String>> for TopicPath {
 
 impl Display for TopicPath {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let full_path = self
-            .segments
-            .iter()
-            .fold(String::new(), |prev, curr| prev + "/" + curr);
+        let full_path = self.segments.iter().fold(String::new(), |prev, curr| prev + "/" + curr);
         f.write_str(&full_path)
     }
 }
@@ -374,23 +314,16 @@ impl From<String> for TopicPath {
             .map(|str| str.to_owned())
             .unwrap_or_else(|| str.to_owned());
 
-        str.chars()
-            .fold(
-                (VecDeque::<String>::new(), true),
-                |(mut parts, prev_is_delimiter), char| {
-                    if prev_is_delimiter {
-                        parts.push_back(String::from(char));
-                        (parts, false)
-                    } else {
-                        let is_delimiter = char == Self::DELIMITER;
-                        if !is_delimiter {
-                            parts.back_mut().unwrap().push(char);
-                        };
-                        (parts, is_delimiter)
-                    }
-                },
-            )
-            .0
-            .into()
+        str.chars().fold((VecDeque::<String>::new(), true), |(mut parts, prev_is_delimiter), char| {
+            if prev_is_delimiter {
+                parts.push_back(String::from(char));
+                (parts, false)
+            } else {
+                let is_delimiter = char == Self::DELIMITER;
+                if !is_delimiter { parts.back_mut().unwrap().push(char); };
+                (parts, is_delimiter)
+            }
+        }).0.into()
     }
 }
+

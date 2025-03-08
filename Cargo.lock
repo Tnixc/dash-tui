@@ -623,7 +623,6 @@ name = "nt_client"
 version = "0.2.0"
 dependencies = [
  "futures-util",
- "log",
  "rand",
  "rmp-serde",
  "rmpv",

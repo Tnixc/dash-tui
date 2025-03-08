@@ -37,7 +37,7 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: TopicCollection) {
 
     // Process messages from all topics in the collection
     loop {
-        match subscriber.recv().await {
+        match subscriber.recv_latest().await {
             Ok(ReceivedMessage::Announced(topic)) => {
                 let topic_name = topic.name().to_string();
                 info!("Announced topic: {}", topic_name);
@@ -69,7 +69,7 @@ pub async fn subscribe_to_topic(
     // Process messages from this specific topic
     tokio::spawn(async move {
         loop {
-            match subscriber.recv().await {
+            match subscriber.recv_buffered().await {
                 Ok(ReceivedMessage::Updated((topic, value))) => {
                     let value = value.to_string().trim().to_string();
                     let _ = sender.send(NtUpdate::KV(topic.name().to_string(), value));
@@ -93,7 +93,7 @@ pub async fn get_available_topics(sender: Sender<NtUpdate>, sub_topic: Topic) {
 
         // Process the received messages in the loop without cloning sender each time
         loop {
-            match subscriber.recv().await {
+            match subscriber.recv_buffered().await {
                 Ok(ReceivedMessage::Announced(topic)) => {
                     let topic_name = topic.name().to_string();
                     info!("Announced topic: {}", topic_name);
