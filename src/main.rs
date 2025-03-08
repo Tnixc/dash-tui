@@ -4,6 +4,7 @@ mod ui;
 use std::sync::mpsc;
 use std::time::Duration;
 
+use crate::ui::ConnectionStatus;
 use log::{LevelFilter, error, info};
 use nt_client::{Client, NTAddr, NewClientOptions};
 
@@ -30,6 +31,11 @@ async fn main() {
 
 async fn manage_nt_connection(sender: mpsc::Sender<nt::NtUpdate>) {
     loop {
+        // Mark as disconnected at the start of each connection attempt
+        let _ = sender.send(nt::NtUpdate::ConnectionStatus(
+            ConnectionStatus::Disconnected,
+        ));
+
         info!("Establishing NT connection");
 
         let client_opts = NewClientOptions {
@@ -52,8 +58,14 @@ async fn manage_nt_connection(sender: mpsc::Sender<nt::NtUpdate>) {
 
         if let Err(err) = connection_result {
             error!("NT connection error: {:?}", err);
+            let _ = sender.send(nt::NtUpdate::ConnectionStatus(
+                ConnectionStatus::Disconnected,
+            ));
         } else {
             error!("NT connection closed unexpectedly");
+            let _ = sender.send(nt::NtUpdate::ConnectionStatus(
+                ConnectionStatus::Disconnected,
+            ));
         }
 
         // Abort the NT handler task

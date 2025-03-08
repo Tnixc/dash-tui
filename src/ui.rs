@@ -19,6 +19,26 @@ use std::{
     time::{Duration, Instant},
 };
 
+#[derive(Debug, Clone, Copy)]
+pub enum ConnectionStatus {
+    Connected,
+    Disconnected,
+}
+
+pub struct App {
+    values: HashMap<String, String>,
+    connection_status: ConnectionStatus,
+}
+
+impl App {
+    fn new() -> App {
+        App {
+            values: HashMap::new(),
+            connection_status: ConnectionStatus::Disconnected,
+        }
+    }
+}
+
 pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
     // Setup terminal
     enable_raw_mode()?;
@@ -56,6 +76,11 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
             match update {
                 NtUpdate::KV(key, value) => {
                     app.values.insert(key, value);
+                    // If we're receiving values, we must be connected
+                    app.connection_status = ConnectionStatus::Connected;
+                }
+                NtUpdate::ConnectionStatus(status) => {
+                    app.connection_status = status;
                 }
             }
         }
@@ -78,41 +103,28 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
     Ok(())
 }
 
-struct App {
-    values: HashMap<String, String>,
-}
-
-impl App {
-    fn new() -> App {
-        App {
-            values: HashMap::new(),
-        }
-    }
-}
-
 fn ui(f: &mut ratatui::Frame, app: &App) {
     let size = f.area();
 
-    // Create the layout
+    // Create the layout with 3 sections (NT values, help text, status bar)
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .margin(1)
         .constraints(
             [
-                Constraint::Length(10), // Increase for more NT values
-                Constraint::Min(0),
+                Constraint::Min(1),    // NT values (takes up all available space)
+                Constraint::Length(3), // Help text (single line)
+                Constraint::Length(1), // Status bar
             ]
             .as_ref(),
         )
         .split(size);
 
-    // Create the NT values block
-    let nt_block = Block::default().title("NT values").borders(Borders::ALL);
-
-    // Build a vector of lines for the NT values
+    ////////////////////////////////////////
+    // NT values
+    ////////////////////////////////////////
+    let nt_block = Block::default().title("NT Values").borders(Borders::ALL);
     let mut nt_lines = Vec::new();
-
-    // Add any other values not explicitly ordered
     for (key, value) in &app.values {
         nt_lines.push(Line::from(vec![
             Span::raw(format!("{}: ", key)),
@@ -120,10 +132,9 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         ]));
     }
 
-    // If we have no values, show a placeholder
     if nt_lines.is_empty() {
         nt_lines.push(Line::from(vec![Span::styled(
-            "No NT values received yet",
+            "None",
             Style::default().fg(Color::Red),
         )]));
     }
@@ -134,16 +145,36 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
 
     f.render_widget(nt_text, chunks[0]);
 
-    // Render additional help text
-    let help_block = Block::default().title("Help").borders(Borders::ALL);
+    ////////////////////////////////////////
+    // Render status bar
+    ////////////////////////////////////////
+    let (status_text, border_color) = match app.connection_status {
+        ConnectionStatus::Connected => ("CONNECTED", Color::Green),
+        ConnectionStatus::Disconnected => ("DISCONNECTED", Color::Red),
+    };
 
+    let status_block = Block::default()
+        .title("Network Tables Status")
+        .borders(Borders::ALL)
+        .border_style(Style::default().fg(border_color));
+
+    let status_text = Paragraph::new(Line::from(vec![Span::styled(
+        format!("NT Status: {}", status_text),
+        Style::default().fg(border_color),
+    )]))
+    .block(status_block)
+    .alignment(Alignment::Center);
+
+    f.render_widget(status_text, chunks[1]);
+    ////////////////////////////////////////
+    // Help text
+    ////////////////////////////////////////
     let help_text = Paragraph::new(Line::from(vec![
         Span::raw("Press "),
         Span::styled("q", Style::default().fg(Color::Red)),
         Span::raw(" to quit"),
     ]))
-    .block(help_block)
     .alignment(Alignment::Center);
 
-    f.render_widget(help_text, chunks[1]);
+    f.render_widget(help_text, chunks[2]);
 }
