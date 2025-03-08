@@ -46,12 +46,12 @@ async fn manage_nt_connection(sender: mpsc::Sender<nt::NtUpdate>) {
         };
         let client = Client::new(client_opts);
 
-        let topics = vec![
-            client.topic("/AdvantageKit/Timestamp"),
-            client.topic("/AdvantageKit/RealOutputs/Drive/LeftPositionMeters"),
+        let topic_names = vec![
+            "/AdvantageKit/RealOutputs/Drive/LeftPositionMeters",
+            "/AdvantageKit/RealOutputs/Drive/RightPositionMeters",
+            "/AdvantageKit/Timestamp",
         ];
-
-        // Spawn NT client task
+        let topics = client.topics(topic_names.iter().map(|name| name.to_string()).collect());
         let nt_handle = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
 
         // Try to establish the connection

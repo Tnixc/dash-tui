@@ -215,7 +215,7 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         .border_style(Style::default().fg(border_color));
 
     let status_text = Paragraph::new(Line::from(vec![Span::styled(
-        format!("NT Status: {}", status_text),
+        format!("Status: {}", status_text),
         Style::default().fg(border_color),
     )]))
     .block(status_block)

@@ -1,3 +1,4 @@
-[00:00:00.001] (1715a7000) INFO   Establishing NT connection
-[00:00:00.107] (170d77000) INFO   Announced topic: /AdvantageKit/Timestamp
-[00:00:00.108] (170d77000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftPositionMeters
+[00:00:00.000] (16c877000) INFO   Establishing NT connection
+[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/RightPositionMeters
+[00:00:00.103] (16c66b000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftPositionMeters
