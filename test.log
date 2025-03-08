@@ -1,138 +1,154 @@
-[00:00:00.000] (16e9db000) INFO   Attempting to establish NT connection
-[00:00:00.001] (16e9db000) DEBUG  Client handshake done.
-[00:00:00.102] (16e9db000) INFO   Announced topic: /FMSInfo/.type
-[00:00:00.102] (16e9db000) INFO   Announced topic: /FMSInfo/GameSpecificMessage
-[00:00:00.102] (16e9db000) INFO   Announced topic: /FMSInfo/EventName
-[00:00:00.102] (16e9db000) INFO   Announced topic: /FMSInfo/MatchNumber
-[00:00:00.102] (16df9f000) INFO   Announced topic: /Tuning/Scoring/Intake/elevator_height_mm
-[00:00:00.102] (16df9f000) INFO   Announced topic: /Tuning/Scoring/Intake/chute_pivot_angle_rads
-[00:00:00.102] (16df9f000) INFO   Announced topic: /Tuning/Scoring/L1/elevator_height_mm
-[00:00:00.102] (16df9f000) INFO   Announced topic: /Tuning/Scoring/L1/chute_pivot_angle_rads
-[00:00:00.102] (16df9f000) INFO   Announced topic: /Tuning/Scoring/L1/shoot_speed_normalized
-[00:00:00.103] (16df9f000) INFO   Announced topic: /Tuning/Scoring/L2/elevator_height_mm
-[00:00:00.103] (16e9db000) INFO   Announced topic: /AdvantageKit/Timestamp
-[00:00:00.103] (16df9f000) INFO   Announced topic: /SmartDashboard/Alerts/warnings
-[00:00:00.103] (16df9f000) INFO   Announced topic: /SmartDashboard/Alerts/infos
-[00:00:00.103] (16df9f000) INFO   Announced topic: /SmartDashboard/Alerts/.name
-[00:00:00.103] (16db87000) INFO   Announced topic: /.schema/struct:Pose2d
-[00:00:00.103] (16e9db000) INFO   Announced topic: /.schema/struct:Translation2d
-[00:00:00.103] (16e9db000) INFO   Announced topic: /.schema/struct:Rotation2d
-[00:00:00.103] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/AutoLogMS
-[00:00:00.103] (16db87000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/ReceiveErrorCount
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Robot/Pose
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Pi/Corners
-[00:00:00.103] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS
-[00:00:00.103] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/POVs
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Test/Elevator/enable
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Test/Chute/enable
-[00:00:00.103] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/DashboardInputsMS
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Tuning/ShooterSpeed
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Test/Grabber/enable
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Test/Climp/enable
-[00:00:00.103] (16e9db000) INFO   Announced topic: /Tuning/TroughSpeed
-[00:00:00.103] (16df9f000) INFO   Announced topic: /Preferences/TroughSpeed
-[00:00:00.103] (16df9f000) INFO   Announced topic: /Tuning/AutoWaitTime
-[00:00:00.104] (16db87000) INFO   Announced topic: /CameraPublisher/USB Camera 0/source
-[00:00:00.104] (16e9db000) INFO   Announced topic: /CameraPublisher/USB Camera 0/description
-[00:00:00.104] (16e9db000) INFO   Announced topic: /CameraPublisher/USB Camera 0/connected
-[00:00:00.104] (16e9db000) INFO   Announced topic: /CameraPublisher/USB Camera 0/streams
-[00:00:00.104] (16e9db000) INFO   Announced topic: /CameraPublisher/USB Camera 0/modes
-[00:00:00.104] (16e9db000) INFO   Announced topic: /CameraPublisher/USB Camera 0/mode
-[00:00:00.104] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/ButtonValues
-[00:00:00.104] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/AutoWaitTime
-[00:00:00.104] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/ButtonValues
-[00:00:00.105] (16df9f000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/TxFullCount
-[00:00:00.105] (16df9f000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/Type
-[00:00:00.105] (16df9f000) INFO   Announced topic: /AdvantageKit/DriverStation/DSAttached
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/Name
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/EntryUpdateMS
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/MatchNumber
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/5vRail/Active
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/Xbox
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/PowerDistribution/ChannelCount
-[00:00:00.105] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/Alerts/warnings
-[00:00:00.105] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/Name
-[00:00:00.105] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Floor/wrist_angle_rads
-[00:00:00.105] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/3v3Rail/Current
-[00:00:00.106] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/RadioLogMS
-[00:00:00.106] (16df9f000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/AxisValues
-[00:00:00.106] (16e9db000) INFO   Announced topic: /AdvantageKit/RealMetadata/GitSHA
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/SystemStats/6vRail/Active
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/AxisTypes
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/SystemStats/5vRail/Current
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/Type
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/AxisTypes
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Intake/elevator_height_mm
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/Name
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/SystemStats/6vRail/Current
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/RightVelocityMetersPerSec
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/SystemStats/BatteryCurrent
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Test
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/EstimatedPose
-[00:00:00.106] (16db87000) INFO   Announced topic: /AdvantageKit/DriverStation/Autonomous
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/.schema/struct:Pose2d
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/PowerDistribution/TotalEnergy
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/EventName
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/Xbox
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/PowerDistribution/TotalCurrent
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/POVs
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/BrownoutVoltage
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/ButtonValues
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/AxisValues
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/ReplayNumber
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Enabled
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/.schema/struct:ChassisSpeeds
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/ButtonValues
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/DriverStationMS
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/OdometryPose
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/ButtonValues
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/Type
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/BatteryVoltage
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/AxisTypes
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/SerialNumber
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Score/wrist_angle_rads
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/PowerDistribution/Faults
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/CommsDisableCount
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/GameSpecificMessage
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/.schema/struct:Translation2d
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/AxisValues
-[00:00:00.107] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/Xbox
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/3v3Rail/CurrentFaults
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/POVs
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/UserCodeMS
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L1/chute_pivot_angle_rads
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/OffCount
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftVelocityMetersPerSec
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/Type
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/QueuedCycles
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/Name
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/ButtonCount
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/SystemActive
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L3/chute_pivot_angle_rads
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/ButtonCount
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/AxisValues
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/RSLState
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/AllianceStation
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/ButtonCount
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/ButtonCount
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/ConduitCaptureMS
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/SystemStats/3v3Rail/Active
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/PowerDistribution/Temperature
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs/Alerts/.type
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/AxisValues
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L2/elevator_height_mm
-[00:00:00.108] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/chute_pivot_angle_rads
-[00:00:00.109] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/AxisTypes
-[00:00:00.109] (16e9db000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L3/elevator_height_mm
-[00:00:00.109] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/ButtonCount
-[00:00:00.109] (16e9db000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/ButtonCount
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/.metadata/RobotContainer/Auto Routine/Size
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/.metadata/RobotContainer/Auto Routine/Position
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.controllable
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.type
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.instance
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/default
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/options
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/active
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/Drivebase/.type
-[00:00:00.109] (16e9db000) INFO   Announced topic: /Shuffleboard/Drivebase/Field2d/.controllable
+[00:00:00.001] (17077f000) INFO   Attempting to establish NT connection
+[00:00:00.002] (16fb37000) DEBUG  Client handshake done.
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/AutoLogMS
+[00:00:00.104] (17077f000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:00.104] (17077f000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/AutoLogMS
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/ReceiveErrorCount
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/ReceiveErrorCount
+[00:00:00.104] (17077f000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS
+[00:00:00.104] (17077f000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/POVs
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS
+[00:00:00.104] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/POVs
+[00:00:00.105] (17077f000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/DashboardInputsMS
+[00:00:00.105] (17077f000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/DashboardInputsMS
+[00:00:00.105] (16fb37000) INFO   Announced topic: /FMSInfo/.type
+[00:00:00.105] (16fb37000) INFO   Announced topic: /FMSInfo/GameSpecificMessage
+[00:00:00.105] (16fb37000) INFO   Announced topic: /FMSInfo/EventName
+[00:00:00.105] (17015b000) INFO   Announced topic: /Tuning/Scoring/Intake/elevator_height_mm
+[00:00:00.105] (17015b000) INFO   Announced topic: /Tuning/Scoring/Intake/chute_pivot_angle_rads
+[00:00:00.105] (17015b000) INFO   Announced topic: /Tuning/Scoring/L1/elevator_height_mm
+[00:00:00.105] (17015b000) INFO   Announced topic: /Tuning/Scoring/L1/chute_pivot_angle_rads
+[00:00:00.105] (17015b000) INFO   Announced topic: /Tuning/Scoring/L1/shoot_speed_normalized
+[00:00:00.105] (16fb37000) INFO   Announced topic: /Tuning/Scoring/L2/elevator_height_mm
+[00:00:00.106] (17015b000) INFO   Announced topic: /SmartDashboard/Alerts/.name
+[00:00:00.106] (16fb37000) INFO   Announced topic: /.schema/struct:Pose2d
+[00:00:00.106] (16fb37000) INFO   Announced topic: /.schema/struct:Translation2d
+[00:00:00.106] (16fb37000) INFO   Announced topic: /.schema/struct:Rotation2d
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Robot/Pose
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Pi/Corners
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Test/Elevator/enable
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Test/Chute/enable
+[00:00:00.106] (170573000) INFO   Announced topic: /Tuning/ShooterSpeed
+[00:00:00.106] (170573000) INFO   Announced topic: /Test/Grabber/enable
+[00:00:00.106] (170573000) INFO   Announced topic: /Test/Climp/enable
+[00:00:00.106] (170573000) INFO   Announced topic: /Tuning/TroughSpeed
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Preferences/TroughSpeed
+[00:00:00.106] (16fb37000) INFO   Announced topic: /Tuning/AutoWaitTime
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/source
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/description
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/connected
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/streams
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/modes
+[00:00:00.106] (16fb37000) INFO   Announced topic: /CameraPublisher/USB Camera 0/mode
+[00:00:00.106] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/ButtonValues
+[00:00:00.107] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/AutoWaitTime
+[00:00:00.107] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/ButtonValues
+[00:00:00.107] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/RightPositionMeters
+[00:00:00.107] (17077f000) INFO   Announced topic: /AdvantageKit/SystemStats/5vRail/Voltage
+[00:00:00.107] (17077f000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/Utilization
+[00:00:00.107] (17077f000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/elevator_height_mm
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/PowerDistribution/Faults
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/CommsDisableCount
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/GameSpecificMessage
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/.schema/struct:Translation2d
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/AxisValues
+[00:00:00.305] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/Xbox
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/3v3Rail/CurrentFaults
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/POVs
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/UserCodeMS
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L1/chute_pivot_angle_rads
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/CANBus/OffCount
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Drive/LeftVelocityMetersPerSec
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/Type
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/QueuedCycles
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/Name
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/ButtonCount
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/SystemActive
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L3/chute_pivot_angle_rads
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/ButtonCount
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick2/AxisValues
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/RSLState
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/AllianceStation
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/ButtonCount
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick5/ButtonCount
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Logger/ConduitCaptureMS
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/SystemStats/3v3Rail/Active
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/PowerDistribution/Temperature
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Alerts/.type
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick3/AxisValues
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L2/elevator_height_mm
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/chute_pivot_angle_rads
+[00:00:00.306] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick4/AxisTypes
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L3/elevator_height_mm
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick0/ButtonCount
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/DriverStation/Joystick1/ButtonCount
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/.metadata/RobotContainer/Auto Routine/Size
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/.metadata/RobotContainer/Auto Routine/Position
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.controllable
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.type
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/.instance
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/default
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/options
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/RobotContainer/Auto Routine/active
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/Drivebase/.type
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/Drivebase/Field2d/.controllable
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/Drivebase/Field2d/.type
+[00:00:00.307] (16fb37000) INFO   Announced topic: /Shuffleboard/Drivebase/Field2d/Robot
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/PositionMillimeters
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/LeftPositionMeters
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/CoralLoading
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/Gyro/YawPosition
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/LeftAppliedVolts
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/.schema/struct:Quaternion
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/ready_sw
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Console
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/SupplyCurrentAmps
+[00:00:00.307] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/GCTimeMS
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Elevator/home_sw
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/goal_radian
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/PivotVelocityRadPerSec
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Robot/Components
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Climp/AngleRadians
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/.schema/struct:Pose3d
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Climp/VelocityRadsPerSec
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Climp/AppliedVoltage
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Elevator/goal_height_mm
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/loaded_sw
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/home_sw
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/HomeBeamBroken
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/LeftVelocityMetersPerSec
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Elevator/isHomed
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Climp/SupplyCurrentAmps
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Grabber/Home
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/ScoringState/ReefBar
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/HomeSwitchPressed
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/ScoringState/SensorState
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/TempCelsius
+[00:00:00.308] (16fb37000) INFO   Announced topic: /AdvantageKit/Grabber/AlgaeDistance
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/LoggedRobot/GCCounts
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/RightVelocityMetersPerSec
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/AppliedVoltage
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/acquired_bool
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/PivotSetpoint
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Grabber/WristVelocityRadPerSec
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/AppliedOutput
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Elevator/VelocityMillimetersPerSec
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/FieldSimulation/Corals
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/isHomed
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/distance_mm
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/.schema/struct:Rotation3d
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/Gyro/YawVelocityRadPerSec
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/RightPositionMeters
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/LeftCurrentAmps
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/ScoringState/ReefHeight
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/Gyro/Connected
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/home_sw
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/CoralReady
+[00:00:00.309] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/PivotAngleRadians
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/Chute/ShooterVelocityRadPerSec
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/Grabber/WristAngleRadians
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/RightCurrentAmps
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/isHomed
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/.schema/struct:Translation3d
+[00:00:00.310] (16fb37000) INFO   Announced topic: /AdvantageKit/Drive/RightAppliedVolts

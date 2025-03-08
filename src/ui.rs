@@ -12,7 +12,7 @@ use ratatui::{
     Terminal,
     backend::CrosstermBackend,
     layout::{Alignment, Constraint, Direction, Layout, Rect},
-    style::{Color, Modifier, Style},
+    style::{Color, Modifier, Style, Stylize},
     text::{Line, Span},
     widgets::{Block, Borders, Clear, List, ListItem, Paragraph},
 };
@@ -265,7 +265,8 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         // Render search input
         let input_block = Block::default()
             .title("Search NT Topics")
-            .borders(Borders::ALL);
+            .borders(Borders::ALL)
+            .border_style(Style::new().blue());
 
         let input_text = Paragraph::new(app.fuzzy_search.input.as_str())
             .style(Style::default())
@@ -279,7 +280,8 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
                 "Results ({} found)",
                 app.fuzzy_search.matches.len()
             ))
-            .borders(Borders::ALL);
+            .borders(Borders::ALL)
+            .border_style(Style::new().blue());
 
         let list_items: Vec<ListItem> = app
             .fuzzy_search
@@ -290,8 +292,8 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
 
         let results_list = List::new(list_items).block(results_block).highlight_style(
             Style::default()
-                .bg(Color::DarkGray)
-                .fg(Color::White)
+                .fg(Color::LightBlue)
+                .bg(Color::Black)
                 .add_modifier(Modifier::BOLD),
         );
 
