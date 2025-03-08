@@ -13,13 +13,13 @@ use log::debug;
 use tokio::sync::RwLock;
 
 use crate::{
-    NTClientSender, NTServerSender, NetworkTablesTime,
     data::{
-        Announce, Properties, SubscriptionOptions,
         r#type::{DataType, NetworkTableData},
+        Announce, Properties, SubscriptionOptions,
     },
     publish::{NewPublisherError, Publisher},
     subscribe::Subscriber,
+    NTClientSender, NTServerSender, NetworkTablesTime,
 };
 
 pub mod collection;

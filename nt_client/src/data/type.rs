@@ -1,6 +1,6 @@
 //! `NetworkTables` data values and types.
 
-use serde::{Deserialize, Deserializer, Serialize, Serializer, de::Visitor};
+use serde::{de::Visitor, Deserialize, Deserializer, Serialize, Serializer};
 
 // holy macro
 macro_rules! impl_data_type {
