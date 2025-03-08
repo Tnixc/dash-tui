@@ -1,3 +1,4 @@
+mod app;
 mod config;
 mod fuzzy;
 mod nt;

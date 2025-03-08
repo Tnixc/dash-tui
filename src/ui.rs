@@ -1,4 +1,5 @@
 use crate::{
+    app::App,
     fuzzy::FuzzySearch,
     nt::{NtUpdate, subscribe_to_topic},
 };
@@ -32,25 +33,6 @@ pub enum ConnectionStatus {
 pub enum Window {
     Main,
     FuzzySearch,
-}
-
-pub struct App {
-    pub values: HashMap<String, String>,
-    pub connection_status: ConnectionStatus,
-    pub available_topics: Vec<String>,
-    pub mode: Window,
-    pub fuzzy_search: FuzzySearch,
-}
-impl App {
-    pub fn new() -> App {
-        App {
-            values: HashMap::new(),
-            connection_status: ConnectionStatus::Disconnected,
-            available_topics: Vec::new(),
-            mode: Window::Main,
-            fuzzy_search: FuzzySearch::new(),
-        }
-    }
 }
 
 pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {

@@ -2,7 +2,8 @@ use fuzzy_matcher::FuzzyMatcher;
 use fuzzy_matcher::skim::SkimMatcherV2;
 use ratatui::widgets::ListState;
 
-use crate::ui::{App, Window};
+use crate::app::App;
+use crate::ui::Window;
 
 pub struct Matcher {
     matcher: SkimMatcherV2,
