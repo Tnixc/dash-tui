@@ -93,8 +93,10 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                             KeyCode::Esc => app.exit_fuzzy_search(),
                             KeyCode::Enter => {
                                 if let Some(selected) = app.handle_search_selection() {
-                                    // TODO: Add selected topic to subscription list
-                                    // todo!()
+                                    // Add selected topic to subscription list
+                                    todo!();
+                                    // let _ =
+                                    //     subscribe_to_topic(&client, sender.clone(), selected).await;
                                 }
                             }
                             KeyCode::Char('k') if key.modifiers.contains(KeyModifiers::CONTROL) => {

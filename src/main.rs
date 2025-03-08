@@ -46,11 +46,11 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             // FIXME: initialize this elsewhere
             let initial_topics = vec![
                 "/AdvantageKit/Timestamp",
-    "/AdvantageKit/RealOutputs/Logger/AutoLogMS",
-    "/AdvantageKit/SystemStats/CANBus/ReceiveErrorCount",
-    "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
-    "/AdvantageKit/DriverStation/Joystick1/POVs",
-    "/AdvantageKit/RealOutputs/Logger/DashboardInputsMS",
+                "/AdvantageKit/RealOutputs/Logger/AutoLogMS",
+                "/AdvantageKit/SystemStats/CANBus/ReceiveErrorCount",
+                "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
+                "/AdvantageKit/DriverStation/Joystick1/POVs",
+                "/AdvantageKit/RealOutputs/Logger/DashboardInputsMS",
             ].to_owned();
 
 
@@ -58,27 +58,14 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Connecting));
             info!("Attempting to establish NT connection");
 
-            // Create topics collection for initial topics
             let topics = client.topics(initial_topics.iter().map(|name| name.to_string()).collect());
             let topic_sender = sender.clone();
-            std::thread::spawn(move || {
-                let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().expect("failed to start thread for TOPIC");
-                rt.block_on(async {
-                    nt::run_nt_client(topic_sender, topics).await;
-                });
-            });
+            tokio::spawn(nt::run_nt_client(topic_sender, topics));
 
-            // Start NT client handler that processes messages
             let all = client.topic("/");
             let all_sender = sender.clone();
             let all_clone = all.clone();
-            // Move heavy topic processing to a dedicated thread to avoid lagging main tasks
-            std::thread::spawn(move || {
-                let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().expect("failed to start thread for ALL");
-                rt.block_on(async {
-                    nt::get_available_topics(all_sender, all_clone).await;
-                });
-            });
+            tokio::spawn(nt::get_available_topics(all_sender, all_clone));
 
             tokio::select! {
                 conn_result = client.connect() => {
