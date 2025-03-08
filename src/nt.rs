@@ -50,7 +50,7 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: TopicCollection) {
                 info!("Unannounced topic: {}", name);
             }
             Err(err) => {
-                error!("Error: {err:?}");
+                warn!("Warning on specific watcher thread: {err:?}");
             }
         }
     }
@@ -82,35 +82,30 @@ pub async fn subscribe_to_topic(
 }
 
 pub async fn get_available_topics(sender: Sender<NtUpdate>, sub_topic: Topic) {
-    let mut subscriber = sub_topic
-        .subscribe(SubscriptionOptions {
-            prefix: Some(true),
-            topics_only: Some(true),
-            ..Default::default()
-        })
-        .await;
-
-    // Process the received messages in the loop without cloning sender each time
     loop {
-        info!("****************************************");
-        match subscriber.recv().await {
-            Ok(ReceivedMessage::Announced(topic)) => {
-                info!("1111111111111111111111111111111111111111");
-                let topic_name = topic.name().to_string();
-                info!("Announced topic: {}", topic_name);
-            }
-            Ok(ReceivedMessage::Unannounced { name, .. }) => {
-                info!("2222222222222222222222222222222222222222");
-                info!("Unannounced topic: {}", name);
-            }
-            Err(e) => {
-                info!("3333333333333333333333333333333333333333");
-                warn!("Blocking task: {}", e);
-            }
-            Ok(ReceivedMessage::Updated((topic, value))) => {
-                info!("4444444444444444444444444444444444444444");
-                let value = value.to_string().trim().to_string();
-                sender.send(NtUpdate::KV(topic.name().to_string(), value));
+        let mut subscriber = sub_topic
+            .subscribe(SubscriptionOptions {
+                prefix: Some(true),
+                topics_only: Some(true),
+                ..Default::default()
+            })
+            .await;
+
+        // Process the received messages in the loop without cloning sender each time
+        loop {
+            match subscriber.recv().await {
+                Ok(ReceivedMessage::Announced(topic)) => {
+                    let topic_name = topic.name().to_string();
+                    info!("Announced topic: {}", topic_name);
+                }
+                Ok(ReceivedMessage::Unannounced { name, .. }) => {
+                    info!("Unannounced topic: {}", name);
+                }
+                Err(e) => {
+                    warn!("Warning on ALL topic thread: {}", e);
+                    break;
+                }
+                Ok(ReceivedMessage::Updated((_, _))) => {}
             }
         }
     }
