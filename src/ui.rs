@@ -65,7 +65,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
     let mut app = App::new();
 
     // Main loop
-    let tick_rate = Duration::from_millis(20);
+    let tick_rate = Duration::from_millis(5);
     let mut last_tick = Instant::now();
 
     loop {

@@ -379,22 +379,12 @@ impl Client {
                             }
                             Some(binary_data)
                         }
-                        Message::Text(json) => {
-                            log::info!("{}", json);
-                            // let k = serde_json::from_str::<'_, Vec<ClientboundTextData>>(&json);
-                            // if k.is_ok() {
-                            //     Some(serde_json::from_str::<'_, Vec<ClientboundTextData>>(&json)?.into_iter().map(ClientboundData::Text).collect())
-                            // } else {
-                            //     None
-                            // }
-                            Some(
-                                serde_json::from_str::<'_, Vec<ClientboundTextData>>(&json)
-                                    .expect("Failed to parse JSON")
-                                    .into_iter()
-                                    .map(ClientboundData::Text)
-                                    .collect(),
-                            )
-                        }
+                        Message::Text(json) => Some(
+                            serde_json::from_str::<'_, Vec<ClientboundTextData>>(&json)?
+                                .into_iter()
+                                .map(ClientboundData::Text)
+                                .collect(),
+                        ),
                         Message::Pong(_) => {
                             pong_send.notify_one();
                             None

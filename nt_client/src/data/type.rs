@@ -1,6 +1,6 @@
 //! `NetworkTables` data values and types.
 
-use serde::{de::Visitor, Deserialize, Deserializer, Serialize, Serializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer, de::Visitor};
 
 // holy macro
 macro_rules! impl_data_type {
@@ -119,44 +119,59 @@ macro_rules! transparent {
 }
 
 /// A data type understood by a `NetworkTables` server.
-#[derive(Debug, Clone, PartialEq, Serialize, Eq)]
+#[derive(Serialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
 pub enum DataType {
-    /// Struct schema data type
-    StructSchema,
-    /// A struct type with a name (e.g., "struct:Rotation2d")
-    Struct(String),
-    /// [`bool`] data type
+    /// [`bool`] data type.
     Boolean,
-    /// [`f64`] data type
+    /// [`f64`] data type.
     Double,
-    /// Any integer data type
+    /// Any integer data type.
+    ///
+    /// This includes Rust types like [`u8`], [`i32`], and [`u16`].
     Int,
-    /// [`f32`] data type
+    /// [`f32`] data type.
     Float,
-    /// [`String`] data type
+    /// [`String`] data type.
     String,
-    /// JSON data type
+    /// JSON data type.
+    ///
+    /// Internally, this is stored as a [`String`].
     Json,
-    /// Raw binary data type
+    /// Raw binary data type.
     Raw,
-    /// RPC data type
+    /// RPC data type.
+    ///
+    /// Internally, this is stored as a [`Vec<u8>`].
     Rpc,
-    /// MessagePack data type
+    /// MessagePack data type.
+    ///
+    /// This is generally used for nested data.
     Msgpack,
-    /// Google Protocol Buffers data type
+    /// Google Protocol Buffers data type.
+    ///
+    /// Internally, this is stored as a [`Vec<u8>`].
     Protobuf,
-    /// [`Vec<bool>`] data type
+    /// [`Vec<bool>`] data type.
+    #[serde(rename = "boolean[]")]
     BooleanArray,
-    /// [`Vec<f64>`] data type
+    /// [`Vec<f64>`] data type.
+    #[serde(rename = "double[]")]
     DoubleArray,
-    /// A [`Vec`] of integers data type
+    /// A [`Vec`] of integers data type.
+    ///
+    /// This includes Rust types like [`Vec<u16>`], [`Vec<i8>`], and [`Vec<u64>`].
+    #[serde(rename = "int[]")]
     IntArray,
-    /// [`Vec<f32>`] data type
+    /// [`Vec<f32>`] data type.
+    #[serde(rename = "float[]")]
     FloatArray,
-    /// [`Vec<String>`] data type
+    /// [`Vec<String>`] data type.
+    #[serde(rename = "string[]")]
     StringArray,
-    /// Any other type
-    Other(String),
+    /// Catch-all for future or unknown data types.
+    #[serde(other)]
+    Unknown,
 }
 
 impl<'de> Deserialize<'de> for DataType {
@@ -164,36 +179,55 @@ impl<'de> Deserialize<'de> for DataType {
     where
         D: Deserializer<'de>,
     {
-        // First, deserialize the value as a string
-        let value = String::deserialize(deserializer)?;
-
-        // Now match the string to the appropriate enum variant
-        match value.as_str() {
-            s if s.starts_with("struct:") => {
-                // Extract the name part after "struct:"
-                let name = s.trim_start_matches("struct:").to_string();
-                Ok(DataType::Struct(name))
-            }
-            "boolean" => Ok(DataType::Boolean),
-            "double" => Ok(DataType::Double),
-            "int" => Ok(DataType::Int),
-            "float" => Ok(DataType::Float),
-            "string" => Ok(DataType::String),
-            "json" => Ok(DataType::Json),
-            "raw" => Ok(DataType::Raw),
-            "rpc" => Ok(DataType::Rpc),
-            "msgpack" => Ok(DataType::Msgpack),
-            "protobuf" => Ok(DataType::Protobuf),
-            "boolean[]" => Ok(DataType::BooleanArray),
-            "double[]" => Ok(DataType::DoubleArray),
-            "int[]" => Ok(DataType::IntArray),
-            "float[]" => Ok(DataType::FloatArray),
-            "string[]" => Ok(DataType::StringArray),
-            "structschema" => Ok(DataType::StructSchema),
-            _ => Ok(DataType::Other(value)),
+        #[derive(Deserialize)]
+        #[serde(rename_all = "lowercase")]
+        enum KnownDataType {
+            Boolean,
+            Double,
+            Int,
+            Float,
+            String,
+            Json,
+            Raw,
+            Rpc,
+            Msgpack,
+            Protobuf,
+            #[serde(rename = "boolean[]")]
+            BooleanArray,
+            #[serde(rename = "double[]")]
+            DoubleArray,
+            #[serde(rename = "int[]")]
+            IntArray,
+            #[serde(rename = "float[]")]
+            FloatArray,
+            #[serde(rename = "string[]")]
+            StringArray,
         }
+
+        // This implementation handles unknown types by returning DataType::Unknown
+        Ok(match serde::Deserialize::deserialize(deserializer) {
+            Ok(known) => match known {
+                KnownDataType::Boolean => DataType::Boolean,
+                KnownDataType::Double => DataType::Double,
+                KnownDataType::Int => DataType::Int,
+                KnownDataType::Float => DataType::Float,
+                KnownDataType::String => DataType::String,
+                KnownDataType::Json => DataType::Json,
+                KnownDataType::Raw => DataType::Raw,
+                KnownDataType::Rpc => DataType::Rpc,
+                KnownDataType::Msgpack => DataType::Msgpack,
+                KnownDataType::Protobuf => DataType::Protobuf,
+                KnownDataType::BooleanArray => DataType::BooleanArray,
+                KnownDataType::DoubleArray => DataType::DoubleArray,
+                KnownDataType::IntArray => DataType::IntArray,
+                KnownDataType::FloatArray => DataType::FloatArray,
+                KnownDataType::StringArray => DataType::StringArray,
+            },
+            Err(_) => DataType::Unknown,
+        })
     }
 }
+
 impl DataType {
     /// Creates a new `DataType` from an id.
     ///
@@ -240,7 +274,7 @@ impl DataType {
             D::IntArray => 18,
             D::FloatArray => 19,
             D::StringArray => 20,
-            _ => u32::MAX,
+            D::Unknown => 255, // Use a high number for unknown types
         }
     }
 }

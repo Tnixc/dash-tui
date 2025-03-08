@@ -9,16 +9,17 @@ use std::{
     time::Duration,
 };
 
+use log::debug;
 use tokio::sync::RwLock;
 
 use crate::{
+    NTClientSender, NTServerSender, NetworkTablesTime,
     data::{
-        r#type::{DataType, NetworkTableData},
         Announce, Properties, SubscriptionOptions,
+        r#type::{DataType, NetworkTableData},
     },
     publish::{NewPublisherError, Publisher},
     subscribe::Subscriber,
-    NTClientSender, NTServerSender, NetworkTablesTime,
 };
 
 pub mod collection;
@@ -150,6 +151,26 @@ impl Topic {
             self.recv_ws.subscribe(),
         )
         .await
+    }
+
+    pub async fn handle_topic_value<T: NetworkTableData>(
+        topic_id: i32,
+        value: &rmpv::Value,
+    ) -> Option<T> {
+        // First try to parse as the expected type
+        match T::from_value(value) {
+            Some(parsed) => Some(parsed),
+            None => {
+                // If parsing fails, check if it's an unknown type
+                if T::data_type() != DataType::Unknown {
+                    debug!(
+                        "Received value for topic {} cannot be converted to expected type",
+                        topic_id
+                    );
+                }
+                None
+            }
+        }
     }
 }
 

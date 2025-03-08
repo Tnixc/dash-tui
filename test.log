@@ -1,46 +1,642 @@
-[00:00:00.000] (16f6cf000) INFO   Attempting to establish NT connection
-[00:00:00.257] (16fcf3000) INFO   ****************************************
-[00:00:00.260] (16fcf3000) DEBUG  Client handshake done.
-[00:00:00.363] (16f8db000) INFO   [{"method":"announce","params":{"id":3,"name":"/FMSInfo/.type","properties":{"SmartDashboard":"FMSInfo"},"type":"string"}},{"method":"announce","params":{"id":6,"name":"/FMSInfo/GameSpecificMessage","properties":{},"type":"string"}},{"method":"announce","params":{"id":9,"name":"/FMSInfo/EventName","properties":{},"type":"string"}},{"method":"announce","params":{"id":12,"name":"/FMSInfo/MatchNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":15,"name":"/FMSInfo/ReplayNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":18,"name":"/FMSInfo/MatchType","properties":{},"type":"int"}},{"method":"announce","params":{"id":21,"name":"/FMSInfo/IsRedAlliance","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":24,"name":"/FMSInfo/StationNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":27,"name":"/FMSInfo/FMSControlData","properties":{},"type":"int"}},{"method":"announce","params":{"id":30,"name":"/Shuffleboard/RobotContainer/Drivescale","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":33,"name":"/Preferences/TunableNumber","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":36,"name":"/Preferences/ShooterSpeed","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":39,"name":"/Preferences/Scoring/Intake/elevator_height_mm","properties":{"persistent":true},"type":"double"}}]
-[00:00:00.363] (16f8db000) INFO   [{"method":"announce","params":{"id":42,"name":"/Preferences/Scoring/Intake/chute_pivot_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":45,"name":"/Preferences/Scoring/L1/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":48,"name":"/Preferences/Scoring/L1/chute_pivot_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":51,"name":"/Preferences/Scoring/L1/shoot_speed_normalized","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":54,"name":"/Preferences/Scoring/L2/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":57,"name":"/Preferences/Scoring/L2/chute_pivot_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":60,"name":"/Preferences/Scoring/L2/shoot_speed_normalized","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":63,"name":"/Preferences/Scoring/L3/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":66,"name":"/Preferences/Scoring/L3/chute_pivot_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":69,"name":"/Preferences/Scoring/L3/shoot_speed_normalized","properties":{"persistent":true},"type":"double"}}]
-[00:00:00.363] (170317000) INFO   Announced topic: /FMSInfo/.type
-[00:00:00.364] (16f8db000) INFO   [{"method":"announce","params":{"id":72,"name":"/Preferences/Scoring/Algae/L2/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":75,"name":"/Preferences/Scoring/Algae/L2/wrist_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":78,"name":"/Preferences/Scoring/Algae/L3/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":81,"name":"/Preferences/Scoring/Algae/L3/wrist_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":84,"name":"/Preferences/Scoring/Algae/Floor/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":87,"name":"/Preferences/Scoring/Algae/Floor/wrist_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":90,"name":"/Preferences/Scoring/Algae/Score/elevator_height_mm","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":93,"name":"/Preferences/Scoring/Algae/Score/wrist_angle_rads","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":96,"name":"/Preferences/rotationTuner","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":99,"name":"/Preferences/TestScore/drive_speed_meters_per_sec","properties":{"persistent":true},"type":"double"}}]
-[00:00:00.364] (16f8db000) INFO   [{"method":"announce","params":{"id":102,"name":"/Preferences/TestScore/distance_along_wall_meters","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":105,"name":"/Preferences/TestScore/shoot_spin_duration_seconds","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":108,"name":"/Preferences/Score/chute_tof_distance_meters","properties":{"persistent":true},"type":"double"}},{"method":"announce","params":{"id":111,"name":"/LiveWindow/.status/LW Enabled","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":114,"name":"/Shuffleboard/.metadata/Selected","properties":{},"type":"string"}},{"method":"announce","params":{"id":117,"name":"/Shuffleboard/.recording/RecordData","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":120,"name":"/Shuffleboard/.recording/FileNameFormat","properties":{},"type":"string"}},{"method":"announce","params":{"id":123,"name":"/AdvantageKit/Timestamp","properties":{},"type":"int"}},{"method":"announce","params":{"id":126,"name":"/Preferences/.type","properties":{"SmartDashboard":"RobotPreferences"},"type":"string"}},{"method":"announce","params":{"id":129,"name":"/Tuning/Scoring/Intake/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":132,"name":"/Tuning/Scoring/Intake/chute_pivot_angle_rads","properties":{},"type":"double"}}]
-[00:00:00.364] (16f8db000) INFO   [{"method":"announce","params":{"id":135,"name":"/Tuning/Scoring/L1/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":138,"name":"/Tuning/Scoring/L1/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":141,"name":"/Tuning/Scoring/L1/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":144,"name":"/Tuning/Scoring/L2/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":147,"name":"/Tuning/Scoring/L2/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":150,"name":"/Tuning/Scoring/L2/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":153,"name":"/Tuning/Scoring/L3/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":156,"name":"/Tuning/Scoring/L3/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":159,"name":"/Tuning/Scoring/L3/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":162,"name":"/Tuning/Scoring/Algae/L2/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":165,"name":"/Tuning/Scoring/Algae/L2/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":168,"name":"/Tuning/Scoring/Algae/L3/elevator_height_mm","properties":{},"type":"double"}}]
-[00:00:00.364] (16f8db000) INFO   [{"method":"announce","params":{"id":171,"name":"/Tuning/Scoring/Algae/L3/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":174,"name":"/Tuning/Scoring/Algae/Floor/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":177,"name":"/Tuning/Scoring/Algae/Floor/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":180,"name":"/Tuning/Scoring/Algae/Score/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":183,"name":"/Tuning/Scoring/Algae/Score/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":186,"name":"/Shuffleboard/.metadata/Tabs","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":189,"name":"/Shuffleboard/RobotContainer/.type","properties":{"SmartDashboard":"ShuffleboardTab"},"type":"string"}},{"method":"announce","params":{"id":192,"name":"/Tuning/rotationTuner","properties":{},"type":"double"}},{"method":"announce","params":{"id":195,"name":"/SmartDashboard/Alerts/.controllable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":198,"name":"/SmartDashboard/Alerts/.type","properties":{"SmartDashboard":"Alerts"},"type":"string"}},{"method":"announce","params":{"id":201,"name":"/SmartDashboard/Alerts/errors","properties":{},"type":"string[]"}}]
-[00:00:00.365] (16f8db000) INFO   [{"method":"announce","params":{"id":204,"name":"/SmartDashboard/Alerts/warnings","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":207,"name":"/SmartDashboard/Alerts/infos","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":210,"name":"/SmartDashboard/Alerts/.name","properties":{},"type":"string"}},{"method":"announce","params":{"id":213,"name":"/.schema/struct:Pose2d","properties":{"retained":true},"type":"structschema"}},{"method":"announce","params":{"id":216,"name":"/.schema/struct:Translation2d","properties":{"retained":true},"type":"structschema"}},{"method":"announce","params":{"id":219,"name":"/.schema/struct:Rotation2d","properties":{"retained":true},"type":"structschema"}},{"method":"announce","params":{"id":222,"name":"/Robot/Pose","properties":{},"type":"struct:Pose2d"}},{"method":"announce","params":{"id":225,"name":"/Pi/Corners","properties":{},"type":"float[]"}},{"method":"announce","params":{"id":228,"name":"/Test/Elevator/enable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":231,"name":"/Test/Chute/enable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":234,"name":"/Tuning/ShooterSpeed","properties":{},"type":"double"}},{"method":"announce","params":{"id":237,"name":"/Test/Grabber/enable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":240,"name":"/Test/Climp/enable","properties":{},"type":"boolean"}}]
-[00:00:00.365] (16f8db000) INFO   [{"method":"announce","params":{"id":243,"name":"/Tuning/AutoWaitTime","properties":{},"type":"double"}},{"method":"announce","params":{"id":246,"name":"/Tuning/TestScore/drive_speed_meters_per_sec","properties":{},"type":"double"}},{"method":"announce","params":{"id":249,"name":"/Tuning/TestScore/distance_along_wall_meters","properties":{},"type":"double"}},{"method":"announce","params":{"id":252,"name":"/Tuning/TestScore/shoot_spin_duration_seconds","properties":{},"type":"double"}},{"method":"announce","params":{"id":255,"name":"/Tuning/Score/chute_tof_distance_meters","properties":{},"type":"double"}},{"method":"announce","params":{"id":258,"name":"/Pi/speed","properties":{},"type":"double"}},{"method":"announce","params":{"id":261,"name":"/Pi/tof_mode","properties":{},"type":"string"}},{"method":"announce","params":{"id":266,"name":"/CameraPublisher/USB Camera 0/source","properties":{},"type":"string"}},{"method":"announce","params":{"id":269,"name":"/CameraPublisher/USB Camera 0/description","properties":{},"type":"string"}},{"method":"announce","params":{"id":272,"name":"/CameraPublisher/USB Camera 0/connected","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":275,"name":"/CameraPublisher/USB Camera 0/streams","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":278,"name":"/CameraPublisher/USB Camera 0/modes","properties":{},"type":"string[]"}}]
-[00:00:00.365] (16f8db000) INFO   [{"method":"announce","params":{"id":281,"name":"/CameraPublisher/USB Camera 0/mode","properties":{},"type":"string"}},{"method":"announce","params":{"id":284,"name":"/AdvantageKit/DriverStation/Joystick4/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":287,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/AutoWaitTime","properties":{},"type":"double"}},{"method":"announce","params":{"id":290,"name":"/AdvantageKit/DriverStation/Joystick0/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":293,"name":"/AdvantageKit/RealOutputs/Drive/RightPositionMeters","properties":{},"type":"double"}},{"method":"announce","params":{"id":296,"name":"/AdvantageKit/SystemStats/5vRail/Voltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":299,"name":"/AdvantageKit/SystemStats/CANBus/Utilization","properties":{},"type":"float"}},{"method":"announce","params":{"id":302,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":305,"name":"/AdvantageKit/SystemStats/FPGAVersion","properties":{},"type":"int"}},{"method":"announce","params":{"id":308,"name":"/AdvantageKit/DriverStation/MatchType","properties":{},"type":"int"}},{"method":"announce","params":{"id":311,"name":"/AdvantageKit/DriverStation/Joystick4/POVs","properties":{},"type":"int[]"}}]
-[00:00:00.365] (16f8db000) INFO   [{"method":"announce","params":{"id":314,"name":"/AdvantageKit/SystemStats/3v3Rail/Voltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":317,"name":"/AdvantageKit/DriverStation/Joystick5/AxisValues","properties":{},"type":"float[]"}},{"method":"announce","params":{"id":320,"name":"/AdvantageKit/DriverStation/Joystick5/POVs","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":323,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Score/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":326,"name":"/AdvantageKit/RealOutputs/Logger/AlertLogMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":329,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/TestScore/distance_along_wall_meters","properties":{},"type":"double"}},{"method":"announce","params":{"id":332,"name":"/AdvantageKit/PowerDistribution/StickyFaults","properties":{},"type":"int"}},{"method":"announce","params":{"id":335,"name":"/AdvantageKit/SystemStats/CANBus/TransmitErrorCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":338,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L1/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":341,"name":"/AdvantageKit/SystemStats/Comments","properties":{},"type":"string"}},{"method":"announce","params":{"id":344,"name":"/AdvantageKit/DriverStation/Joystick0/Name","properties":{},"type":"string"}}]
-[00:00:00.366] (16f8db000) INFO   [{"method":"announce","params":{"id":347,"name":"/AdvantageKit/SystemStats/CPUTempCelsius","properties":{},"type":"double"}},{"method":"announce","params":{"id":350,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L2/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":353,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Floor/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":356,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Intake/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":359,"name":"/AdvantageKit/DriverStation/Joystick3/POVs","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":362,"name":"/AdvantageKit/DriverStation/Joystick5/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":365,"name":"/AdvantageKit/SystemStats/FPGARevision","properties":{},"type":"int"}},{"method":"announce","params":{"id":368,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/ShooterSpeed","properties":{},"type":"double"}},{"method":"announce","params":{"id":371,"name":"/AdvantageKit/RealOutputs/Logger/AutoLogMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":374,"name":"/AdvantageKit/SystemStats/CANBus/ReceiveErrorCount","properties":{},"type":"int"}}]
-[00:00:00.366] (16f8db000) ERROR  Lagged(91)
-[00:00:00.366] (16f8db000) INFO   [{"method":"announce","params":{"id":377,"name":"/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":380,"name":"/AdvantageKit/DriverStation/Joystick1/POVs","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":383,"name":"/AdvantageKit/RealOutputs/Logger/DashboardInputsMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":386,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L3/elevator_height_mm","properties":{},"type":"double"}}]
-[00:00:00.366] (16f8db000) INFO   [{"method":"announce","params":{"id":389,"name":"/AdvantageKit/DriverStation/EmergencyStop","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":392,"name":"/AdvantageKit/RealOutputs/Alerts/infos","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":395,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L1/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":398,"name":"/AdvantageKit/RealOutputs/Alerts/errors","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":401,"name":"/AdvantageKit/RealOutputs/Logger/ConduitSaveMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":404,"name":"/AdvantageKit/DriverStation/Joystick5/AxisTypes","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":407,"name":"/AdvantageKit/RealOutputs/Drive/LeftPositionMeters","properties":{},"type":"double"}},{"method":"announce","params":{"id":410,"name":"/AdvantageKit/DriverStation/Joystick2/Name","properties":{},"type":"string"}},{"method":"announce","params":{"id":413,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":416,"name":"/AdvantageKit/SystemStats/TeamNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":419,"name":"/AdvantageKit/RealOutputs/LoggedRobot/LogPeriodicMS","properties":{},"type":"double"}}]
-[00:00:00.366] (16f8db000) INFO   [{"method":"announce","params":{"id":422,"name":"/AdvantageKit/DriverStation/Joystick0/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":425,"name":"/AdvantageKit/SystemStats/FPGAButton","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":428,"name":"/AdvantageKit/SystemStats/6vRail/Voltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":431,"name":"/AdvantageKit/RealOutputs/RobotTracker/RobotVelocity","properties":{},"type":"struct:ChassisSpeeds"}},{"method":"announce","params":{"id":434,"name":"/AdvantageKit/RealOutputs/Logger/ConsoleMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":437,"name":"/AdvantageKit/SystemStats/BrownedOut","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":440,"name":"/AdvantageKit/SystemStats/EpochTimeMicros","properties":{},"type":"int"}},{"method":"announce","params":{"id":443,"name":"/AdvantageKit/DriverStation/FMSAttached","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":446,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L3/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":449,"name":"/AdvantageKit/RadioStatus/Connected","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":452,"name":"/AdvantageKit/DriverStation/MatchTime","properties":{},"type":"double"}}]
-[00:00:00.367] (16f8db000) INFO   [{"method":"announce","params":{"id":455,"name":"/AdvantageKit/DriverStation/Joystick0/AxisTypes","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":458,"name":"/AdvantageKit/RealOutputs/RobotTracker/FieldVelocity","properties":{},"type":"struct:ChassisSpeeds"}},{"method":"announce","params":{"id":461,"name":"/AdvantageKit/DriverStation/Joystick3/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":464,"name":"/AdvantageKit/PowerDistribution/Voltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":467,"name":"/AdvantageKit/SystemStats/6vRail/CurrentFaults","properties":{},"type":"int"}},{"method":"announce","params":{"id":470,"name":"/AdvantageKit/PowerDistribution/TotalPower","properties":{},"type":"double"}},{"method":"announce","params":{"id":473,"name":"/AdvantageKit/SystemStats/5vRail/CurrentFaults","properties":{},"type":"int"}},{"method":"announce","params":{"id":476,"name":"/AdvantageKit/DriverStation/Joystick0/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":479,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L3/shoot_speed_normalized","properties":{},"type":"double"}},{"method":"announce","params":{"id":482,"name":"/AdvantageKit/DriverStation/Joystick3/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":485,"name":"/AdvantageKit/SystemStats/SystemTimeValid","properties":{},"type":"boolean"}}]
-[00:00:00.367] (16f8db000) INFO   [{"method":"announce","params":{"id":488,"name":"/AdvantageKit/RadioStatus/Status","properties":{},"type":"json"}},{"method":"announce","params":{"id":491,"name":"/AdvantageKit/PowerDistribution/ChannelCurrent","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":494,"name":"/AdvantageKit/.schema/struct:Rotation2d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":497,"name":"/AdvantageKit/DriverStation/Joystick2/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":500,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/rotationTuner","properties":{},"type":"double"}},{"method":"announce","params":{"id":503,"name":"/AdvantageKit/SystemStats/CANBus/TxFullCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":506,"name":"/AdvantageKit/DriverStation/Joystick1/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":509,"name":"/AdvantageKit/DriverStation/DSAttached","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":512,"name":"/AdvantageKit/DriverStation/Joystick5/Name","properties":{},"type":"string"}},{"method":"announce","params":{"id":515,"name":"/AdvantageKit/RealOutputs/Logger/EntryUpdateMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":518,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/TestScore/drive_speed_meters_per_sec","properties":{},"type":"double"}}]
-[00:00:00.367] (16f8db000) INFO   [{"method":"announce","params":{"id":521,"name":"/AdvantageKit/DriverStation/MatchNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":524,"name":"/AdvantageKit/SystemStats/5vRail/Active","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":527,"name":"/AdvantageKit/DriverStation/Joystick1/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":530,"name":"/AdvantageKit/PowerDistribution/ChannelCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":533,"name":"/AdvantageKit/RealOutputs/Alerts/warnings","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":536,"name":"/AdvantageKit/DriverStation/Joystick4/Name","properties":{},"type":"string"}},{"method":"announce","params":{"id":539,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Floor/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":542,"name":"/AdvantageKit/SystemStats/3v3Rail/Current","properties":{},"type":"double"}},{"method":"announce","params":{"id":545,"name":"/AdvantageKit/RealOutputs/Logger/RadioLogMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":548,"name":"/AdvantageKit/DriverStation/Joystick0/AxisValues","properties":{},"type":"float[]"}},{"method":"announce","params":{"id":551,"name":"/AdvantageKit/RealMetadata/GitSHA","properties":{},"type":"string"}}]
-[00:00:00.367] (16f8db000) INFO   [{"method":"announce","params":{"id":554,"name":"/AdvantageKit/SystemStats/6vRail/Active","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":557,"name":"/AdvantageKit/DriverStation/Joystick3/AxisTypes","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":560,"name":"/AdvantageKit/SystemStats/5vRail/Current","properties":{},"type":"double"}},{"method":"announce","params":{"id":563,"name":"/AdvantageKit/DriverStation/Joystick2/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":566,"name":"/AdvantageKit/DriverStation/Joystick2/AxisTypes","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":569,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Intake/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":572,"name":"/AdvantageKit/DriverStation/Joystick3/Name","properties":{},"type":"string"}},{"method":"announce","params":{"id":575,"name":"/AdvantageKit/SystemStats/6vRail/Current","properties":{},"type":"double"}},{"method":"announce","params":{"id":578,"name":"/AdvantageKit/RealOutputs/Drive/RightVelocityMetersPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":581,"name":"/AdvantageKit/SystemStats/BatteryCurrent","properties":{},"type":"double"}},{"method":"announce","params":{"id":584,"name":"/AdvantageKit/DriverStation/Test","properties":{},"type":"boolean"}}]
-[00:00:00.368] (16f8db000) INFO   [{"method":"announce","params":{"id":587,"name":"/AdvantageKit/RealOutputs/RobotTracker/EstimatedPose","properties":{},"type":"struct:Pose2d"}},{"method":"announce","params":{"id":590,"name":"/AdvantageKit/DriverStation/Autonomous","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":593,"name":"/AdvantageKit/.schema/struct:Pose2d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":596,"name":"/AdvantageKit/PowerDistribution/TotalEnergy","properties":{},"type":"double"}},{"method":"announce","params":{"id":599,"name":"/AdvantageKit/DriverStation/EventName","properties":{},"type":"string"}},{"method":"announce","params":{"id":602,"name":"/AdvantageKit/DriverStation/Joystick2/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":605,"name":"/AdvantageKit/PowerDistribution/TotalCurrent","properties":{},"type":"double"}},{"method":"announce","params":{"id":608,"name":"/AdvantageKit/DriverStation/Joystick0/POVs","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":611,"name":"/AdvantageKit/SystemStats/BrownoutVoltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":614,"name":"/AdvantageKit/DriverStation/Joystick3/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":617,"name":"/AdvantageKit/DriverStation/Joystick4/AxisValues","properties":{},"type":"float[]"}}]
-[00:00:00.368] (16f8db000) INFO   [{"method":"announce","params":{"id":620,"name":"/AdvantageKit/DriverStation/ReplayNumber","properties":{},"type":"int"}},{"method":"announce","params":{"id":623,"name":"/AdvantageKit/DriverStation/Enabled","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":626,"name":"/AdvantageKit/.schema/struct:ChassisSpeeds","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":629,"name":"/AdvantageKit/DriverStation/Joystick1/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":632,"name":"/AdvantageKit/RealOutputs/Logger/DriverStationMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":635,"name":"/AdvantageKit/RealOutputs/RobotTracker/OdometryPose","properties":{},"type":"struct:Pose2d"}},{"method":"announce","params":{"id":638,"name":"/AdvantageKit/DriverStation/Joystick5/ButtonValues","properties":{},"type":"int"}},{"method":"announce","params":{"id":641,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/TestScore/shoot_spin_duration_seconds","properties":{},"type":"double"}},{"method":"announce","params":{"id":644,"name":"/AdvantageKit/DriverStation/Joystick4/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":647,"name":"/AdvantageKit/SystemStats/BatteryVoltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":650,"name":"/AdvantageKit/DriverStation/Joystick1/AxisTypes","properties":{},"type":"int[]"}}]
-[00:00:00.368] (16f8db000) INFO   [{"method":"announce","params":{"id":653,"name":"/AdvantageKit/SystemStats/SerialNumber","properties":{},"type":"string"}},{"method":"announce","params":{"id":656,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/Score/wrist_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":659,"name":"/AdvantageKit/PowerDistribution/Faults","properties":{},"type":"int"}},{"method":"announce","params":{"id":662,"name":"/AdvantageKit/SystemStats/CommsDisableCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":665,"name":"/AdvantageKit/DriverStation/GameSpecificMessage","properties":{},"type":"string"}},{"method":"announce","params":{"id":668,"name":"/AdvantageKit/.schema/struct:Translation2d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":671,"name":"/AdvantageKit/DriverStation/Joystick1/AxisValues","properties":{},"type":"float[]"}},{"method":"announce","params":{"id":674,"name":"/AdvantageKit/DriverStation/Joystick4/Xbox","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":677,"name":"/AdvantageKit/SystemStats/3v3Rail/CurrentFaults","properties":{},"type":"int"}},{"method":"announce","params":{"id":680,"name":"/AdvantageKit/DriverStation/Joystick2/POVs","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":683,"name":"/AdvantageKit/RealOutputs/LoggedRobot/UserCodeMS","properties":{},"type":"double"}}]
-[00:00:00.368] (16f8db000) INFO   [{"method":"announce","params":{"id":686,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L1/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":689,"name":"/AdvantageKit/SystemStats/CANBus/OffCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":692,"name":"/AdvantageKit/RealOutputs/Drive/LeftVelocityMetersPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":695,"name":"/AdvantageKit/DriverStation/Joystick5/Type","properties":{},"type":"int"}},{"method":"announce","params":{"id":698,"name":"/AdvantageKit/RealOutputs/Logger/QueuedCycles","properties":{},"type":"int"}},{"method":"announce","params":{"id":701,"name":"/AdvantageKit/DriverStation/Joystick1/Name","properties":{},"type":"string"}},{"method":"announce","params":{"id":704,"name":"/AdvantageKit/DriverStation/Joystick2/ButtonCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":707,"name":"/AdvantageKit/SystemStats/SystemActive","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":710,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L3/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":713,"name":"/AdvantageKit/DriverStation/Joystick3/ButtonCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":716,"name":"/AdvantageKit/DriverStation/Joystick2/AxisValues","properties":{},"type":"float[]"}}]
-[00:00:00.369] (16f8db000) INFO   [{"method":"announce","params":{"id":719,"name":"/AdvantageKit/SystemStats/RSLState","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":722,"name":"/AdvantageKit/DriverStation/AllianceStation","properties":{},"type":"int"}},{"method":"announce","params":{"id":725,"name":"/AdvantageKit/DriverStation/Joystick4/ButtonCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":728,"name":"/AdvantageKit/DriverStation/Joystick5/ButtonCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":731,"name":"/AdvantageKit/RealOutputs/Logger/ConduitCaptureMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":734,"name":"/AdvantageKit/SystemStats/3v3Rail/Active","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":737,"name":"/AdvantageKit/PowerDistribution/Temperature","properties":{},"type":"double"}},{"method":"announce","params":{"id":740,"name":"/AdvantageKit/RealOutputs/Alerts/.type","properties":{},"type":"string"}},{"method":"announce","params":{"id":743,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Score/chute_tof_distance_meters","properties":{},"type":"double"}},{"method":"announce","params":{"id":746,"name":"/AdvantageKit/DriverStation/Joystick3/AxisValues","properties":{},"type":"float[]"}},{"method":"announce","params":{"id":749,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L2/elevator_height_mm","properties":{},"type":"double"}}]
-[00:00:00.369] (16f8db000) ERROR  Lagged(92)
-[00:00:00.369] (16f8db000) INFO   [{"method":"announce","params":{"id":752,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/L2/chute_pivot_angle_rads","properties":{},"type":"double"}},{"method":"announce","params":{"id":755,"name":"/AdvantageKit/DriverStation/Joystick4/AxisTypes","properties":{},"type":"int[]"}},{"method":"announce","params":{"id":758,"name":"/AdvantageKit/RealOutputs//Tuning/Defaults/Scoring/Algae/L3/elevator_height_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":761,"name":"/AdvantageKit/DriverStation/Joystick0/ButtonCount","properties":{},"type":"int"}}]
-[00:00:00.369] (16f8db000) INFO   [{"method":"announce","params":{"id":764,"name":"/AdvantageKit/DriverStation/Joystick1/ButtonCount","properties":{},"type":"int"}},{"method":"announce","params":{"id":767,"name":"/Shuffleboard/.metadata/RobotContainer/Auto Routine/Size","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":770,"name":"/Shuffleboard/.metadata/RobotContainer/Auto Routine/Position","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":773,"name":"/Shuffleboard/RobotContainer/Auto Routine/.controllable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":776,"name":"/Shuffleboard/RobotContainer/Auto Routine/.type","properties":{"SmartDashboard":"String Chooser"},"type":"string"}},{"method":"announce","params":{"id":779,"name":"/Shuffleboard/RobotContainer/Auto Routine/.instance","properties":{},"type":"int"}},{"method":"announce","params":{"id":782,"name":"/Shuffleboard/RobotContainer/Auto Routine/default","properties":{},"type":"string"}},{"method":"announce","params":{"id":785,"name":"/Shuffleboard/RobotContainer/Auto Routine/options","properties":{},"type":"string[]"}},{"method":"announce","params":{"id":788,"name":"/Shuffleboard/RobotContainer/Auto Routine/active","properties":{},"type":"string"}},{"method":"announce","params":{"id":791,"name":"/Shuffleboard/Drivebase/.type","properties":{"SmartDashboard":"ShuffleboardTab"},"type":"string"}}]
-[00:00:00.369] (16f8db000) INFO   [{"method":"announce","params":{"id":794,"name":"/Shuffleboard/Drivebase/Field2d/.controllable","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":797,"name":"/Shuffleboard/Drivebase/Field2d/.type","properties":{"SmartDashboard":"Field2d"},"type":"string"}},{"method":"announce","params":{"id":800,"name":"/Shuffleboard/Drivebase/Field2d/Robot","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":803,"name":"/AdvantageKit/Elevator/PositionMillimeters","properties":{},"type":"double"}},{"method":"announce","params":{"id":806,"name":"/AdvantageKit/Drive/LeftPositionMeters","properties":{},"type":"double"}},{"method":"announce","params":{"id":809,"name":"/AdvantageKit/Chute/CoralLoading","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":812,"name":"/AdvantageKit/Drive/Gyro/YawPosition","properties":{},"type":"struct:Rotation2d"}},{"method":"announce","params":{"id":815,"name":"/AdvantageKit/Drive/LeftAppliedVolts","properties":{},"type":"double"}},{"method":"announce","params":{"id":818,"name":"/AdvantageKit/.schema/struct:Quaternion","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":821,"name":"/AdvantageKit/RealOutputs/Chute/ready_sw","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":824,"name":"/AdvantageKit/RealOutputs/Console","properties":{},"type":"string"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"announce","params":{"id":827,"name":"/AdvantageKit/Elevator/SupplyCurrentAmps","properties":{},"type":"double"}},{"method":"announce","params":{"id":830,"name":"/AdvantageKit/RealOutputs/LoggedRobot/GCTimeMS","properties":{},"type":"double"}},{"method":"announce","params":{"id":833,"name":"/AdvantageKit/RealOutputs/Elevator/home_sw","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":836,"name":"/AdvantageKit/RealOutputs/Grabber/goal_radian","properties":{},"type":"double"}},{"method":"announce","params":{"id":839,"name":"/AdvantageKit/Chute/PivotVelocityRadPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":842,"name":"/AdvantageKit/RealOutputs/Robot/Components","properties":{},"type":"struct:Pose3d[]"}},{"method":"announce","params":{"id":845,"name":"/AdvantageKit/Climp/AngleRadians","properties":{},"type":"double"}},{"method":"announce","params":{"id":848,"name":"/AdvantageKit/.schema/struct:Pose3d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":851,"name":"/AdvantageKit/Climp/VelocityRadsPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":854,"name":"/AdvantageKit/Climp/AppliedVoltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":857,"name":"/AdvantageKit/RealOutputs/Elevator/goal_height_mm","properties":{},"type":"double"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"announce","params":{"id":860,"name":"/AdvantageKit/RealOutputs/Chute/loaded_sw","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":863,"name":"/AdvantageKit/RealOutputs/Grabber/home_sw","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":866,"name":"/AdvantageKit/Elevator/HomeBeamBroken","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":869,"name":"/AdvantageKit/Drive/LeftVelocityMetersPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":872,"name":"/AdvantageKit/RealOutputs/Elevator/isHomed","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":875,"name":"/AdvantageKit/Climp/SupplyCurrentAmps","properties":{},"type":"double"}},{"method":"announce","params":{"id":878,"name":"/AdvantageKit/Grabber/Home","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":881,"name":"/AdvantageKit/RealOutputs/RobotTracker/ScoringState/ReefBar","properties":{},"type":"string"}},{"method":"announce","params":{"id":884,"name":"/AdvantageKit/Chute/HomeSwitchPressed","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":887,"name":"/AdvantageKit/RealOutputs/RobotTracker/ScoringState/SensorState","properties":{},"type":"string"}},{"method":"announce","params":{"id":890,"name":"/AdvantageKit/Elevator/TempCelsius","properties":{},"type":"double"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"announce","params":{"id":893,"name":"/AdvantageKit/Grabber/AlgaeDistance","properties":{},"type":"double"}},{"method":"announce","params":{"id":896,"name":"/AdvantageKit/RealOutputs/LoggedRobot/GCCounts","properties":{},"type":"double"}},{"method":"announce","params":{"id":899,"name":"/AdvantageKit/Drive/RightVelocityMetersPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":902,"name":"/AdvantageKit/RealOutputs/ToF/ShootCounter","properties":{},"type":"int"}},{"method":"announce","params":{"id":905,"name":"/AdvantageKit/Elevator/AppliedVoltage","properties":{},"type":"double"}},{"method":"announce","params":{"id":908,"name":"/AdvantageKit/RealOutputs/Grabber/acquired_bool","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":911,"name":"/AdvantageKit/Chute/PivotSetpoint","properties":{},"type":"double"}},{"method":"announce","params":{"id":914,"name":"/AdvantageKit/Grabber/WristVelocityRadPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":917,"name":"/AdvantageKit/Chute/AppliedOutput","properties":{},"type":"double"}},{"method":"announce","params":{"id":920,"name":"/AdvantageKit/Elevator/VelocityMillimetersPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":923,"name":"/AdvantageKit/RealOutputs/FieldSimulation/Corals","properties":{},"type":"struct:Pose3d[]"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"announce","params":{"id":926,"name":"/AdvantageKit/RealOutputs/Grabber/isHomed","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":929,"name":"/AdvantageKit/RealOutputs/Grabber/distance_mm","properties":{},"type":"double"}},{"method":"announce","params":{"id":932,"name":"/AdvantageKit/.schema/struct:Rotation3d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":935,"name":"/AdvantageKit/Drive/Gyro/YawVelocityRadPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":938,"name":"/AdvantageKit/Drive/RightPositionMeters","properties":{},"type":"double"}},{"method":"announce","params":{"id":941,"name":"/AdvantageKit/Drive/LeftCurrentAmps","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":944,"name":"/AdvantageKit/RealOutputs/RobotTracker/ScoringState/ReefHeight","properties":{},"type":"string"}},{"method":"announce","params":{"id":947,"name":"/AdvantageKit/Drive/Gyro/Connected","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":950,"name":"/AdvantageKit/RealOutputs/Chute/home_sw","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":953,"name":"/AdvantageKit/Chute/CoralReady","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":956,"name":"/AdvantageKit/Chute/PivotAngleRadians","properties":{},"type":"double"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"announce","params":{"id":959,"name":"/AdvantageKit/Chute/ShooterVelocityRadPerSec","properties":{},"type":"double"}},{"method":"announce","params":{"id":962,"name":"/AdvantageKit/Grabber/WristAngleRadians","properties":{},"type":"double"}},{"method":"announce","params":{"id":965,"name":"/AdvantageKit/Drive/RightCurrentAmps","properties":{},"type":"double[]"}},{"method":"announce","params":{"id":968,"name":"/AdvantageKit/RealOutputs/Chute/isHomed","properties":{},"type":"boolean"}},{"method":"announce","params":{"id":971,"name":"/AdvantageKit/.schema/struct:Translation3d","properties":{},"type":"structschema"}},{"method":"announce","params":{"id":974,"name":"/AdvantageKit/Drive/RightAppliedVolts","properties":{},"type":"double"}}]
-[00:00:00.370] (16f8db000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.371] (16f8db000) ERROR  Lagged(54)
-[00:00:00.463] (16f8db000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.562] (16fcf3000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.663] (17010b000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.763] (17010b000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.862] (16f8db000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
-[00:00:00.864] (170317000) INFO   ****************************************
-[00:00:00.962] (170317000) INFO   [{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/RobotContainer/.type","update":{"SmartDashboard":"ShuffleboardTab"}}},{"method":"properties","params":{"name":"/Shuffleboard/Drivebase/.type","update":{"SmartDashboard":"ShuffleboardTab"}}}]
+[00:00:00.000] (16b227000) INFO   Attempting to establish NT connection
+[00:00:00.001] (16c287000) INFO   ****************************************
+[00:00:00.002] (16be6f000) DEBUG  Client handshake done.
+[00:00:00.102] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.103] (16c287000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:00.103] (16c287000) INFO   ****************************************
+[00:00:00.103] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.103] (16c07b000) INFO   Announced topic: /AdvantageKit/Timestamp
+[00:00:00.103] (16c07b000) ERROR  Error: Lagged(13)
+[00:00:00.103] (16c07b000) ERROR  Error: Lagged(11)
+[00:00:00.103] (16c07b000) ERROR  Error: Lagged(1)
+[00:00:00.103] (16c07b000) ERROR  Error: Lagged(7)
+[00:00:00.103] (16c07b000) ERROR  Error: Lagged(5)
+[00:00:00.104] (16c287000) INFO   ****************************************
+[00:00:00.104] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.104] (16c287000) WARN   Blocking task: channel lagged by 37
+[00:00:00.104] (16c287000) INFO   ****************************************
+[00:00:00.104] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.104] (16c287000) WARN   Blocking task: channel lagged by 8
+[00:00:00.104] (16c287000) INFO   ****************************************
+[00:00:00.104] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.104] (16c287000) WARN   Blocking task: channel lagged by 14
+[00:00:00.104] (16c287000) INFO   ****************************************
+[00:00:00.104] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.104] (16c287000) WARN   Blocking task: channel lagged by 2
+[00:00:00.105] (16c287000) INFO   ****************************************
+[00:00:00.105] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.105] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.105] (16c287000) INFO   ****************************************
+[00:00:00.105] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.105] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.105] (16c287000) INFO   ****************************************
+[00:00:00.105] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.105] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.105] (16c287000) INFO   ****************************************
+[00:00:00.105] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.105] (16c287000) WARN   Blocking task: channel lagged by 8
+[00:00:00.106] (16c287000) INFO   ****************************************
+[00:00:00.106] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.106] (16c287000) WARN   Blocking task: channel lagged by 15
+[00:00:00.106] (16c287000) INFO   ****************************************
+[00:00:00.106] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.106] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.106] (16c287000) INFO   ****************************************
+[00:00:00.106] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.106] (16c287000) WARN   Blocking task: channel lagged by 22
+[00:00:00.106] (16c287000) INFO   ****************************************
+[00:00:00.107] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.107] (16c287000) WARN   Blocking task: channel lagged by 8
+[00:00:00.107] (16c287000) INFO   ****************************************
+[00:00:00.107] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.107] (16c287000) WARN   Blocking task: channel lagged by 3
+[00:00:00.108] (16c287000) INFO   ****************************************
+[00:00:00.108] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.108] (16c287000) WARN   Blocking task: channel lagged by 3
+[00:00:00.108] (16c287000) INFO   ****************************************
+[00:00:00.108] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.108] (16c287000) WARN   Blocking task: channel lagged by 4
+[00:00:00.108] (16c287000) INFO   ****************************************
+[00:00:00.108] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.109] (16c287000) WARN   Blocking task: channel lagged by 5
+[00:00:00.109] (16c287000) INFO   ****************************************
+[00:00:00.109] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.109] (16c287000) WARN   Blocking task: channel lagged by 10
+[00:00:00.109] (16c287000) INFO   ****************************************
+[00:00:00.109] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.109] (16c287000) WARN   Blocking task: channel lagged by 4
+[00:00:00.109] (16c287000) INFO   ****************************************
+[00:00:00.109] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.109] (16c287000) WARN   Blocking task: channel lagged by 4
+[00:00:00.109] (16c287000) INFO   ****************************************
+[00:00:00.109] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.109] (16c287000) WARN   Blocking task: channel lagged by 2
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.110] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/EstimatedPose
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.110] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.110] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.110] (16c287000) WARN   Blocking task: channel lagged by 4
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.110] (16c287000) WARN   Blocking task: channel lagged by 10
+[00:00:00.110] (16c287000) INFO   ****************************************
+[00:00:00.110] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.110] (16c287000) WARN   Blocking task: channel lagged by 11
+[00:00:00.111] (16c287000) INFO   ****************************************
+[00:00:00.111] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.111] (16c287000) WARN   Blocking task: channel lagged by 20
+[00:00:00.111] (16c287000) INFO   ****************************************
+[00:00:00.111] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.111] (16c287000) WARN   Blocking task: channel lagged by 13
+[00:00:00.111] (16c287000) INFO   ****************************************
+[00:00:00.111] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.111] (16c287000) WARN   Blocking task: channel lagged by 9
+[00:00:00.111] (16c287000) INFO   ****************************************
+[00:00:00.111] (16c07b000) ERROR  Error: Lagged(26)
+[00:00:00.111] (16c07b000) ERROR  Error: Lagged(32)
+[00:00:00.111] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.111] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Elevator/goal_height_mm
+[00:00:00.111] (16c287000) INFO   ****************************************
+[00:00:00.112] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.114] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/loaded_sw
+[00:00:00.114] (16c287000) INFO   ****************************************
+[00:00:00.114] (16c287000) INFO   3333333333333333333333333333333333333333
+[00:00:00.114] (16c287000) WARN   Blocking task: channel lagged by 16
+[00:00:00.114] (16c287000) INFO   ****************************************
+[00:00:00.114] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.114] (16c287000) INFO   Announced topic: /AdvantageKit/Chute/PivotSetpoint
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.115] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.115] (16c287000) INFO   Announced topic: /AdvantageKit/Grabber/WristVelocityRadPerSec
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.115] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.115] (16c287000) INFO   Announced topic: /AdvantageKit/Chute/AppliedOutput
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.115] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.115] (16c287000) INFO   Announced topic: /AdvantageKit/Elevator/VelocityMillimetersPerSec
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.115] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.115] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/FieldSimulation/Corals
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.115] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.115] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/isHomed
+[00:00:00.115] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.116] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Grabber/distance_mm
+[00:00:00.116] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.116] (16c287000) INFO   Announced topic: /AdvantageKit/.schema/struct:Rotation3d
+[00:00:00.116] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.116] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/Gyro/YawVelocityRadPerSec
+[00:00:00.116] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.116] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/RightPositionMeters
+[00:00:00.116] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.116] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/LeftCurrentAmps
+[00:00:00.116] (16c287000) INFO   ****************************************
+[00:00:00.116] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/RobotTracker/ScoringState/ReefHeight
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/Gyro/Connected
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/home_sw
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/Chute/CoralReady
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/Chute/PivotAngleRadians
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.117] (16c287000) INFO   Announced topic: /AdvantageKit/Chute/ShooterVelocityRadPerSec
+[00:00:00.117] (16c287000) INFO   ****************************************
+[00:00:00.117] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.118] (16c287000) INFO   Announced topic: /AdvantageKit/Grabber/WristAngleRadians
+[00:00:00.118] (16c287000) INFO   ****************************************
+[00:00:00.118] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.118] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/RightCurrentAmps
+[00:00:00.118] (16c287000) INFO   ****************************************
+[00:00:00.118] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.118] (16c287000) INFO   Announced topic: /AdvantageKit/RealOutputs/Chute/isHomed
+[00:00:00.118] (16c287000) INFO   ****************************************
+[00:00:00.118] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.118] (16c287000) INFO   Announced topic: /AdvantageKit/.schema/struct:Translation3d
+[00:00:00.118] (16c287000) INFO   ****************************************
+[00:00:00.119] (16c287000) INFO   1111111111111111111111111111111111111111
+[00:00:00.119] (16c287000) INFO   Announced topic: /AdvantageKit/Drive/RightAppliedVolts
+[00:00:00.119] (16c287000) INFO   ****************************************
+[00:00:00.203] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.203] (16c287000) INFO   ****************************************
+[00:00:00.304] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.304] (16c287000) INFO   ****************************************
+[00:00:00.404] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.404] (16c287000) INFO   ****************************************
+[00:00:00.506] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.506] (16c287000) INFO   ****************************************
+[00:00:00.605] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.605] (16c287000) INFO   ****************************************
+[00:00:00.706] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.707] (16c287000) INFO   ****************************************
+[00:00:00.806] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.806] (16c287000) INFO   ****************************************
+[00:00:00.907] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:00.908] (16c287000) INFO   ****************************************
+[00:00:01.006] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.006] (16c287000) INFO   ****************************************
+[00:00:01.108] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.110] (16c287000) INFO   ****************************************
+[00:00:01.208] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.208] (16c287000) INFO   ****************************************
+[00:00:01.307] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.307] (16c287000) INFO   ****************************************
+[00:00:01.408] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.408] (16c287000) INFO   ****************************************
+[00:00:01.509] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.509] (16c287000) INFO   ****************************************
+[00:00:01.609] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.609] (16c287000) INFO   ****************************************
+[00:00:01.710] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.711] (16c287000) INFO   ****************************************
+[00:00:01.811] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.811] (16c287000) INFO   ****************************************
+[00:00:01.913] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:01.913] (16c287000) INFO   ****************************************
+[00:00:02.013] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.013] (16c287000) INFO   ****************************************
+[00:00:02.113] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.114] (16c287000) INFO   ****************************************
+[00:00:02.213] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.213] (16c287000) INFO   ****************************************
+[00:00:02.314] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.315] (16c287000) INFO   ****************************************
+[00:00:02.415] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.416] (16c287000) INFO   ****************************************
+[00:00:02.516] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.516] (16c287000) INFO   ****************************************
+[00:00:02.616] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.616] (16c287000) INFO   ****************************************
+[00:00:02.718] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.719] (16c287000) INFO   ****************************************
+[00:00:02.818] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.819] (16c287000) INFO   ****************************************
+[00:00:02.919] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:02.920] (16c287000) INFO   ****************************************
+[00:00:03.020] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.021] (16c287000) INFO   ****************************************
+[00:00:03.122] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.122] (16c287000) INFO   ****************************************
+[00:00:03.222] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.222] (16c287000) INFO   ****************************************
+[00:00:03.323] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.323] (16c287000) INFO   ****************************************
+[00:00:03.424] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.424] (16c287000) INFO   ****************************************
+[00:00:03.524] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.524] (16c287000) INFO   ****************************************
+[00:00:03.624] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.624] (16c287000) INFO   ****************************************
+[00:00:03.726] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.726] (16c287000) INFO   ****************************************
+[00:00:03.827] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.828] (16c287000) INFO   ****************************************
+[00:00:03.929] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:03.929] (16c287000) INFO   ****************************************
+[00:00:04.030] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.030] (16c287000) INFO   ****************************************
+[00:00:04.130] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.131] (16c287000) INFO   ****************************************
+[00:00:04.232] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.232] (16c287000) INFO   ****************************************
+[00:00:04.334] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.334] (16c287000) INFO   ****************************************
+[00:00:04.435] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.435] (16c287000) INFO   ****************************************
+[00:00:04.535] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.535] (16c287000) INFO   ****************************************
+[00:00:04.634] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.634] (16c287000) INFO   ****************************************
+[00:00:04.735] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.735] (16c287000) INFO   ****************************************
+[00:00:04.836] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.836] (16c287000) INFO   ****************************************
+[00:00:04.936] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:04.936] (16c287000) INFO   ****************************************
+[00:00:05.037] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.037] (16c287000) INFO   ****************************************
+[00:00:05.138] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.138] (16c287000) INFO   ****************************************
+[00:00:05.237] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.238] (16c287000) INFO   ****************************************
+[00:00:05.337] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.338] (16c287000) INFO   ****************************************
+[00:00:05.438] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.438] (16c287000) INFO   ****************************************
+[00:00:05.538] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.538] (16c287000) INFO   ****************************************
+[00:00:05.637] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.637] (16c287000) INFO   ****************************************
+[00:00:05.738] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.738] (16c287000) INFO   ****************************************
+[00:00:05.838] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.838] (16c287000) INFO   ****************************************
+[00:00:05.939] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:05.939] (16c287000) INFO   ****************************************
+[00:00:06.039] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.039] (16c287000) INFO   ****************************************
+[00:00:06.139] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.139] (16c287000) INFO   ****************************************
+[00:00:06.240] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.243] (16c287000) INFO   ****************************************
+[00:00:06.340] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.340] (16c287000) INFO   ****************************************
+[00:00:06.440] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.440] (16c287000) INFO   ****************************************
+[00:00:06.540] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.540] (16c287000) INFO   ****************************************
+[00:00:06.640] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.640] (16c287000) INFO   ****************************************
+[00:00:06.740] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.740] (16c287000) INFO   ****************************************
+[00:00:06.840] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.840] (16c287000) INFO   ****************************************
+[00:00:06.941] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:06.941] (16c287000) INFO   ****************************************
+[00:00:07.041] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.041] (16c287000) INFO   ****************************************
+[00:00:07.142] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.142] (16c287000) INFO   ****************************************
+[00:00:07.244] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.244] (16c287000) INFO   ****************************************
+[00:00:07.347] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.348] (16c287000) INFO   ****************************************
+[00:00:07.446] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.448] (16c287000) INFO   ****************************************
+[00:00:07.546] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.546] (16c287000) INFO   ****************************************
+[00:00:07.647] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.647] (16c287000) INFO   ****************************************
+[00:00:07.747] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.747] (16c287000) INFO   ****************************************
+[00:00:07.848] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.848] (16c287000) INFO   ****************************************
+[00:00:07.949] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:07.949] (16c287000) INFO   ****************************************
+[00:00:08.049] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.049] (16c287000) INFO   ****************************************
+[00:00:08.149] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.149] (16c287000) INFO   ****************************************
+[00:00:08.250] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.250] (16c287000) INFO   ****************************************
+[00:00:08.351] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.351] (16c287000) INFO   ****************************************
+[00:00:08.453] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.453] (16c287000) INFO   ****************************************
+[00:00:08.553] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.553] (16c287000) INFO   ****************************************
+[00:00:08.653] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.653] (16c287000) INFO   ****************************************
+[00:00:08.753] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.753] (16c287000) INFO   ****************************************
+[00:00:08.853] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.853] (16c287000) INFO   ****************************************
+[00:00:08.953] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:08.953] (16c287000) INFO   ****************************************
+[00:00:09.053] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.054] (16c287000) INFO   ****************************************
+[00:00:09.153] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.153] (16c287000) INFO   ****************************************
+[00:00:09.253] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.253] (16c287000) INFO   ****************************************
+[00:00:09.353] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.353] (16c287000) INFO   ****************************************
+[00:00:09.454] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.454] (16c287000) INFO   ****************************************
+[00:00:09.553] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.553] (16c287000) INFO   ****************************************
+[00:00:09.653] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.653] (16c287000) INFO   ****************************************
+[00:00:09.753] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.753] (16c287000) INFO   ****************************************
+[00:00:09.853] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.854] (16c287000) INFO   ****************************************
+[00:00:09.954] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:09.954] (16c287000) INFO   ****************************************
+[00:00:10.053] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.053] (16c287000) INFO   ****************************************
+[00:00:10.153] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.153] (16c287000) INFO   ****************************************
+[00:00:10.254] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.254] (16c287000) INFO   ****************************************
+[00:00:10.353] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.353] (16c287000) INFO   ****************************************
+[00:00:10.453] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.454] (16c287000) INFO   ****************************************
+[00:00:10.553] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.553] (16c287000) INFO   ****************************************
+[00:00:10.653] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.653] (16c287000) INFO   ****************************************
+[00:00:10.753] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.753] (16c287000) INFO   ****************************************
+[00:00:10.853] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.853] (16c287000) INFO   ****************************************
+[00:00:10.953] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:10.953] (16c287000) INFO   ****************************************
+[00:00:11.053] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.053] (16c287000) INFO   ****************************************
+[00:00:11.153] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.153] (16c287000) INFO   ****************************************
+[00:00:11.253] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.253] (16c287000) INFO   ****************************************
+[00:00:11.353] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.353] (16c287000) INFO   ****************************************
+[00:00:11.453] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.453] (16c287000) INFO   ****************************************
+[00:00:11.553] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.553] (16c287000) INFO   ****************************************
+[00:00:11.654] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.654] (16c287000) INFO   ****************************************
+[00:00:11.753] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.753] (16c287000) INFO   ****************************************
+[00:00:11.853] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.853] (16c287000) INFO   ****************************************
+[00:00:11.953] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:11.953] (16c287000) INFO   ****************************************
+[00:00:12.054] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.054] (16c287000) INFO   ****************************************
+[00:00:12.155] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.155] (16c287000) INFO   ****************************************
+[00:00:12.254] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.254] (16c287000) INFO   ****************************************
+[00:00:12.354] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.354] (16c287000) INFO   ****************************************
+[00:00:12.456] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.456] (16c287000) INFO   ****************************************
+[00:00:12.557] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.557] (16c287000) INFO   ****************************************
+[00:00:12.658] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.658] (16c287000) INFO   ****************************************
+[00:00:12.758] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.758] (16c287000) INFO   ****************************************
+[00:00:12.859] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.859] (16c287000) INFO   ****************************************
+[00:00:12.960] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:12.960] (16c287000) INFO   ****************************************
+[00:00:13.060] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.060] (16c287000) INFO   ****************************************
+[00:00:13.160] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.160] (16c287000) INFO   ****************************************
+[00:00:13.261] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.261] (16c287000) INFO   ****************************************
+[00:00:13.362] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.362] (16c287000) INFO   ****************************************
+[00:00:13.462] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.462] (16c287000) INFO   ****************************************
+[00:00:13.562] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.562] (16c287000) INFO   ****************************************
+[00:00:13.662] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.662] (16c287000) INFO   ****************************************
+[00:00:13.762] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.762] (16c287000) INFO   ****************************************
+[00:00:13.862] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.862] (16c287000) INFO   ****************************************
+[00:00:13.962] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:13.962] (16c287000) INFO   ****************************************
+[00:00:14.063] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.063] (16c287000) INFO   ****************************************
+[00:00:14.163] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.163] (16c287000) INFO   ****************************************
+[00:00:14.267] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.268] (16c287000) INFO   ****************************************
+[00:00:14.367] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.367] (16c287000) INFO   ****************************************
+[00:00:14.468] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.469] (16c287000) INFO   ****************************************
+[00:00:14.569] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.569] (16c287000) INFO   ****************************************
+[00:00:14.671] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.671] (16c287000) INFO   ****************************************
+[00:00:14.770] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.770] (16c287000) INFO   ****************************************
+[00:00:14.871] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.871] (16c287000) INFO   ****************************************
+[00:00:14.971] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:14.971] (16c287000) INFO   ****************************************
+[00:00:15.072] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.072] (16c287000) INFO   ****************************************
+[00:00:15.173] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.173] (16c287000) INFO   ****************************************
+[00:00:15.273] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.274] (16c287000) INFO   ****************************************
+[00:00:15.376] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.378] (16c287000) INFO   ****************************************
+[00:00:15.476] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.476] (16c287000) INFO   ****************************************
+[00:00:15.576] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.576] (16c287000) INFO   ****************************************
+[00:00:15.676] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.677] (16c287000) INFO   ****************************************
+[00:00:15.777] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.777] (16c287000) INFO   ****************************************
+[00:00:15.879] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.879] (16c287000) INFO   ****************************************
+[00:00:15.980] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:15.980] (16c287000) INFO   ****************************************
+[00:00:16.080] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.081] (16c287000) INFO   ****************************************
+[00:00:16.182] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.182] (16c287000) INFO   ****************************************
+[00:00:16.282] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.282] (16c287000) INFO   ****************************************
+[00:00:16.383] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.383] (16c287000) INFO   ****************************************
+[00:00:16.482] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.482] (16c287000) INFO   ****************************************
+[00:00:16.585] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.586] (16c287000) INFO   ****************************************
+[00:00:16.683] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.684] (16c287000) INFO   ****************************************
+[00:00:16.784] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.785] (16c287000) INFO   ****************************************
+[00:00:16.884] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.884] (16c287000) INFO   ****************************************
+[00:00:16.985] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:16.985] (16c287000) INFO   ****************************************
+[00:00:17.085] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.085] (16c287000) INFO   ****************************************
+[00:00:17.186] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.187] (16c287000) INFO   ****************************************
+[00:00:17.284] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.284] (16c287000) INFO   ****************************************
+[00:00:17.385] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.385] (16c287000) INFO   ****************************************
+[00:00:17.485] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.485] (16c287000) INFO   ****************************************
+[00:00:17.586] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.586] (16c287000) INFO   ****************************************
+[00:00:17.687] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.688] (16c287000) INFO   ****************************************
+[00:00:17.786] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.787] (16c287000) INFO   ****************************************
+[00:00:17.887] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.887] (16c287000) INFO   ****************************************
+[00:00:17.987] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:17.987] (16c287000) INFO   ****************************************
+[00:00:18.087] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.087] (16c287000) INFO   ****************************************
+[00:00:18.189] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.189] (16c287000) INFO   ****************************************
+[00:00:18.289] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.289] (16c287000) INFO   ****************************************
+[00:00:18.389] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.389] (16c287000) INFO   ****************************************
+[00:00:18.492] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.492] (16c287000) INFO   ****************************************
+[00:00:18.592] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.592] (16c287000) INFO   ****************************************
+[00:00:18.693] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.694] (16c287000) INFO   ****************************************
+[00:00:18.794] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.794] (16c287000) INFO   ****************************************
+[00:00:18.895] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.895] (16c287000) INFO   ****************************************
+[00:00:18.997] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:18.998] (16c287000) INFO   ****************************************
+[00:00:19.097] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.097] (16c287000) INFO   ****************************************
+[00:00:19.198] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.199] (16c287000) INFO   ****************************************
+[00:00:19.300] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.300] (16c287000) INFO   ****************************************
+[00:00:19.401] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.401] (16c287000) INFO   ****************************************
+[00:00:19.501] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.501] (16c287000) INFO   ****************************************
+[00:00:19.602] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.602] (16c287000) INFO   ****************************************
+[00:00:19.703] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.704] (16c287000) INFO   ****************************************
+[00:00:19.804] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.804] (16c287000) INFO   ****************************************
+[00:00:19.904] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:19.904] (16c287000) INFO   ****************************************
+[00:00:20.005] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.005] (16c287000) INFO   ****************************************
+[00:00:20.104] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.104] (16c287000) INFO   ****************************************
+[00:00:20.205] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.205] (16c287000) INFO   ****************************************
+[00:00:20.305] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.307] (16c287000) INFO   ****************************************
+[00:00:20.405] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.405] (16c287000) INFO   ****************************************
+[00:00:20.504] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.505] (16c287000) INFO   ****************************************
+[00:00:20.604] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.604] (16c287000) INFO   ****************************************
+[00:00:20.706] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.706] (16c287000) INFO   ****************************************
+[00:00:20.804] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.805] (16c287000) INFO   ****************************************
+[00:00:20.905] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:20.905] (16c287000) INFO   ****************************************
+[00:00:21.005] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.005] (16c287000) INFO   ****************************************
+[00:00:21.106] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.106] (16c287000) INFO   ****************************************
+[00:00:21.206] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.206] (16c287000) INFO   ****************************************
+[00:00:21.306] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.306] (16c287000) INFO   ****************************************
+[00:00:21.405] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.405] (16c287000) INFO   ****************************************
+[00:00:21.505] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.505] (16c287000) INFO   ****************************************
+[00:00:21.605] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.605] (16c287000) INFO   ****************************************
+[00:00:21.705] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.705] (16c287000) INFO   ****************************************
+[00:00:21.805] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.805] (16c287000) INFO   ****************************************
+[00:00:21.905] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:21.905] (16c287000) INFO   ****************************************
+[00:00:22.005] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.006] (16c287000) INFO   ****************************************
+[00:00:22.106] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.107] (16c287000) INFO   ****************************************
+[00:00:22.205] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.205] (16c287000) INFO   ****************************************
+[00:00:22.306] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.306] (16c287000) INFO   ****************************************
+[00:00:22.405] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.405] (16c287000) INFO   ****************************************
+[00:00:22.505] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.505] (16c287000) INFO   ****************************************
+[00:00:22.606] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.606] (16c287000) INFO   ****************************************
+[00:00:22.707] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.707] (16c287000) INFO   ****************************************
+[00:00:22.807] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.807] (16c287000) INFO   ****************************************
+[00:00:22.907] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:22.907] (16c287000) INFO   ****************************************
+[00:00:23.009] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:23.010] (16c287000) INFO   ****************************************
+[00:00:23.107] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:23.107] (16c287000) INFO   ****************************************
+[00:00:23.206] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:23.206] (16c287000) INFO   ****************************************
+[00:00:23.307] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:23.307] (16c287000) INFO   ****************************************
+[00:00:23.407] (16c287000) INFO   4444444444444444444444444444444444444444
+[00:00:23.407] (16c287000) INFO   ****************************************

@@ -1,6 +1,7 @@
 use crate::ui::ConnectionStatus;
 use log::error;
 use log::info;
+use log::warn;
 use nt_client::NewClientOptions;
 use nt_client::data::SubscriptionOptions;
 use nt_client::subscribe::ReceivedMessage;
@@ -23,7 +24,11 @@ pub enum NtUpdate {
 
 pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: TopicCollection) {
     // Convert individual topics to a TopicCollection
-    let mut subscriber = topics.subscribe(Default::default()).await;
+    let mut subscriber = topics
+        .subscribe(SubscriptionOptions {
+            ..Default::default()
+        })
+        .await;
 
     // If we're subscribing successfully, mark as connected
     let _ = sender.send(NtUpdate::ConnectionStatus(ConnectionStatus::Connected));
@@ -45,7 +50,7 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: TopicCollection) {
                 info!("Unannounced topic: {}", name);
             }
             Err(err) => {
-                error!("{err:?}");
+                error!("Error: {err:?}");
             }
         }
     }
@@ -84,23 +89,29 @@ pub async fn get_available_topics(sender: Sender<NtUpdate>, sub_topic: Topic) {
             ..Default::default()
         })
         .await;
+
+    // Process the received messages in the loop without cloning sender each time
     loop {
         info!("****************************************");
         match subscriber.recv().await {
             Ok(ReceivedMessage::Announced(topic)) => {
+                info!("1111111111111111111111111111111111111111");
                 let topic_name = topic.name().to_string();
                 info!("Announced topic: {}", topic_name);
             }
             Ok(ReceivedMessage::Unannounced { name, .. }) => {
+                info!("2222222222222222222222222222222222222222");
                 info!("Unannounced topic: {}", name);
             }
-            Err(err) => {
-                eprintln!("{err:?}");
-                let _ = sender.send(NtUpdate::ConnectionStatus(ConnectionStatus::Disconnected));
-                break;
+            Err(e) => {
+                info!("3333333333333333333333333333333333333333");
+                warn!("Blocking task: {}", e);
             }
-            _ => {} // should never recieve values with topics_only
+            Ok(ReceivedMessage::Updated((topic, value))) => {
+                info!("4444444444444444444444444444444444444444");
+                let value = value.to_string().trim().to_string();
+                sender.send(NtUpdate::KV(topic.name().to_string(), value));
+            }
         }
-        thread::sleep(Duration::from_millis(500));
     }
 }

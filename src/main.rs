@@ -46,7 +46,6 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             // FIXME: initialize this elsewhere
             let initial_topics = vec![
                 "/AdvantageKit/Timestamp",
-                "/",
             ].to_owned();
 
 
@@ -54,17 +53,28 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Connecting));
             info!("Attempting to establish NT connection");
 
-            // Simulate connection attempt delay to show the connecting state
-            tokio::time::sleep(Duration::from_millis(250)).await;
-
             // Create topics collection for initial topics
             let topics = client.topics(initial_topics.iter().map(|name| name.to_string()).collect());
-            let nt_task = tokio::spawn(nt::run_nt_client(sender.clone(), topics));
+            let topic_sender = sender.clone();
+            std::thread::spawn(move || {
+                let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().expect("failed to start thread for TOPIC");
+                rt.block_on(async {
+                    nt::run_nt_client(topic_sender, topics).await;
+                });
+            });
 
             // Start NT client handler that processes messages
-            let all = client.topic("");
-            tokio::spawn(nt::get_available_topics(sender.clone(), all));
-            // Wait for either connection error or NT processing error
+            let all = client.topic("/");
+            let all_sender = sender.clone();
+            let all_clone = all.clone();
+            // Move heavy topic processing to a dedicated thread to avoid lagging main tasks
+            std::thread::spawn(move || {
+                let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().expect("failed to start thread for ALL");
+                rt.block_on(async {
+                    nt::get_available_topics(all_sender, all_clone).await;
+                });
+            });
+
             tokio::select! {
                 conn_result = client.connect() => {
                     // Connection closed or errored
@@ -77,13 +87,6 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
                         Ok(_) => Err(ReconnectError::Nonfatal("Connection closed".into())),
                         Err(e) => Err(ReconnectError::Nonfatal(e.into())),
                     }
-                },
-                nt_result = nt_task => {
-                    // NT processing task ended
-                    let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Disconnected));
-
-                    // Map errors appropriately
-                    nt_result.map_err(|err| ReconnectError::Fatal(err.into()))
                 }
             }
         }
