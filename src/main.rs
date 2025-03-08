@@ -1,12 +1,13 @@
+mod config;
+mod fuzzy;
 mod nt;
 mod ui;
-
-use std::sync::mpsc;
-use std::time::Duration;
 
 use crate::ui::ConnectionStatus;
 use log::{LevelFilter, error, info};
 use nt_client::{Client, NTAddr, NewClientOptions};
+use std::sync::mpsc;
+use std::time::Duration;
 
 #[tokio::main]
 async fn main() {

@@ -9,6 +9,7 @@ use std::sync::mpsc::Sender;
 pub enum NtUpdate {
     KV(String, String),
     ConnectionStatus(ConnectionStatus),
+    AvailableTopics(Vec<String>),
 }
 
 // This function handles a single topic subscription
@@ -18,10 +19,21 @@ async fn handle_topic(sender: Sender<NtUpdate>, topic: Topic) {
     // If we're subscribing successfully, mark as connected
     let _ = sender.send(NtUpdate::ConnectionStatus(ConnectionStatus::Connected));
 
+    // Collection of available topics
+    let mut available_topics = Vec::new();
+
     loop {
         match subscriber.recv().await {
             Ok(ReceivedMessage::Announced(topic)) => {
-                info!("Announced topic: {}", topic.name());
+                let topic_name = topic.name().to_string();
+                info!("Announced topic: {}", topic_name);
+
+                // Add to available topics
+                if !available_topics.contains(&topic_name) {
+                    available_topics.push(topic_name);
+                    // Send updated list of topics
+                    let _ = sender.send(NtUpdate::AvailableTopics(available_topics.clone()));
+                }
             }
             Ok(ReceivedMessage::Updated((topic, value))) => {
                 let value = value.to_string().trim().to_string();
@@ -29,6 +41,13 @@ async fn handle_topic(sender: Sender<NtUpdate>, topic: Topic) {
             }
             Ok(ReceivedMessage::Unannounced { name, .. }) => {
                 info!("Unannounced topic: {}", name);
+
+                // Remove from available topics
+                if let Some(index) = available_topics.iter().position(|t| t == &name) {
+                    available_topics.remove(index);
+                    // Send updated list of topics
+                    let _ = sender.send(NtUpdate::AvailableTopics(available_topics.clone()));
+                }
             }
             Err(err) => {
                 eprintln!("{err:?}");

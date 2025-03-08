@@ -1,16 +1,16 @@
-use crate::nt::NtUpdate;
+use crate::{fuzzy::FuzzySearch, nt::NtUpdate};
 use crossterm::{
-    event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
+    event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyModifiers},
     execute,
     terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
 use ratatui::{
     Terminal,
     backend::CrosstermBackend,
-    layout::{Alignment, Constraint, Direction, Layout},
-    style::{Color, Style},
+    layout::{Alignment, Constraint, Direction, Layout, Rect},
+    style::{Color, Modifier, Style},
     text::{Line, Span},
-    widgets::{Block, Borders, Paragraph},
+    widgets::{Block, Borders, Clear, List, ListItem, Paragraph},
 };
 use std::{
     collections::HashMap,
@@ -25,16 +25,27 @@ pub enum ConnectionStatus {
     Disconnected,
 }
 
-pub struct App {
-    values: HashMap<String, String>,
-    connection_status: ConnectionStatus,
+#[derive(Debug, Clone, PartialEq)]
+pub enum Window {
+    Main,
+    FuzzySearch,
 }
 
+pub struct App {
+    pub values: HashMap<String, String>,
+    pub connection_status: ConnectionStatus,
+    pub available_topics: Vec<String>,
+    pub mode: Window,
+    pub fuzzy_search: FuzzySearch,
+}
 impl App {
-    fn new() -> App {
+    pub fn new() -> App {
         App {
             values: HashMap::new(),
             connection_status: ConnectionStatus::Disconnected,
+            available_topics: Vec::new(),
+            mode: Window::Main,
+            fuzzy_search: FuzzySearch::new(),
         }
     }
 }
@@ -56,17 +67,56 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
 
     loop {
         // Draw UI
-        terminal.draw(|f| ui(f, &app))?;
+        terminal.draw(|f| ui(f, &mut app))?;
 
         // Check for events (with timeout)
         let timeout = tick_rate
             .checked_sub(last_tick.elapsed())
             .unwrap_or_else(|| Duration::from_secs(0));
 
+        ////////////////////////////////////////
+        // Key bindings
+        ////////////////////////////////////////
         if event::poll(timeout)? {
             if let Event::Key(key) = event::read()? {
-                if key.code == KeyCode::Char('q') {
-                    break;
+                match app.mode {
+                    Window::Main => match key.code {
+                        KeyCode::Char('q') => break,
+                        KeyCode::Char('a') => app.enter_fuzzy_search(),
+                        _ => {}
+                    },
+                    Window::FuzzySearch => {
+                        match key.code {
+                            KeyCode::Esc => app.exit_fuzzy_search(),
+                            KeyCode::Enter => {
+                                if let Some(selected) = app.handle_search_selection() {
+                                    // TODO: Add selected topic to subscription list
+                                    todo!()
+                                }
+                            }
+                            KeyCode::Char('k') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                                app.fuzzy_search.move_selection(-1);
+                            }
+                            KeyCode::Char('j') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                                app.fuzzy_search.move_selection(1);
+                            }
+                            KeyCode::Up => {
+                                app.fuzzy_search.move_selection(-1);
+                            }
+                            KeyCode::Down => {
+                                app.fuzzy_search.move_selection(1);
+                            }
+                            KeyCode::Backspace => {
+                                app.fuzzy_search.input.pop();
+                                app.fuzzy_search.update_matches(&app.available_topics);
+                            }
+                            KeyCode::Char(c) => {
+                                app.fuzzy_search.input.push(c);
+                                app.fuzzy_search.update_matches(&app.available_topics);
+                            }
+                            _ => {}
+                        }
+                    }
                 }
             }
         }
@@ -81,6 +131,12 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                 }
                 NtUpdate::ConnectionStatus(status) => {
                     app.connection_status = status;
+                }
+                NtUpdate::AvailableTopics(topics) => {
+                    app.available_topics = topics;
+                    if app.mode == Window::FuzzySearch {
+                        app.fuzzy_search.update_matches(&app.available_topics);
+                    }
                 }
             }
         }
@@ -103,18 +159,18 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui(f: &mut ratatui::Frame, app: &App) {
+fn ui(f: &mut ratatui::Frame, app: &mut App) {
     let size = f.area();
 
-    // Create the layout with 3 sections (NT values, help text, status bar)
+    // Create the layout with sections
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .margin(1)
         .constraints(
             [
                 Constraint::Min(1),    // NT values (takes up all available space)
-                Constraint::Length(3), // Help text (single line)
-                Constraint::Length(1), // Status bar
+                Constraint::Length(3), // Status bar
+                Constraint::Length(1), // Help text
             ]
             .as_ref(),
         )
@@ -166,15 +222,95 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
     .alignment(Alignment::Center);
 
     f.render_widget(status_text, chunks[1]);
+
     ////////////////////////////////////////
     // Help text
     ////////////////////////////////////////
-    let help_text = Paragraph::new(Line::from(vec![
-        Span::raw("Press "),
-        Span::styled("q", Style::default().fg(Color::Red)),
-        Span::raw(" to quit"),
-    ]))
-    .alignment(Alignment::Center);
+    let help_text = match app.mode {
+        Window::Main => Line::from(vec![
+            Span::raw("Press "),
+            Span::styled("q", Style::default().fg(Color::Red)),
+            Span::raw(" to quit"),
+            Span::styled(" | ", Style::default().fg(Color::Black)),
+            Span::styled("a", Style::default().fg(Color::Green)),
+            Span::raw(" to search topics"),
+        ]),
+        Window::FuzzySearch => Line::from(vec![
+            Span::raw("Press "),
+            Span::styled("Esc", Style::default().fg(Color::Red)),
+            Span::raw(" to cancel | "),
+            Span::styled("Enter", Style::default().fg(Color::Green)),
+            Span::raw(" to select | "),
+            Span::styled("Ctrl+↑/↓", Style::default().fg(Color::Yellow)),
+            Span::raw(" to navigate"),
+        ]),
+    };
 
-    f.render_widget(help_text, chunks[2]);
+    let help_paragraph = Paragraph::new(help_text).alignment(Alignment::Center);
+    f.render_widget(help_paragraph, chunks[2]);
+
+    ////////////////////////////////////////
+    // Fuzzy Search (if active)
+    ////////////////////////////////////////
+    if app.mode == Window::FuzzySearch {
+        // Calculate popup dimensions
+        let popup_width = size.width.min(100).max(70);
+        let popup_height = size.height.min(20).max(10);
+
+        let popup_x = (size.width - popup_width) / 2;
+        let popup_y = (size.height - popup_height) / 2;
+
+        let popup_area = Rect::new(popup_x, popup_y, popup_width, popup_height);
+
+        // Create a clear background for the popup
+        f.render_widget(Clear, popup_area);
+
+        // Split popup into search input and results list
+        let popup_layout = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints([
+                Constraint::Length(3), // Search input
+                Constraint::Min(1),    // Results list
+            ])
+            .split(popup_area);
+
+        // Render search input
+        let input_block = Block::default()
+            .title("Search NT Topics")
+            .borders(Borders::ALL);
+
+        let input_text = Paragraph::new(app.fuzzy_search.input.as_str())
+            .style(Style::default())
+            .block(input_block);
+
+        f.render_widget(input_text, popup_layout[0]);
+
+        // Render results list
+        let results_block = Block::default()
+            .title(format!(
+                "Results ({} found)",
+                app.fuzzy_search.matches.len()
+            ))
+            .borders(Borders::ALL);
+
+        let list_items: Vec<ListItem> = app
+            .fuzzy_search
+            .matches
+            .iter()
+            .map(|topic| ListItem::new(topic.as_str()))
+            .collect();
+
+        let results_list = List::new(list_items).block(results_block).highlight_style(
+            Style::default()
+                .bg(Color::DarkGray)
+                .fg(Color::White)
+                .add_modifier(Modifier::BOLD),
+        );
+
+        f.render_stateful_widget(
+            results_list,
+            popup_layout[1],
+            &mut app.fuzzy_search.list_state,
+        );
+    }
 }
