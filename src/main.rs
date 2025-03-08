@@ -29,8 +29,8 @@ async fn main() {
     let nt_task = tokio::spawn(run_nt_with_reconnect(sender.clone(), client_opts.clone()));
 
     // Run the UI with the receiver (this blocks the main thread)
-    // ui::run_ui(receiver).unwrap();
-    thread::sleep(Duration::from_secs(100));
+    ui::run_ui(receiver).unwrap();
+    // thread::sleep(Duration::from_secs(100));
 
     // When UI exits, abort all tasks
     nt_task.abort();
@@ -46,6 +46,11 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             // FIXME: initialize this elsewhere
             let initial_topics = vec![
                 "/AdvantageKit/Timestamp",
+    "/AdvantageKit/RealOutputs/Logger/AutoLogMS",
+    "/AdvantageKit/SystemStats/CANBus/ReceiveErrorCount",
+    "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
+    "/AdvantageKit/DriverStation/Joystick1/POVs",
+    "/AdvantageKit/RealOutputs/Logger/DashboardInputsMS",
             ].to_owned();
 
 
