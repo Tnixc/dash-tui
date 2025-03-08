@@ -3,14 +3,12 @@ mod ui;
 
 use std::sync::mpsc;
 
+use log::LevelFilter;
 use nt_client::{Client, NTAddr, NewClientOptions};
-use tracing::level_filters::LevelFilter;
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt()
-        .with_max_level(LevelFilter::INFO)
-        .init();
+    let _ = simple_logging::log_to_file("test.log", LevelFilter::Info);
     // Create channel for NT updates
     let (sender, receiver) = mpsc::channel();
 
@@ -19,15 +17,17 @@ async fn main() {
 
     let client = Client::new(NewClientOptions {
         addr: NTAddr::Local,
-        // custom WSL ip
-        // addr: NTAddr::Custom(Ipv4Addr::new(172, 30, 64, 1)),
+        // addr: NTAddr::Custom(Ipv4Addr::new(10.80.89.2)),
         ..Default::default()
     });
 
-    let sub_topic = client.topic("/AdvantageKit/Timestamp");
+    let topics = vec![
+        client.topic("/AdvantageKit/Timestamp"),
+        client.topic("/AdvantageKit/RealOutputs/Drive/LeftPositionMeters"),
+    ];
     // Spawn NT client task in the runtime
-    let nt_handle = rt.spawn(nt::run_nt_client(sender, sub_topic));
-    
+    let nt_handle = rt.spawn(nt::run_nt_client(sender, topics));
+
     // Spawn a thread to run the client connection which is blocking
     tokio::spawn(async move {
         client.connect().await.unwrap();

@@ -54,7 +54,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
         // Check for updates from NT
         while let Ok(update) = receiver.try_recv() {
             match update {
-                NtUpdate::KeyValue(key, value) => {
+                NtUpdate::KV(key, value) => {
                     app.values.insert(key, value);
                 }
             }
@@ -97,19 +97,41 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .margin(1)
-        .constraints([Constraint::Length(3), Constraint::Min(0)].as_ref())
+        .constraints(
+            [
+                Constraint::Length(10), // Increase for more NT values
+                Constraint::Min(0),
+            ]
+            .as_ref(),
+        )
         .split(size);
 
-    // Create the counter block
-    let def = "".to_string();
-    let counter_value = app.values.get("Akit timestamp").unwrap_or(&def);
+    // Create the NT values block
     let nt_block = Block::default().title("NT values").borders(Borders::ALL);
-    let nt_text = Paragraph::new(Line::from(vec![
-        Span::raw("Akit Timestamp"),
-        Span::styled(counter_value, Style::default().fg(Color::Red)),
-    ]))
-    .block(nt_block)
-    .alignment(Alignment::Left);
+
+    // Build a vector of lines for the NT values
+    let mut nt_lines = Vec::new();
+
+    // Add any other values not explicitly ordered
+    for (key, value) in &app.values {
+        nt_lines.push(Line::from(vec![
+            Span::raw(format!("{}: ", key)),
+            Span::styled(value, Style::default().fg(Color::Yellow)),
+        ]));
+    }
+
+    // If we have no values, show a placeholder
+    if nt_lines.is_empty() {
+        nt_lines.push(Line::from(vec![Span::styled(
+            "No NT values received yet",
+            Style::default().fg(Color::Red),
+        )]));
+    }
+
+    let nt_text = Paragraph::new(nt_lines)
+        .block(nt_block)
+        .alignment(Alignment::Left);
+
     f.render_widget(nt_text, chunks[0]);
 
     // Render additional help text
