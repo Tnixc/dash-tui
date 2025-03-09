@@ -1,19 +1,10 @@
 use crate::ui::ConnectionStatus;
-use log::error;
 use log::info;
 use log::warn;
-use nt_client::NewClientOptions;
 use nt_client::data::SubscriptionOptions;
 use nt_client::subscribe::ReceivedMessage;
-use nt_client::topic::collection::TopicCollection;
-use nt_client::topic::{AnnouncedTopic, Topic};
-use std::collections::HashMap;
-use std::ops::Deref;
-use std::sync::Arc;
+use nt_client::topic::Topic;
 use std::sync::mpsc::Sender;
-use std::thread;
-use std::time::Duration;
-use tokio::sync::RwLock;
 #[derive(Debug, Clone)]
 
 pub enum NtUpdate {

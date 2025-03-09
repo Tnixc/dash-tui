@@ -4,6 +4,8 @@ rust based network tables dashboard
 
 # Todo
 
+- [x] config
 - [ ] Console tab
-- [ ] config
 - [ ] widgets
+  - [ ] edit menu actually does things
+  - [ ] publish values

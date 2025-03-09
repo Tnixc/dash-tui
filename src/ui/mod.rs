@@ -18,14 +18,13 @@ use ratatui::{
     widgets::{Block, Borders, Padding, Paragraph},
 };
 use std::{
-    collections::HashMap,
     io,
     sync::mpsc::Receiver,
     time::{Duration, Instant},
 };
 
 use crate::{
-    config::{GridPosition, Widget, WidgetType},
+    config::{GridPosition, WidgetType},
     nt::NtUpdate,
 };
 
