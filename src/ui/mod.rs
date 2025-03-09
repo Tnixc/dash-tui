@@ -137,6 +137,9 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                     Window::LabelEdit => match key.code {
                         KeyCode::Esc => app.exit_label_edit(),
                         KeyCode::Enter => app.save_label(),
+                        KeyCode::Char('d') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                            app.label_edit.clear();
+                        }
                         KeyCode::Backspace => {
                             app.label_edit.pop();
                         }
@@ -173,9 +176,10 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
 
         // Tick handling
         if last_tick.elapsed() >= tick_rate {
-            if app.mode == Window::FuzzySearch && animation_counter % 50 == 0 {
-                animation_counter += 1;
-                app.fuzzy_search.cursor_visible = !app.fuzzy_search.cursor_visible;
+            if animation_counter % 50 == 0 {
+                if app.mode == Window::FuzzySearch || app.mode == Window::LabelEdit {
+                    app.cursor_visible = !app.cursor_visible;
+                }
             }
             animation_counter += 1;
             last_tick = Instant::now();
@@ -407,23 +411,23 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         "q".red().bold(),
         "] ".dim(),
         "Quit".reset(),
-        " [".dim(),
+        "   [".dim(),
         "a".green().bold(),
         "] ".dim(),
         "Add Widget".reset(),
-        " [".dim(),
+        "   [".dim(),
         "Space".yellow().bold(),
         "] ".dim(),
         "Pause".reset(),
-        " [".dim(),
+        "   [".dim(),
         "hjkl".blue().bold(),
         "] ".dim(),
         "Navigate".reset(),
-        " [".dim(),
+        "   [".dim(),
         "Enter".cyan().bold(),
         "] ".dim(),
         "Configure".reset(),
-        " [".dim(),
+        "   [".dim(),
         "y".magenta().bold(),
         "] ".dim(),
         "Copy".reset(),

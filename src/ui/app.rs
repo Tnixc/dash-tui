@@ -20,6 +20,7 @@ pub struct App {
     pub label_edit: String,
     pub max_rows: usize,
     pub last_activity: Instant,
+    pub cursor_visible: bool,
     pub highlight_visible: bool,
     pub copy_message: Option<String>,
     pub copy_message_timestamp: Option<Instant>,
@@ -40,7 +41,8 @@ impl App {
             label_edit: String::new(),
             max_rows: 8,
             last_activity: Instant::now(),
-            highlight_visible: true,
+            highlight_visible: false,
+            cursor_visible: false,
             copy_message: None,
             copy_message_timestamp: None,
         }

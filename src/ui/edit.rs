@@ -1,16 +1,16 @@
 use crate::ui::app::App;
 use ratatui::{
-    layout::{Alignment, Rect},
+    layout::{Alignment, Constraint, Direction, Layout, Rect},
     style::{Color, Style, Stylize},
     text::Line,
-    widgets::{Block, Borders, Clear, Paragraph},
+    widgets::{Block, Borders, Clear, Padding, Paragraph},
 };
 
 // Add this function to render the cell configuration popup
 pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
     // Calculate popup dimensions - half of screen width/height with minimums
     let popup_width = (size.width / 2).max(50);
-    let popup_height = (size.height / 2).max(10);
+    let popup_height = 12; // Fixed height with room for two boxes and padding
 
     let popup_x = (size.width - popup_width) / 2;
     let popup_y = (size.height - popup_height) / 2;
@@ -20,22 +20,41 @@ pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
     // Create a clear background for the popup
     f.render_widget(Clear, popup_area);
 
+    // Split popup vertically into two boxes (info and controls)
+    let layout = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([
+            Constraint::Length(5), // Widget info box (2 rows)
+            Constraint::Length(7), // Controls box
+        ])
+        .margin(0)
+        .split(popup_area);
+
     // Get the widget at the selected cell
-    let widget_info = if let Some(widget) = app.get_widget_at_selected_cell() {
-        format!("Topic: {}\nLabel: {}", widget.topic, widget.label)
+    let (topic, label) = if let Some(widget) = app.get_widget_at_selected_cell() {
+        (widget.topic.clone(), widget.label.clone())
     } else {
-        "No widget at selected cell".to_string()
+        ("No widget selected".to_string(), "".to_string())
     };
 
-    // Render the popup
-    let config_block = Block::default()
-        .title("Widget Configuration")
-        .borders(Borders::ALL)
-        .border_style(Style::default().fg(Color::Blue));
+    // Create info box with two rows
+    let info_text = vec![
+        Line::from(vec!["Label: ".bold(), label.reset()]),
+        Line::from(vec!["Topic: ".bold(), topic.reset()]),
+    ];
 
-    let config_text = vec![
-        Line::from(widget_info),
-        Line::from(""),
+    let info_box = Paragraph::new(info_text)
+        .block(
+            Block::default()
+                .title("Widget Info")
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Blue))
+                .padding(Padding::new(1, 0, 0, 0)),
+        )
+        .alignment(Alignment::Left);
+
+    // Create controls box
+    let controls_text = vec![
         Line::from(vec![
             "[".dim(),
             "s".green().bold(),
@@ -48,6 +67,7 @@ pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
             "] ".dim(),
             "Edit Label".reset(),
         ]),
+        Line::from(""),
         Line::from(vec![
             "[".dim(),
             "Esc".red().bold(),
@@ -56,17 +76,25 @@ pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
         ]),
     ];
 
-    let config_paragraph = Paragraph::new(config_text)
-        .block(config_block)
+    let controls_box = Paragraph::new(controls_text)
+        .block(
+            Block::default()
+                .title("Controls")
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Blue))
+                .padding(Padding::new(1, 0, 0, 0)),
+        )
         .alignment(Alignment::Left);
 
-    f.render_widget(config_paragraph, popup_area);
+    // Render both boxes
+    f.render_widget(info_box, layout[0]);
+    f.render_widget(controls_box, layout[1]);
 }
 
 pub fn render_label_edit(f: &mut ratatui::Frame, app: &App, size: Rect) {
     // Calculate popup dimensions - half of screen width/height with minimums
     let popup_width = (size.width / 2).max(50);
-    let popup_height = (size.height / 2).max(6);
+    let popup_height = 10; // Fixed height with room for input box and controls
 
     let popup_x = (size.width - popup_width) / 2;
     let popup_y = (size.height - popup_height) / 2;
@@ -76,42 +104,67 @@ pub fn render_label_edit(f: &mut ratatui::Frame, app: &App, size: Rect) {
     // Create a clear background for the popup
     f.render_widget(Clear, popup_area);
 
-    // Render the popup
-    let edit_block = Block::default()
-        .title("Edit Widget Label")
-        .borders(Borders::ALL)
-        .border_style(Style::default().fg(Color::Blue));
+    // Split the popup into sections
+    let layout = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([
+            Constraint::Length(3), // Input box
+            Constraint::Length(5), // Controls
+        ])
+        .margin(0)
+        .split(popup_area);
 
+    // Create the input text with cursor
     let input_text = format!(
         "{}{}",
         app.label_edit,
-        if app.fuzzy_search.cursor_visible {
-            "█"
-        } else {
-            " "
-        }
+        if app.cursor_visible { "_" } else { " " }
     );
 
-    let edit_text = vec![
-        Line::from("Enter new label:"),
-        Line::from(""),
-        Line::from(input_text),
-        Line::from(""),
+    // Create input box
+    let input_box = Paragraph::new(input_text)
+        .block(
+            Block::default()
+                .title("Edit Label")
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Blue))
+                .padding(Padding::horizontal(1)),
+        )
+        .alignment(Alignment::Left);
+
+    // Create controls box
+    let help_text = vec![
         Line::from(vec![
             "[".dim(),
             "Enter".green().bold(),
             "] ".dim(),
             "Save".reset(),
-            " [".dim(),
+        ]),
+        Line::from(vec![
+            "[".dim(),
+            "Ctrl+D".yellow().bold(),
+            "] ".dim(),
+            "Clear".reset(),
+        ]),
+        Line::from(vec![
+            "[".dim(),
             "Esc".red().bold(),
             "] ".dim(),
-            "Exit".reset(),
+            "Cancel".reset(),
         ]),
     ];
 
-    let edit_paragraph = Paragraph::new(edit_text)
-        .block(edit_block)
+    let controls_box = Paragraph::new(help_text)
+        .block(
+            Block::default()
+                .title("Controls")
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Blue))
+                .padding(Padding::new(1, 0, 0, 0)),
+        )
         .alignment(Alignment::Left);
 
-    f.render_widget(edit_paragraph, popup_area);
+    // Render both boxes
+    f.render_widget(input_box, layout[0]);
+    f.render_widget(controls_box, layout[1]);
 }

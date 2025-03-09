@@ -83,8 +83,8 @@ pub struct FuzzySearch {
     pub input: String,
     pub matcher: Matcher,
     pub matches: Vec<String>,
+    pub selected_index: usize,
     pub list_state: ListState,
-    pub cursor_visible: bool,
 }
 
 impl FuzzySearch {
@@ -95,8 +95,8 @@ impl FuzzySearch {
             input: String::new(),
             matcher: Matcher::new(),
             matches: Vec::new(),
-            list_state,
-            cursor_visible: true,
+            selected_index: 0,
+            list_state: list_state,
         }
     }
 
@@ -114,17 +114,18 @@ impl FuzzySearch {
 
         // Reset selection or adjust if out of bounds
         if self.matches.is_empty() {
+            self.selected_index = 0;
             self.list_state.select(None);
         } else {
-            let current = self.list_state.selected().unwrap_or(0);
-            if current >= self.matches.len() {
-                self.list_state.select(Some(self.matches.len() - 1));
+            if self.selected_index >= self.matches.len() {
+                self.selected_index = self.matches.len() - 1;
             }
+            self.list_state.select(Some(self.selected_index));
         }
     }
 
     pub fn get_selected(&self) -> Option<&String> {
-        self.list_state.selected().and_then(|i| self.matches.get(i))
+        self.matches.get(self.selected_index)
     }
 
     pub fn move_selection(&mut self, offset: isize) {
@@ -133,7 +134,7 @@ impl FuzzySearch {
         }
 
         let len = self.matches.len();
-        let current = self.list_state.selected().unwrap_or(0);
+        let current = self.selected_index;
 
         let new_index = if offset.is_negative() {
             if current == 0 {
@@ -145,15 +146,12 @@ impl FuzzySearch {
             (current + offset as usize) % len
         };
 
+        self.selected_index = new_index;
         self.list_state.select(Some(new_index));
-    }
-
-    pub fn toggle_cursor(&mut self) {
-        self.cursor_visible = !self.cursor_visible;
     }
 }
 
-pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &App, size: Rect) {
+pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &mut App, size: Rect) {
     // Calculate popup dimensions
     let popup_width = size.width.min(100).max(70);
     let popup_height = size.height.min(20).max(10);
@@ -183,7 +181,7 @@ pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &App, size: Rect) {
         .border_style(Style::new().fg(Color::Blue));
 
     // Add blinking cursor to input text
-    let input_text = if app.fuzzy_search.cursor_visible {
+    let input_text = if app.cursor_visible {
         app.fuzzy_search.input.as_str().to_owned() + "_"
     } else {
         app.fuzzy_search.input.clone()
@@ -210,7 +208,7 @@ pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &App, size: Rect) {
         .iter()
         .enumerate()
         .map(|(i, topic)| {
-            let style = if Some(i) == app.fuzzy_search.list_state.selected() {
+            let style = if i == app.fuzzy_search.selected_index {
                 Style::default()
                     .bg(Color::Black)
                     .fg(Color::Blue)
@@ -224,10 +222,6 @@ pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &App, size: Rect) {
 
     let list = List::new(items).block(results_block);
 
-    // We need to use a stateful widget for the list selection
-    f.render_stateful_widget(
-        list,
-        popup_layout[1],
-        &mut app.fuzzy_search.list_state.clone(),
-    );
+    // Now we can properly access list_state as mutable
+    f.render_stateful_widget(list, popup_layout[1], &mut app.fuzzy_search.list_state);
 }
