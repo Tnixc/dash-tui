@@ -1,4 +1,5 @@
 use std::collections::{HashMap, HashSet};
+use std::time::Instant;
 
 use crate::{
     config::{Config, GridPosition, Widget},
@@ -16,6 +17,9 @@ pub struct App {
     pub paused: bool,
     pub selected_cell: Option<(usize, usize)>,
     pub label_edit: String,
+    pub max_rows: usize,
+    pub last_activity: Instant,
+    pub highlight_visible: bool,
 }
 impl App {
     pub fn new() -> App {
@@ -31,6 +35,9 @@ impl App {
             paused: false,
             selected_cell: None,
             label_edit: String::new(),
+            max_rows: 8,
+            last_activity: Instant::now(),
+            highlight_visible: true,
         }
     }
 
@@ -40,14 +47,14 @@ impl App {
     }
 
     pub fn find_next_grid_position(&self) -> GridPosition {
-        // Find first empty cell in the 5x8 grid (5 columns, 8 rows)
-        for row in 0..8 {
+        // Find first empty cell in the grid (5 columns, dynamic rows)
+        for row in 0..self.max_rows {
             for col in 0..5 {
                 if !self.is_position_occupied(row, col) {
                     return GridPosition {
                         row,
                         col,
-                        row_span: 1, // Fixed at 1 row (which is 3 units tall)
+                        row_span: 1,
                         col_span: 1,
                     };
                 }
@@ -80,10 +87,13 @@ impl App {
         let (row, col) = self.selected_cell.unwrap_or((0, 0));
 
         // Calculate new position with bounds checking
-        let new_row = (row as isize + row_delta).max(0).min(7) as usize;
+        let new_row = (row as isize + row_delta)
+            .max(0)
+            .min((self.max_rows - 1) as isize) as usize;
         let new_col = (col as isize + col_delta).max(0).min(4) as usize;
 
         self.selected_cell = Some((new_row, new_col));
+        self.update_activity();
     }
 
     pub fn enter_cell_config(&mut self) {
@@ -139,5 +149,17 @@ impl App {
             });
         }
         self.exit_label_edit();
+    }
+
+    pub fn update_activity(&mut self) {
+        self.last_activity = Instant::now();
+        self.highlight_visible = true;
+    }
+
+    pub fn check_highlight_timeout(&mut self) {
+        const HIGHLIGHT_TIMEOUT: u64 = 5; // 5 seconds
+        if self.last_activity.elapsed().as_secs() > HIGHLIGHT_TIMEOUT {
+            self.highlight_visible = false;
+        }
     }
 }

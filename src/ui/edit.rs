@@ -8,9 +8,9 @@ use ratatui::{
 
 // Add this function to render the cell configuration popup
 pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
-    // Calculate popup dimensions
-    let popup_width = 50;
-    let popup_height = 10;
+    // Calculate popup dimensions - half of screen width/height with minimums
+    let popup_width = (size.width / 2).max(50);
+    let popup_height = (size.height / 2).max(10);
 
     let popup_x = (size.width - popup_width) / 2;
     let popup_y = (size.height - popup_height) / 2;
@@ -64,9 +64,9 @@ pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
 }
 
 pub fn render_label_edit(f: &mut ratatui::Frame, app: &App, size: Rect) {
-    // Calculate popup dimensions
-    let popup_width = 50;
-    let popup_height = 6;
+    // Calculate popup dimensions - half of screen width/height with minimums
+    let popup_width = (size.width / 2).max(50);
+    let popup_height = (size.height / 2).max(6);
 
     let popup_x = (size.width - popup_width) / 2;
     let popup_y = (size.height - popup_height) / 2;

@@ -68,11 +68,17 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
             .checked_sub(last_tick.elapsed())
             .unwrap_or_else(|| Duration::from_secs(0));
 
+        // Check if highlight should be hidden due to inactivity
+        app.check_highlight_timeout();
+
         ////////////////////////////////////////
         // Key bindings
         ////////////////////////////////////////
         if event::poll(timeout)? {
             if let Event::Key(key) = event::read()? {
+                // Update activity timestamp for any key press
+                app.update_activity();
+
                 match app.mode {
                     Window::Main => match key.code {
                         KeyCode::Char('q') => break,
@@ -214,6 +220,9 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
     let available_height = padded_area.height;
     let max_rows = (available_height / 3) as usize;
 
+    // Update the app's max_rows value
+    app.max_rows = max_rows;
+
     // Create constraints for the rows
     let mut row_constraints = Vec::new();
     for _ in 0..max_rows {
@@ -266,12 +275,41 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         }
 
         let widget_area = get_widget_area(&grid_cells, &widget.position);
-        render_widget(f, widget, &app.values, widget_area);
+
+        // Create the widget block with a transparent background
+        let block = Block::default()
+            .title(Span::styled(
+                widget.label.clone(),
+                Style::default()
+                    .fg(Color::Cyan)
+                    .add_modifier(Modifier::BOLD),
+            ))
+            .borders(Borders::ALL)
+            .border_style(Style::default().fg(Color::Black));
+
+        // Render the widget with the block
+        match widget.widget_type {
+            WidgetType::Text => {
+                let default = &"No value".to_string();
+                let value = app.values.get(&widget.topic);
+
+                let text = Paragraph::new(value.unwrap_or(default).clone())
+                    .block(block)
+                    .alignment(Alignment::Center)
+                    .style(Style::default().fg(if value.is_some() {
+                        Color::LightYellow
+                    } else {
+                        Color::Black
+                    }));
+                f.render_widget(text, widget_area);
+            }
+            // Add other widget type rendering here
+            _ => {}
+        }
     }
 
-    // Highlight the selected cell if in main mode
-    // Render this AFTER the widgets to make sure the highlight border is on top
-    if app.mode == Window::Main {
+    // Highlight the selected cell if in main mode and highlight is visible
+    if app.mode == Window::Main && app.highlight_visible {
         if let Some((row, col)) = app.selected_cell {
             if row < grid_cells.len() && col < grid_cells[0].len() {
                 let selected_area = grid_cells[row][col];
@@ -397,42 +435,4 @@ fn get_widget_area(grid_cells: &[Vec<Rect>], pos: &GridPosition) -> Rect {
     }
 
     area
-}
-
-fn render_widget(
-    f: &mut ratatui::Frame,
-    widget: &Widget,
-    values: &HashMap<String, String>,
-    area: Rect,
-) {
-    let default = &"N/A".to_string();
-    let value = values.get(&widget.topic).unwrap_or(default);
-
-    let block = Block::default()
-        .title(Span::styled(
-            widget.label.clone(),
-            Style::default()
-                .fg(Color::Cyan)
-                .add_modifier(Modifier::BOLD),
-        ))
-        .borders(Borders::ALL)
-        .border_style(Style::default().fg(Color::Black));
-
-    match widget.widget_type {
-        WidgetType::Text => {
-            // Create inner area for content with padding
-            let inner_area = block.inner(area);
-
-            // For fixed height of 3, we have exactly enough space for:
-            // - Title (in the border)
-            // - Content (centered vertically)
-            let text = Paragraph::new(value.clone())
-                .block(block)
-                .alignment(Alignment::Center);
-
-            f.render_widget(text, area);
-        }
-        // Add other widget type rendering here
-        _ => {}
-    }
 }
