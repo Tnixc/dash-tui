@@ -1,5 +1,6 @@
+use clipboard::{ClipboardContext, ClipboardProvider};
 use std::collections::{HashMap, HashSet};
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use crate::{
     config::{Config, GridPosition, Widget},
@@ -20,6 +21,8 @@ pub struct App {
     pub max_rows: usize,
     pub last_activity: Instant,
     pub highlight_visible: bool,
+    pub copy_message: Option<String>,
+    pub copy_message_timestamp: Option<Instant>,
 }
 impl App {
     pub fn new() -> App {
@@ -38,6 +41,8 @@ impl App {
             max_rows: 8,
             last_activity: Instant::now(),
             highlight_visible: true,
+            copy_message: None,
+            copy_message_timestamp: None,
         }
     }
 
@@ -160,6 +165,39 @@ impl App {
         const HIGHLIGHT_TIMEOUT: u64 = 5; // 5 seconds
         if self.last_activity.elapsed().as_secs() > HIGHLIGHT_TIMEOUT {
             self.highlight_visible = false;
+        }
+    }
+
+    pub fn set_copy_message(&mut self, value: String) {
+        self.copy_message = Some(value);
+        self.copy_message_timestamp = Some(Instant::now());
+    }
+
+    pub fn check_copy_message_timeout(&mut self) {
+        if let Some(timestamp) = self.copy_message_timestamp {
+            if timestamp.elapsed() > Duration::from_secs(1) {
+                self.copy_message = None;
+                self.copy_message_timestamp = None;
+            }
+        }
+    }
+
+    pub fn copy_selected_value(&mut self) {
+        if let Some((row, col)) = self.selected_cell {
+            if let Some(widget) = self
+                .config
+                .widgets
+                .iter()
+                .find(|w| w.position.row == row && w.position.col == col)
+            {
+                if let Some(value) = self.values.get(&widget.topic) {
+                    if let Ok(mut ctx) = ClipboardContext::new() {
+                        if ctx.set_contents(value.to_owned()).is_ok() {
+                            self.set_copy_message(format!("Copied: {}", value));
+                        }
+                    }
+                }
+            }
         }
     }
 }

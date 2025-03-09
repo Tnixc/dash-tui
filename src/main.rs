@@ -55,7 +55,7 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
             tokio::spawn(nt::run_nt_client(topic_sender, t));
             let topic = tc.clone();
             let topic_sender = topic_sender_clone.clone();
-            tokio::spawn(nt::run_nt_client(topic_sender, topic));
+            tokio::spawn(nt::run_nt_client_topics(topic_sender, topic));
 
             tokio::select! {
                 conn_result = client.connect() => {

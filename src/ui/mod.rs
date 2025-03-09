@@ -70,6 +70,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
 
         // Check if highlight should be hidden due to inactivity
         app.check_highlight_timeout();
+        app.check_copy_message_timeout();
 
         ////////////////////////////////////////
         // Key bindings
@@ -88,6 +89,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                         KeyCode::Char('j') => app.move_selection(1, 0),
                         KeyCode::Char('k') => app.move_selection(-1, 0),
                         KeyCode::Char('l') => app.move_selection(0, 1),
+                        KeyCode::Char('y') => app.copy_selected_value(),
                         KeyCode::Enter => app.enter_cell_config(),
                         _ => {}
                     },
@@ -323,55 +325,81 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         }
     }
 
-    // Get status color based on connection state and pause state
-    let status_color = if app.paused {
-        Color::Yellow
-    } else {
-        match app.connection_status {
-            ConnectionStatus::Connected => Color::Green,
-            ConnectionStatus::Connecting => Color::Yellow,
-            ConnectionStatus::Disconnected => Color::Red,
+    // Create status bar layout with multiple boxes
+    let status_layout = Layout::default()
+        .direction(Direction::Horizontal)
+        .constraints([
+            Constraint::Length(20), // Status
+            Constraint::Length(20), // Topics count
+            Constraint::Min(10),    // Copy message/warnings
+        ])
+        .split(main_layout[1]);
+
+    // Render connection status box
+    let status_text = match app.connection_status {
+        ConnectionStatus::Connected => {
+            if app.paused {
+                "Paused".yellow().bold()
+            } else {
+                "Connected".green().bold()
+            }
         }
+        ConnectionStatus::Connecting => "Connecting...".yellow().bold(),
+        ConnectionStatus::Disconnected => "Disconnected".red().bold(),
     };
 
-    // Update the status text to show pause state and warnings
-    let mut status_text = vec![
-        Line::from(vec![
-            "Status: ".bold(),
-            match app.connection_status {
-                ConnectionStatus::Connected => {
-                    if app.paused {
-                        "Paused".yellow().bold()
-                    } else {
-                        "Connected".green().bold()
-                    }
-                }
-                ConnectionStatus::Connecting => "Connecting...".yellow().bold(),
-                ConnectionStatus::Disconnected => "Disconnected".red().bold(),
-            },
-        ]),
-        Line::from(vec![
-            "Topics: ".bold(),
-            format!("{}", app.available_topics.len()).cyan().bold(),
-        ]),
-    ];
-
-    // Add warning if needed
-    if !warning_message.is_empty() {
-        status_text.push(Line::from(warning_message).yellow());
-    }
-
-    let status_bar = Paragraph::new(status_text)
+    let status_box = Paragraph::new(Line::from(vec!["Status: ".bold(), status_text]))
         .block(
             Block::default()
                 .borders(Borders::ALL)
-                .border_style(Style::default().fg(status_color))
-                .padding(Padding::horizontal(2))
-                .title("Status Bar")
-                .title_alignment(Alignment::Center),
+                .border_style(Style::default().fg(if app.paused {
+                    Color::Yellow
+                } else {
+                    match app.connection_status {
+                        ConnectionStatus::Connected => Color::Green,
+                        ConnectionStatus::Connecting => Color::Yellow,
+                        ConnectionStatus::Disconnected => Color::Red,
+                    }
+                }))
+                .padding(Padding::horizontal(1)),
         )
         .alignment(Alignment::Left);
-    f.render_widget(status_bar, main_layout[1]);
+
+    // Render topics count box
+    let topics_box = Paragraph::new(Line::from(vec![
+        "Topics: ".bold(),
+        format!("{}", app.available_topics.len()).cyan().bold(),
+    ]))
+    .block(
+        Block::default()
+            .borders(Borders::ALL)
+            .border_style(Style::default().fg(Color::Cyan))
+            .padding(Padding::horizontal(1)),
+    )
+    .alignment(Alignment::Left);
+
+    // Render copy message/warnings box
+    let mut info_text = Vec::new();
+    if let Some(msg) = &app.copy_message {
+        info_text.push(Line::from(msg.clone()).yellow());
+    }
+    if !warning_message.is_empty() {
+        info_text.push(Line::from(warning_message).yellow());
+    }
+
+    let info_box = Paragraph::new(info_text)
+        .block(
+            Block::default()
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::White))
+                .padding(Padding::horizontal(1)),
+        )
+        .alignment(Alignment::Left);
+
+    // Render all status boxes
+    f.render_widget(status_box, status_layout[0]);
+    f.render_widget(topics_box, status_layout[1]);
+    f.render_widget(info_box, status_layout[2]);
 
     // Render help text with more colors
     let help_text = Line::from(vec![
@@ -395,6 +423,10 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         "Enter".cyan().bold(),
         "] ".dim(),
         "Configure".reset(),
+        " [".dim(),
+        "y".magenta().bold(),
+        "] ".dim(),
+        "Copy".reset(),
     ]);
     let help_bar = Paragraph::new(help_text)
         .style(Style::default())
