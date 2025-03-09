@@ -2,11 +2,13 @@ use std::collections::HashSet;
 
 use fuzzy_matcher::FuzzyMatcher;
 use fuzzy_matcher::skim::SkimMatcherV2;
-use ratatui::widgets::ListState;
+use ratatui::layout::{Constraint, Direction, Layout, Rect};
+use ratatui::style::{Color, Modifier, Style};
+use ratatui::widgets::{Block, Borders, Clear, List, ListItem, ListState, Padding, Paragraph};
 
-use crate::app::App;
 use crate::config::{Widget, WidgetType};
 use crate::ui::Window;
+use crate::ui::app::App;
 
 pub struct Matcher {
     matcher: SkimMatcherV2,
@@ -49,7 +51,18 @@ impl App {
 
     pub fn handle_search_selection(&mut self) -> Option<String> {
         if let Some(selected_topic) = self.fuzzy_search.get_selected().cloned() {
-            // Create a new widget in the first available grid position
+            // If we're in cell config mode, update the existing widget
+            if self.mode == Window::CellConfig {
+                if let Some(widget) = self.get_widget_at_selected_cell_mut() {
+                    widget.topic = selected_topic.clone();
+                    let _ = self.config.save();
+                    self.exit_fuzzy_search();
+                    self.exit_cell_config();
+                    return Some(selected_topic);
+                }
+            }
+
+            // Otherwise create a new widget
             let widget = Widget {
                 topic: selected_topic.clone(),
                 label: selected_topic.clone(),
@@ -138,4 +151,83 @@ impl FuzzySearch {
     pub fn toggle_cursor(&mut self) {
         self.cursor_visible = !self.cursor_visible;
     }
+}
+
+pub fn render_fuzzy_search(f: &mut ratatui::Frame, app: &App, size: Rect) {
+    // Calculate popup dimensions
+    let popup_width = size.width.min(100).max(70);
+    let popup_height = size.height.min(20).max(10);
+
+    let popup_x = (size.width - popup_width) / 2;
+    let popup_y = (size.height - popup_height) / 2;
+
+    let popup_area = Rect::new(popup_x, popup_y, popup_width, popup_height);
+
+    // Create a clear background for the popup
+    f.render_widget(Clear, popup_area);
+
+    // Split popup into search input and results list
+    let popup_layout = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([
+            Constraint::Length(3), // Search input
+            Constraint::Min(1),    // Results list
+        ])
+        .split(popup_area);
+
+    // Render search input
+    let input_block = Block::default()
+        .title("Add Widget")
+        .borders(Borders::ALL)
+        .padding(Padding::horizontal(1))
+        .border_style(Style::new().fg(Color::Blue));
+
+    // Add blinking cursor to input text
+    let input_text = if app.fuzzy_search.cursor_visible {
+        app.fuzzy_search.input.as_str().to_owned() + "_"
+    } else {
+        app.fuzzy_search.input.clone()
+    };
+
+    let input_paragraph = Paragraph::new(input_text)
+        .style(Style::default())
+        .block(input_block);
+
+    f.render_widget(input_paragraph, popup_layout[0]);
+
+    // Render results list
+    let results_block = Block::default()
+        .title(format!(
+            "Available Topics ({} found)",
+            app.fuzzy_search.matches.len()
+        ))
+        .borders(Borders::ALL)
+        .border_style(Style::new().fg(Color::Blue));
+
+    let items: Vec<ListItem> = app
+        .fuzzy_search
+        .matches
+        .iter()
+        .enumerate()
+        .map(|(i, topic)| {
+            let style = if Some(i) == app.fuzzy_search.list_state.selected() {
+                Style::default()
+                    .bg(Color::Black)
+                    .fg(Color::Blue)
+                    .add_modifier(Modifier::BOLD)
+            } else {
+                Style::default()
+            };
+            ListItem::new(topic.clone()).style(style)
+        })
+        .collect();
+
+    let list = List::new(items).block(results_block);
+
+    // We need to use a stateful widget for the list selection
+    f.render_stateful_widget(
+        list,
+        popup_layout[1],
+        &mut app.fuzzy_search.list_state.clone(),
+    );
 }
