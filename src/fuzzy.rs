@@ -1,8 +1,11 @@
+use std::collections::HashSet;
+
 use fuzzy_matcher::FuzzyMatcher;
 use fuzzy_matcher::skim::SkimMatcherV2;
 use ratatui::widgets::ListState;
 
 use crate::app::App;
+use crate::config::{Widget, WidgetType};
 use crate::ui::Window;
 
 pub struct Matcher {
@@ -35,6 +38,7 @@ impl Matcher {
 impl App {
     pub fn enter_fuzzy_search(&mut self) {
         self.mode = Window::FuzzySearch;
+        // Initialize matches with all available topics
         self.fuzzy_search.update_matches(&self.available_topics);
     }
 
@@ -44,10 +48,21 @@ impl App {
     }
 
     pub fn handle_search_selection(&mut self) -> Option<String> {
-        // Get a copy of the selected item before exiting fuzzy search
-        let selected = self.fuzzy_search.get_selected().cloned();
-        self.exit_fuzzy_search();
-        selected
+        if let Some(selected_topic) = self.fuzzy_search.get_selected().cloned() {
+            // Create a new widget in the first available grid position
+            let widget = Widget {
+                topic: selected_topic.clone(),
+                label: selected_topic.clone(),
+                widget_type: WidgetType::Text,
+                position: self.find_next_grid_position(),
+            };
+
+            let _ = self.add_widget(widget);
+            self.exit_fuzzy_search();
+            Some(selected_topic)
+        } else {
+            None
+        }
     }
 }
 
@@ -70,13 +85,14 @@ impl FuzzySearch {
         }
     }
 
-    pub fn update_matches(&mut self, available_topics: &[String]) {
+    pub fn update_matches(&mut self, available_topics: &HashSet<String>) {
+        let vec = available_topics.iter().cloned().collect::<Vec<_>>();
         if self.input.is_empty() {
             // If empty query, show all topics
-            self.matches = available_topics.to_vec();
+            self.matches = vec;
         } else {
             // Otherwise do fuzzy search
-            let matches = self.matcher.match_items(&self.input, available_topics);
+            let matches = self.matcher.match_items(&self.input, &vec);
             self.matches = matches.into_iter().map(|(_, item)| item.clone()).collect();
         }
 
@@ -87,8 +103,6 @@ impl FuzzySearch {
             let current = self.list_state.selected().unwrap_or(0);
             if current >= self.matches.len() {
                 self.list_state.select(Some(self.matches.len() - 1));
-            } else {
-                self.list_state.select(Some(current));
             }
         }
     }

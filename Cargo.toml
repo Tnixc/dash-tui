@@ -11,6 +11,8 @@ log = "0.4.26"
 # nt_client = {git = "https://github.com/DatAsianBoi123/nt_client.git"}
 nt_client = {path = "./nt_client/"}
 ratatui = "0.29.0"
+serde = { version = "1.0.218", features = ["derive"] }
 simple-logging = "2.0.2"
 tokio = "1.44.0"
+toml = "0.8.20"
 user_dirs = "0.2.0"

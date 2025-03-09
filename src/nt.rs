@@ -19,7 +19,6 @@ use tokio::sync::RwLock;
 pub enum NtUpdate {
     KV(String, String),
     ConnectionStatus(ConnectionStatus),
-    AvailableTopics(Vec<String>),
 }
 
 pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: Topic) {
