@@ -45,28 +45,14 @@ async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: 
         async move {
 
             // FIXME: initialize this elsewhere
-            let initial_topics = vec![
-                "/AdvantageKit/Timestamp",
-                "/AdvantageKit/RealOutputs/Logger/AutoLogMS",
-                "/AdvantageKit/SystemStats/CANBus/ReceiveErrorCount",
-                "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
-                "/AdvantageKit/DriverStation/Joystick1/POVs",
-                "/AdvantageKit/RealOutputs/Logger/DashboardInputsMS",
-            ].to_owned();
-
 
             // Mark as connecting
             let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Connecting));
             info!("Attempting to establish NT connection");
 
-            let topics = client.topics(initial_topics.iter().map(|name| name.to_string()).collect());
+            let t = client.topic("/");
             let topic_sender = sender.clone();
-            tokio::spawn(nt::run_nt_client(topic_sender, topics));
-
-            let all = client.topic("/");
-            let all_sender = sender.clone();
-            let all_clone = all.clone();
-            tokio::spawn(nt::get_available_topics(all_sender, all_clone));
+            tokio::spawn(nt::run_nt_client(topic_sender, t));
 
             tokio::select! {
                 conn_result = client.connect() => {

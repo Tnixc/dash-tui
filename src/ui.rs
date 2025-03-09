@@ -1,8 +1,4 @@
-use crate::{
-    app::App,
-    fuzzy::FuzzySearch,
-    nt::{NtUpdate, subscribe_to_topic},
-};
+use crate::{app::App, fuzzy::FuzzySearch, nt::NtUpdate};
 use crossterm::{
     event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyModifiers},
     execute,
