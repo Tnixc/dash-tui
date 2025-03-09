@@ -71,6 +71,7 @@ pub struct FuzzySearch {
     pub matcher: Matcher,
     pub matches: Vec<String>,
     pub list_state: ListState,
+    pub cursor_visible: bool,
 }
 
 impl FuzzySearch {
@@ -82,16 +83,18 @@ impl FuzzySearch {
             matcher: Matcher::new(),
             matches: Vec::new(),
             list_state,
+            cursor_visible: true,
         }
     }
 
     pub fn update_matches(&mut self, available_topics: &HashSet<String>) {
-        let vec = available_topics.iter().cloned().collect::<Vec<_>>();
+        let mut vec = available_topics.iter().cloned().collect::<Vec<_>>();
         if self.input.is_empty() {
-            // If empty query, show all topics
+            // If empty query, show all topics sorted alphabetically
+            vec.sort();
             self.matches = vec;
         } else {
-            // Otherwise do fuzzy search
+            // Otherwise do fuzzy search with score-based sorting
             let matches = self.matcher.match_items(&self.input, &vec);
             self.matches = matches.into_iter().map(|(_, item)| item.clone()).collect();
         }
@@ -130,5 +133,9 @@ impl FuzzySearch {
         };
 
         self.list_state.select(Some(new_index));
+    }
+
+    pub fn toggle_cursor(&mut self) {
+        self.cursor_visible = !self.cursor_visible;
     }
 }

@@ -14,8 +14,8 @@ use std::sync::mpsc::Sender;
 use std::thread;
 use std::time::Duration;
 use tokio::sync::RwLock;
-
 #[derive(Debug, Clone)]
+
 pub enum NtUpdate {
     KV(String, String),
     ConnectionStatus(ConnectionStatus),
@@ -33,8 +33,6 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: Topic) {
     // If we're subscribing successfully, mark as connected
     let _ = sender.send(NtUpdate::ConnectionStatus(ConnectionStatus::Connected));
 
-    // Collection of available topics
-
     // Process messages from all topics in the collection
     loop {
         match subscriber.recv_latest().await {
@@ -47,12 +45,37 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: Topic) {
                 let value = value.to_string().trim().to_string();
                 let _ = sender.send(NtUpdate::KV(topic.name().to_string(), value));
             }
+            Err(err) => {
+                warn!("Warning on specific watcher thread: {err:?}");
+            }
+            _ => {}
+        }
+    }
+}
+
+pub async fn run_nt_client_topics(sender: Sender<NtUpdate>, topics: Topic) {
+    let mut subscriber = topics
+        .subscribe(SubscriptionOptions {
+            prefix: Some(true),
+            all: Some(true),
+            topics_only: Some(true),
+            ..Default::default()
+        })
+        .await;
+    loop {
+        match subscriber.recv_buffered().await {
+            Ok(ReceivedMessage::Announced(topic)) => {
+                let topic_name = topic.name().to_string();
+                info!("Announced topic: {}", topic_name);
+                let _ = sender.send(NtUpdate::KV(topic.name().to_string(), "None".to_owned()));
+            }
             Ok(ReceivedMessage::Unannounced { name, .. }) => {
                 info!("Unannounced topic: {}", name);
             }
             Err(err) => {
-                warn!("Warning on specific watcher thread: {err:?}");
+                warn!("Warning on topics thread: {err:?}");
             }
+            _ => {}
         }
     }
 }

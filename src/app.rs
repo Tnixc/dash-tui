@@ -37,9 +37,9 @@ impl App {
     }
 
     pub fn find_next_grid_position(&self) -> GridPosition {
-        // Find first empty cell in the grid
-        for row in 0..3 {
-            for col in 0..3 {
+        // Find first empty cell in the 5x10 grid
+        for row in 0..10 {
+            for col in 0..5 {
                 if !self.is_position_occupied(row, col) {
                     return GridPosition {
                         row,
