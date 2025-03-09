@@ -16,6 +16,7 @@ pub struct App {
     pub mode: Window,
     pub fuzzy_search: FuzzySearch,
     pub config: Config,
+    pub paused: bool,
 }
 impl App {
     pub fn new() -> App {
@@ -28,6 +29,7 @@ impl App {
             config: Config::load().unwrap_or_else(|_| Config {
                 widgets: Vec::new(),
             }),
+            paused: false,
         }
     }
 
@@ -67,5 +69,9 @@ impl App {
                 && col >= w.position.col
                 && col < w.position.col + w.position.col_span
         })
+    }
+
+    pub fn toggle_pause(&mut self) {
+        self.paused = !self.paused;
     }
 }

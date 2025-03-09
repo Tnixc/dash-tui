@@ -9,6 +9,7 @@ use crossterm::{
     execute,
     terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
+use log::info;
 use ratatui::{
     Terminal,
     backend::CrosstermBackend,
@@ -70,6 +71,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                     Window::Main => match key.code {
                         KeyCode::Char('q') => break,
                         KeyCode::Char('a') => app.enter_fuzzy_search(),
+                        KeyCode::Char(' ') => app.toggle_pause(),
                         _ => {}
                     },
                     Window::FuzzySearch => match key.code {
@@ -78,8 +80,9 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                             app.fuzzy_search.move_selection(-1);
                         }
                         KeyCode::Enter => {
-                            println!("Selected topic: {:?}", app.fuzzy_search.get_selected());
-                            todo!()
+                            if let Some(selected_topic) = app.handle_search_selection() {
+                                info!("Added widget for topic: {}", selected_topic);
+                            }
                         }
                         KeyCode::Char('j') if key.modifiers.contains(KeyModifiers::CONTROL) => {
                             app.fuzzy_search.move_selection(1);
@@ -109,8 +112,11 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
             match update {
                 NtUpdate::KV(key, value) => {
                     let k = key.clone();
-                    app.values.insert(key, value);
-                    // If we're receiving values, we must be connected
+                    // Only update values if not paused
+                    if !app.paused {
+                        app.values.insert(key, value);
+                    }
+                    // Always update connection status and available topics
                     app.connection_status = ConnectionStatus::Connected;
                     app.available_topics.insert(k);
                     if app.mode == Window::FuzzySearch {
@@ -164,7 +170,7 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         .direction(Direction::Horizontal)
         .constraints([
             Constraint::Length(1), // Left padding
-            Constraint::Min(10),   // Content
+            Constraint::Min(8),    // Content
             Constraint::Length(1), // Right padding
         ])
         .split(main_layout[0])[1];
@@ -173,16 +179,14 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
     let grid_constraints = Layout::default()
         .direction(Direction::Vertical)
         .constraints(vec![
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
-            Constraint::Ratio(1, 10),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
+            Constraint::Ratio(1, 8),
         ])
         .split(padded_area);
 
@@ -201,11 +205,15 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         grid_cells.push(cells.to_vec());
     }
 
-    // Get status color based on connection state
-    let status_color = match app.connection_status {
-        ConnectionStatus::Connected => Color::Green,
-        ConnectionStatus::Connecting => Color::Yellow,
-        ConnectionStatus::Disconnected => Color::Red,
+    // Get status color based on connection state and pause state
+    let status_color = if app.paused {
+        Color::Yellow
+    } else {
+        match app.connection_status {
+            ConnectionStatus::Connected => Color::Green,
+            ConnectionStatus::Connecting => Color::Yellow,
+            ConnectionStatus::Disconnected => Color::Red,
+        }
     };
 
     // Render widgets based on their configured positions
@@ -214,11 +222,18 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         render_widget(f, widget, &app.values, widget_area);
     }
 
+    // Update the status text to show pause state
     let status_text = vec![
         Line::from(vec![
             "Status: ".bold(),
             match app.connection_status {
-                ConnectionStatus::Connected => "Connected".green().bold(),
+                ConnectionStatus::Connected => {
+                    if app.paused {
+                        "Paused".yellow().bold()
+                    } else {
+                        "Connected".green().bold()
+                    }
+                }
                 ConnectionStatus::Connecting => "Connecting...".yellow().bold(),
                 ConnectionStatus::Disconnected => "Disconnected".red().bold(),
             },
@@ -251,6 +266,10 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         "a".green().bold(),
         "] ".dim(),
         "Add Widget".reset(),
+        " [".dim(),
+        "Space".yellow().bold(),
+        "] ".dim(),
+        "Pause".reset(),
     ]);
     let help_bar = Paragraph::new(help_text)
         .style(Style::default())
