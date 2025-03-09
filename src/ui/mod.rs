@@ -329,7 +329,7 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
     let status_layout = Layout::default()
         .direction(Direction::Horizontal)
         .constraints([
-            Constraint::Length(20), // Status
+            Constraint::Length(32), // Status
             Constraint::Length(20), // Topics count
             Constraint::Min(10),    // Copy message/warnings
         ])
@@ -339,13 +339,13 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
     let status_text = match app.connection_status {
         ConnectionStatus::Connected => {
             if app.paused {
-                "Paused".yellow().bold()
+                "Paused           ███".yellow().bold()
             } else {
-                "Connected".green().bold()
+                "Connected        ███".green().bold()
             }
         }
-        ConnectionStatus::Connecting => "Connecting...".yellow().bold(),
-        ConnectionStatus::Disconnected => "Disconnected".red().bold(),
+        ConnectionStatus::Connecting => "Connecting...    ███".yellow().bold(),
+        ConnectionStatus::Disconnected => "Disconnected     ███".red().bold(),
     };
 
     let status_box = Paragraph::new(Line::from(vec!["Status: ".bold(), status_text]))
