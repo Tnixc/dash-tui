@@ -88,15 +88,12 @@ pub async fn run_nt_publisher(
 ) {
     loop {
         match receiver.recv().await {
-            Ok(msg) => match msg {
-                NtUpdate::Publish(k, v) => {
-                    let r = generic_publisher.set(k.clone(), v).await;
-                    match r {
-                        Ok(_) => info!("Set key: {}", k),
-                        Err(err) => warn!("Error setting key: {}", err),
-                    }
+            Ok(msg) => if let NtUpdate::Publish(k, v) = msg {
+                let r = generic_publisher.set(k.clone(), v).await;
+                match r {
+                    Ok(_) => info!("Set key: {}", k),
+                    Err(err) => warn!("Error setting key: {}", err),
                 }
-                _ => {}
             },
             Err(e) => {
                 error!("error in publish: {e}")

@@ -96,7 +96,7 @@ impl FuzzySearch {
             matcher: Matcher::new(),
             matches: Vec::new(),
             selected_index: 0,
-            list_state: list_state,
+            list_state,
         }
     }
 
@@ -140,7 +140,7 @@ impl FuzzySearch {
             if current == 0 {
                 len - 1 // Wrap to end
             } else {
-                current - offset.unsigned_abs() as usize
+                current - offset.unsigned_abs()
             }
         } else {
             (current + offset as usize) % len

@@ -181,10 +181,8 @@ pub fn run_ui(mut receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
 
         // Tick handling
         if last_tick.elapsed() >= tick_rate {
-            if animation_counter % 50 == 0 {
-                if app.mode == Window::FuzzySearch || app.mode == Window::LabelEdit {
-                    app.cursor_visible = !app.cursor_visible;
-                }
+            if animation_counter % 50 == 0 && (app.mode == Window::FuzzySearch || app.mode == Window::LabelEdit) {
+                app.cursor_visible = !app.cursor_visible;
             }
             animation_counter += 1;
             last_tick = Instant::now();

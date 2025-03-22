@@ -55,7 +55,7 @@ async fn main() {
 
 async fn run_nt_with_reconnect(sender: Sender<nt::NtUpdate>, client_opts: NewClientOptions) {
     // Run reconnect handler
-    let _ = nt_client::reconnect(client_opts, |client| {
+    nt_client::reconnect(client_opts, |client| {
         // Create a new sender for this reconnection attempt
         let sender = sender.clone();
         async move {
