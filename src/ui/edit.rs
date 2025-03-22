@@ -67,6 +67,12 @@ pub fn render_cell_config(f: &mut ratatui::Frame, app: &App, size: Rect) {
             "] ".dim(),
             "Edit Label".reset(),
         ]),
+        Line::from(vec![
+            "[".dim(),
+            "D".red().bold(),
+            "] ".dim(),
+            "Delete Widget".reset(),
+        ]),
         Line::from(""),
         Line::from(vec![
             "[".dim(),
@@ -109,7 +115,7 @@ pub fn render_label_edit(f: &mut ratatui::Frame, app: &App, size: Rect) {
         .direction(Direction::Vertical)
         .constraints([
             Constraint::Length(3), // Input box
-            Constraint::Length(5), // Controls
+            Constraint::Length(6), // Controls
         ])
         .margin(0)
         .split(popup_area);

@@ -202,4 +202,29 @@ impl App {
             }
         }
     }
+    pub fn delete_selected_widget(&mut self) {
+        if let Some((row, col)) = self.selected_cell {
+            // Find the index of the widget to delete
+            if let Some(index) = self
+                .config
+                .widgets
+                .iter()
+                .position(|w| w.position.row == row && w.position.col == col)
+            {
+                // Remove the widget
+                self.config.widgets.remove(index);
+
+                // Save the updated config
+                self.config.save().unwrap_or_else(|e| {
+                    log::error!("Failed to save config after deletion: {}", e);
+                });
+
+                // Add a notification message
+                self.set_copy_message("Widget deleted".to_string());
+            } else {
+                // No widget at this position
+                self.set_copy_message("No widget at selected position".to_string());
+            }
+        }
+    }
 }

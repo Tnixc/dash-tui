@@ -90,6 +90,7 @@ pub fn run_ui(mut receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                         KeyCode::Char('k') => app.move_selection(-1, 0),
                         KeyCode::Char('l') => app.move_selection(0, 1),
                         KeyCode::Char('y') => app.copy_selected_value(),
+                        KeyCode::Char('D') => app.delete_selected_widget(),
                         KeyCode::Enter => app.enter_cell_config(),
                         _ => {}
                     },
@@ -103,9 +104,12 @@ pub fn run_ui(mut receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                             // Edit label - enter label edit mode
                             app.enter_label_edit();
                         }
+                        KeyCode::Char('D') => {
+                            app.delete_selected_widget();
+                            app.exit_cell_config();
+                        }
                         _ => {}
-                    },
-                    Window::FuzzySearch => match key.code {
+                    },                    Window::FuzzySearch => match key.code {
                         KeyCode::Esc => app.exit_fuzzy_search(),
                         KeyCode::Char('k') if key.modifiers.contains(KeyModifiers::CONTROL) => {
                             app.fuzzy_search.move_selection(-1);
@@ -432,6 +436,10 @@ fn ui(f: &mut ratatui::Frame, app: &mut App) {
         "y".magenta().bold(),
         "] ".dim(),
         "Copy".reset(),
+        "   [".dim(),
+        "D".red().bold(),
+        "] ".dim(),
+        "Delete".reset(),
     ]);
     let help_bar = Paragraph::new(help_text)
         .style(Style::default())
