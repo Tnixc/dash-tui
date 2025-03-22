@@ -12,8 +12,27 @@ use tokio::sync::broadcast::{Sender, channel};
 
 #[tokio::main]
 async fn main() {
-    let _arg = std::env::args().nth(1).expect("no --address arg given");
-    let addr_arg = std::env::args().nth(2).expect("no address given");
+    let arg = std::env::args().nth(1);
+    match arg {
+        Some(arg) => match arg.as_str() {
+            "--address" => {}
+            _ => {
+                println!("Invalid argument: {}. Valid arguments: --address", arg);
+                std::process::exit(1);
+            }
+        },
+        None => {
+            println!("No argument given. Valid arguments: --address");
+            std::process::exit(1);
+        }
+    }
+    let addr_arg = std::env::args().nth(2);
+    if addr_arg.is_none() {
+        println!("No arguments passed to --address");
+        std::process::exit(1);
+    }
+
+    let addr_arg = addr_arg.unwrap();
     let addr = match addr_arg.parse::<u16>() {
         Ok(n) => NTAddr::TeamNumber(n),
         Err(_) => {
