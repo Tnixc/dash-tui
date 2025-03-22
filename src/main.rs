@@ -5,9 +5,9 @@ mod ui;
 use crate::ui::ConnectionStatus;
 use log::{LevelFilter, error, info};
 use nt_client::{NTAddr, NewClientOptions, error::ReconnectError};
-use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
+use tokio::sync::broadcast::{Sender, channel};
 
 const RECONNECT_DELAY_MS: u64 = 2000;
 
@@ -16,7 +16,7 @@ async fn main() {
     let _ = simple_logging::log_to_file("test.log", LevelFilter::Debug);
 
     // Create channel for NT updates
-    let (sender, receiver) = mpsc::channel();
+    let (sender, receiver) = channel(128);
 
     let client_opts = NewClientOptions {
         addr: NTAddr::Local, // Can be changed to custom address if needed
@@ -35,27 +35,25 @@ async fn main() {
     nt_task.abort();
 }
 
-async fn run_nt_with_reconnect(sender: mpsc::Sender<nt::NtUpdate>, client_opts: NewClientOptions) {
+async fn run_nt_with_reconnect(sender: Sender<nt::NtUpdate>, client_opts: NewClientOptions) {
     // Run reconnect handler
     let _ = nt_client::reconnect(client_opts, |client| {
         // Create a new sender for this reconnection attempt
         let sender = sender.clone();
         async move {
-
-            // FIXME: initialize this elsewhere
-
             // Mark as connecting
             let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Connecting));
             info!("Attempting to establish NT connection");
 
-            let t = client.topic("");
-            let topic_sender = sender.clone();
-            let topic_sender_clone = topic_sender.clone();
-            let tc = t.clone();
-            tokio::spawn(nt::run_nt_client(topic_sender, t));
-            let topic = tc.clone();
-            let topic_sender = topic_sender_clone.clone();
-            tokio::spawn(nt::run_nt_client_topics(topic_sender, topic));
+            let topics = client.topic("");
+            let sender_c = sender.clone();
+            let topics_c = topics.clone();
+            tokio::spawn(nt::run_nt_client(sender_c.clone(), topics));
+            tokio::spawn(nt::run_nt_client_topics(sender_c.clone(), topics_c));
+
+            let recv = sender_c.clone().subscribe();
+            let generic_publisher = client.generic_publisher();
+            tokio::spawn(nt::run_nt_publisher(recv, generic_publisher));
 
             tokio::select! {
                 conn_result = client.connect() => {

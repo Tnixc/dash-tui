@@ -19,9 +19,9 @@ use ratatui::{
 };
 use std::{
     io,
-    sync::mpsc::Receiver,
     time::{Duration, Instant},
 };
+use tokio::sync::broadcast::Receiver;
 
 use crate::{
     config::{GridPosition, WidgetType},
@@ -34,6 +34,7 @@ pub enum ConnectionStatus {
     Connecting,
     Disconnected,
 }
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Window {
     Main,
@@ -42,7 +43,7 @@ pub enum Window {
     LabelEdit,
 }
 
-pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
+pub fn run_ui(mut receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
     let mut animation_counter = 0;
     // Setup terminal
     enable_raw_mode()?;
@@ -154,7 +155,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
         // Check for updates from NT
         while let Ok(update) = receiver.try_recv() {
             match update {
-                NtUpdate::KV(key, value) => {
+                NtUpdate::Subscribed(key, value) => {
                     let k = key.clone();
                     // Only update values if not paused
                     if !app.paused {
@@ -170,6 +171,7 @@ pub fn run_ui(receiver: Receiver<NtUpdate>) -> Result<(), io::Error> {
                 NtUpdate::ConnectionStatus(status) => {
                     app.connection_status = status;
                 }
+                NtUpdate::Publish(_, _) => {}
             }
         }
 
