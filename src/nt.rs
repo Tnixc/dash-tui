@@ -26,7 +26,7 @@ pub async fn run_nt_client(sender: Sender<NtUpdate>, topics: Topic) {
 
     // Process messages from all topics in the collection
     loop {
-        match subscriber.recv_latest().await {
+        match subscriber.recv().await {
             Ok(ReceivedMessage::Announced(topic)) => {
                 let topic_name = topic.name().to_string();
                 info!("Announced topic: {}", topic_name);
