@@ -5,21 +5,39 @@ mod ui;
 use crate::ui::ConnectionStatus;
 use log::{LevelFilter, error, info};
 use nt_client::{NTAddr, NewClientOptions, error::ReconnectError};
-use std::thread;
+use std::str::FromStr;
 use std::time::Duration;
+use std::{net::Ipv4Addr, thread};
 use tokio::sync::broadcast::{Sender, channel};
-
-const RECONNECT_DELAY_MS: u64 = 2000;
 
 #[tokio::main]
 async fn main() {
+    let _arg = std::env::args().nth(1).expect("no --address arg given");
+    let addr_arg = std::env::args().nth(2).expect("no address given");
+    let addr = match addr_arg.parse::<u16>() {
+        Ok(n) => NTAddr::TeamNumber(n),
+        Err(_) => {
+            let a = Ipv4Addr::from_str(addr_arg.as_str());
+            match a {
+                Ok(ip) => NTAddr::Custom(ip),
+                Err(e) => {
+                    if addr_arg == "localhost" {
+                        NTAddr::Local
+                    } else {
+                        eprintln!("Invalid address: {}", e);
+                        std::process::exit(1);
+                    }
+                }
+            }
+        }
+    };
     let _ = simple_logging::log_to_file("test.log", LevelFilter::Debug);
 
     // Create channel for NT updates
     let (sender, receiver) = channel(128);
 
     let client_opts = NewClientOptions {
-        addr: NTAddr::Local, // Can be changed to custom address if needed
+        addr, // Can be changed to custom address if needed
         ..Default::default()
     };
 
@@ -62,7 +80,7 @@ async fn run_nt_with_reconnect(sender: Sender<nt::NtUpdate>, client_opts: NewCli
                     let _ = sender.send(nt::NtUpdate::ConnectionStatus(ConnectionStatus::Disconnected));
 
                     // Return non-fatal error to trigger reconnect
-                    thread::sleep(Duration::from_millis(RECONNECT_DELAY_MS));
+                    thread::sleep(Duration::from_millis(2000));
                     match conn_result {
                         Ok(_) => Err(ReconnectError::Nonfatal("Connection closed".into())),
                         Err(e) => Err(ReconnectError::Nonfatal(e.into())),
